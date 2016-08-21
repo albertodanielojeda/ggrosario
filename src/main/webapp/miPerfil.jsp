@@ -3,6 +3,7 @@
     Created on : 21/08/2016, 18:02:05
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
 <%@include file="vistas/init.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +18,54 @@
             <%@include file="vistas/menu.jsp" %>
             <div class="row">
                 <div class="col s4"></div>
-                <div class="col s8"></div>
+                <div class="col s8">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a class="active" href="#informacion">Información</a></li>
+                                <li class="tab col s3"><a href="#misReservas">Mis reservas</a></li>
+                                <li class="tab col s3"><a href="#miListaDeDeseos">Mi lista de deseos</a></li>
+                                <li class="tab col s3"><a href="#misComentarios">Mis comentarios</a></li>
+                            </ul>
+                        </div>
+                        <div id="informacion" class="col s12"><h4><%= miUsuario.getNick()%></h4></div>
+                        <div id="misReservas" class="col s12">
+                            <ul class="collapsible" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="miListaDeDeseos" class="col s12">
+                            <div class="row">
+                                <%
+                            for (Juego j : miUsuario.getUnaListaDeseos().getJuegos()) {
+                                %>
+
+                                <div class="col s3">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="<%= j.getCover()%>">
+                                            <span class="card-title black right"><b>$ <%= j.getPrecio()%></b></span>
+                                            <!-- Here we can put info and show it over the image! :D -->
+                                        </div>
+
+                                        <div class="card-action">
+                                            <a href="#">Reservar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div id="misComentarios" class="col s12">
+                            <div class="collection">
+                                <a href="#!" class="collection-item">Alvin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
