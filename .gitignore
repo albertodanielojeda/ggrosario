@@ -45,3 +45,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/target/
+
+# Others extensions to ignore
+*.class
+*.jar
+*.netbeans_automatic_build
