@@ -1,0 +1,27 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/08/2016, 00:25:31
+    Author     : Ojeda Alberto Daniel
+*/
+.imagen{
+    background: #0097a7;
+}
+
+.imagen img{
+    height: 100%;
+    width: 100%;
+}
+
+.items {
+    background: #ab47bc;
+    padding: 10px;
+}
+
+.barra-lateral{
+    background: #f7f7f7;
+    margin-top: 6.5%;
+}

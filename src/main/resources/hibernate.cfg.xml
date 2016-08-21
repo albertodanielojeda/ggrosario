@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <!-- Local settings -->
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/rosario-gaming</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">38131125</property> 
+    
+        <!-- Remote settings 
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-163-239-63.compute-1.amazonaws.com:5432/dekiv1ush42g4n?sslmode=require</property>
+        <property name="hibernate.connection.username">feejrrccubunjv</property>
+        <property name="hibernate.connection.password">itqTkbRPEcunzkJ3moRLjswU2G</property> -->
+    
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+    
+        <!-- Classes to be mapped -->
+        <mapping class="com.herokuapp.ggrosario.modelo.Tienda"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Usuario"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.ListaDeseos"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Rol"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Permisos"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Requisito"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.RequisitoMinimo"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.RequisitoRecomendado"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Catalogo"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Categoria"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Juego"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Comentario"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Configuracion"/>
+    </session-factory>
+</hibernate-configuration>

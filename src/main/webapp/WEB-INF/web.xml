@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- Mapeo de Servlets -->
+    <servlet>
+        <servlet-name>InitServlet</servlet-name>
+        <servlet-class>com.herokuapp.ggrosario.servlet.init.InitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitServlet</servlet-name>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SubirImagenTest</servlet-name>
+        <servlet-class>com.herokuapp.ggrosario.servlet.test.SubirImagenTest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubirImagenTest</servlet-name>
+        <url-pattern>/SubirImagenTest</url-pattern>
+    </servlet-mapping>
+    <!-- Configuración de la sesión -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <!-- Archivo de bienvenida -->
+    <welcome-file-list>
+        <welcome-file>index</welcome-file>
+    </welcome-file-list>
+    <!-- Mapeo de JSP -->
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>panel-administracion</servlet-name>
+        <jsp-file>/admin/panelAdministracion.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>panel-administracion</servlet-name>
+        <url-pattern>/admin/panel-administracion</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>registrarme</servlet-name>
+        <jsp-file>/registrarme.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registrarme</servlet-name>
+        <url-pattern>/registrarme</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>mi-perfil</servlet-name>
+        <jsp-file>/miPerfil.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mi-perfil</servlet-name>
+        <url-pattern>/mi-perfil</url-pattern>
+    </servlet-mapping>
+    <!-- Mapeo JSP administrador -->
+    <servlet>
+        <servlet-name>gestion-usuarios</servlet-name>
+        <jsp-file>/admin/gestionUsuarios.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gestion-usuarios</servlet-name>
+        <url-pattern>/admin/gestion-usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>gestion-juegos</servlet-name>
+        <jsp-file>/admin/gestionJuegos.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gestion-juegos</servlet-name>
+        <url-pattern>/admin/gestion-juegos</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>gestion-catalogos</servlet-name>
+        <jsp-file>/admin/gestionCatalogos.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gestion-catalogos</servlet-name>
+        <url-pattern>/admin/gestion-catalogos</url-pattern>
+    </servlet-mapping>
+    <!-- Mapeo de páginas de error -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/vistas/404.jsp</location>
+    </error-page>
+</web-app>
