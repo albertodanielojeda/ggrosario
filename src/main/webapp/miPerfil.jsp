@@ -3,6 +3,7 @@
     Created on : 21/08/2016, 18:02:05
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.Comentario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
 <%@include file="vistas/init.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -40,7 +41,7 @@
                         <div id="miListaDeDeseos" class="col s12">
                             <div class="row">
                                 <%
-                            for (Juego j : miUsuario.getUnaListaDeseos().getJuegos()) {
+                                    for (Juego j : miUsuario.getUnaListaDeseos().getJuegos()) {
                                 %>
 
                                 <div class="col s3">
@@ -61,7 +62,9 @@
                         </div>
                         <div id="misComentarios" class="col s12">
                             <div class="collection">
-                                <a href="#!" class="collection-item">Alvin</a>
+                                <% for (Comentario comment : miUsuario.getComentarios()) { %>
+                                    <a href="#!" class="collection-item><%= comment.getDescripcion() %></a>
+                                <% } %>
                             </div>
                         </div>
                     </div>
