@@ -9,12 +9,12 @@
 <html>
     <head>
         <%@include file="vistas/assets.jsp" %>
-        <%@include file="vistas/menuVisitante.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
     </head>
     <body>
         <div class="no-container">
+            <%@include file="vistas/menu.jsp" %>
             <div class="row">
                 <div class="col s4"></div>
                 <div class="col s8"></div>
