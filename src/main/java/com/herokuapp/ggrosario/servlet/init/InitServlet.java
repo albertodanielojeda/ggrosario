@@ -38,10 +38,11 @@ public class InitServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Configuracion unaConfiguracion = new Configuracion(5, 10, true, false);
         Tienda unaTienda = new Tienda("GG Rosario", unaConfiguracion);
+        Rol unRol;
 
         try {
             unaTienda.addRol("Administrador");
-            Rol unRol = unaTienda.getRol("Administrador");
+            unRol = unaTienda.getRol("Administrador");
             Permisos permisosAdministrador = new Permisos();
             permisosAdministrador.setCanDoAll(true);
             unRol.setPermisos(permisosAdministrador);
@@ -51,7 +52,7 @@ public class InitServlet extends HttpServlet {
 
         try {
             unaTienda.addRol("Empleado");
-            Rol unRol = unaTienda.getRol("Empleado");
+            unRol = unaTienda.getRol("Empleado");
             Permisos permisosEmpleados = new Permisos();
             permisosEmpleados.setPermisosEmpleado();
             unRol.setPermisos(permisosEmpleados);
@@ -61,7 +62,7 @@ public class InitServlet extends HttpServlet {
 
         try {
             unaTienda.addRol("Cliente");
-            Rol unRol = unaTienda.getRol("Cliente");
+            unRol = unaTienda.getRol("Cliente");
             Permisos permisosClientes = new Permisos();
             permisosClientes.setPermisosCliente();
             unRol.setPermisos(permisosClientes);
