@@ -62,6 +62,9 @@ public class Juego implements Serializable {
 
     @ManyToOne
     private Tienda unaTienda;
+    
+    @OneToMany(mappedBy = "unJuego")
+    private List<Reserva> reservas;
 
     /**
      * Constructor nulo para inicializar las colecciones
@@ -250,6 +253,15 @@ public class Juego implements Serializable {
     public void setUnaTienda(Tienda unaTienda) {
         this.unaTienda = unaTienda;
     }
+    
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+    
     // </editor-fold>
 
 }
