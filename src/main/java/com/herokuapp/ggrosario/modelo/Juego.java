@@ -32,7 +32,7 @@ public class Juego implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", columnDefinition = "text")
     private String descripcion;
 
     @Column(name = "precio")
@@ -197,6 +197,7 @@ public class Juego implements Serializable {
 
     public void setRequisitosMinimos(Requisito requisitosMinimos) {
         this.requisitosMinimos = requisitosMinimos;
+        HibernateUtil.actualizar(this);
     }
 
     public Requisito getRequisitosRecomendados() {
@@ -205,6 +206,7 @@ public class Juego implements Serializable {
 
     public void setRequisitosRecomendados(Requisito requisitosRecomendados) {
         this.requisitosRecomendados = requisitosRecomendados;
+        HibernateUtil.actualizar(this);
     }
 
     public Categoria getUnaCategoria() {
