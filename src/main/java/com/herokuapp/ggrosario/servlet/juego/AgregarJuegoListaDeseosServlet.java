@@ -30,18 +30,6 @@ public class AgregarJuegoListaDeseosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AgregarJuegoListaDeseosServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AgregarJuegoListaDeseosServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     /**
@@ -58,12 +46,13 @@ public class AgregarJuegoListaDeseosServlet extends HttpServlet {
         processRequest(request, response);
         String idJuego = request.getParameter("idJuego");
         String idUsuario = request.getParameter("idUsuario");
-        Usuario miUsuario = (Usuario)request.getAttribute("miUsuario");
+        Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario");
         if (miUsuario.getNick().equals(idUsuario)){
             Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
             miUsuario.getUnaListaDeseos().addJuego(unaTienda.getUnJuego(Integer.valueOf(idJuego)));
+            response.getWriter().print("Listo!");
         }else{
-            
+            response.getWriter().print("Error!");
         }
     }
 
