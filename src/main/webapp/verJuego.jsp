@@ -19,7 +19,7 @@
         <div class="no-container">
             <div class="row">
                 <div class="col s4"></div>
-                <div class="col s8"><%= unJuego.getNombre() %> <a href="agregar-a-lista-deseos?idJuego=<%= unJuego.getId()%>&?idUsuario=<%= miUsuario.getNick() %>" class="btn small">Agregar a la lista de deseos</a></div>
+                <div class="col s8"><%= unJuego.getNombre() %> <a href="agregar-a-lista-deseos?idJuego=<%= unJuego.getId()%>&AMP;idUsuario=<%= miUsuario.getNick() %>" class="btn small">Agregar a la lista de deseos</a></div>
             </div>
         </div>
     </body>
