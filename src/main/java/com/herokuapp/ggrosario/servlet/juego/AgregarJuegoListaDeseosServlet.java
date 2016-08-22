@@ -50,6 +50,7 @@ public class AgregarJuegoListaDeseosServlet extends HttpServlet {
         if (miUsuario.getNick().equals(idUsuario)){
             Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
             miUsuario.getUnaListaDeseos().addJuego(unaTienda.getUnJuego(Integer.valueOf(idJuego)));
+            request.getSession().setAttribute("miUsuario", miUsuario);
             response.getWriter().print("Listo!");
         }else{
             response.getWriter().print("Error!");
