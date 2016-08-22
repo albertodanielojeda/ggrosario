@@ -3,6 +3,7 @@
     Created on : 21/08/2016, 18:02:05
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.ListaDeseosJuegos"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Comentario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
 <%@include file="vistas/init.jsp" %>
@@ -47,8 +48,8 @@
                                 <div class="col s3">
                                     <div class="card">
                                         <div class="card-image">
-                                            <img src="<%= ldj.getUnJuego.getCover()%>">
-                                            <span class="card-title black right"><b>$ <%= ldj.getUnJuego.getPrecio()%></b></span>
+                                            <img src="<%= ldj.getUnJuego().getCover()%>">
+                                            <span class="card-title black right"><b>$ <%= ldj.getUnJuego().getPrecio()%></b></span>
                                             <!-- Here we can put info and show it over the image! :D -->
                                         </div>
 
