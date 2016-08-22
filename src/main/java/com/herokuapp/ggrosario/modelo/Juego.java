@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.util.Date;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -62,6 +63,9 @@ public class Juego implements Serializable {
 
     @ManyToOne
     private Tienda unaTienda;
+    
+    @OneToMany(mappedBy = "unJuego")
+    private List<ListaDeseosJuegos> unaListaDeseosJuegos;
 
     /**
      * Constructor nulo para inicializar las colecciones
@@ -250,6 +254,16 @@ public class Juego implements Serializable {
     public void setUnaTienda(Tienda unaTienda) {
         this.unaTienda = unaTienda;
     }
+
+    public List<ListaDeseosJuegos> getUnaListaDeseosJuegos() {
+        return unaListaDeseosJuegos;
+    }
+
+    public void setUnaListaDeseosJuegos(List<ListaDeseosJuegos> unaListaDeseosJuegos) {
+        this.unaListaDeseosJuegos = unaListaDeseosJuegos;
+    }
+
     // </editor-fold>
 
+    
 }

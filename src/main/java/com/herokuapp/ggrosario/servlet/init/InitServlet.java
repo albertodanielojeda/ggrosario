@@ -1,6 +1,7 @@
 package com.herokuapp.ggrosario.servlet.init;
 
 import com.herokuapp.ggrosario.exepciones.CatalogoException;
+import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.exepciones.RolException;
 import com.herokuapp.ggrosario.exepciones.UsuarioException;
 import java.io.IOException;
@@ -38,10 +39,11 @@ public class InitServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Configuracion unaConfiguracion = new Configuracion(5, 10, true, false);
         Tienda unaTienda = new Tienda("GG Rosario", unaConfiguracion);
+        Rol unRol;
 
         try {
             unaTienda.addRol("Administrador");
-            Rol unRol = unaTienda.getRol("Administrador");
+            unRol = unaTienda.getRol("Administrador");
             Permisos permisosAdministrador = new Permisos();
             permisosAdministrador.setCanDoAll(true);
             unRol.setPermisos(permisosAdministrador);
@@ -51,7 +53,7 @@ public class InitServlet extends HttpServlet {
 
         try {
             unaTienda.addRol("Empleado");
-            Rol unRol = unaTienda.getRol("Empleado");
+            unRol = unaTienda.getRol("Empleado");
             Permisos permisosEmpleados = new Permisos();
             permisosEmpleados.setPermisosEmpleado();
             unRol.setPermisos(permisosEmpleados);
@@ -61,7 +63,7 @@ public class InitServlet extends HttpServlet {
 
         try {
             unaTienda.addRol("Cliente");
-            Rol unRol = unaTienda.getRol("Cliente");
+            unRol = unaTienda.getRol("Cliente");
             Permisos permisosClientes = new Permisos();
             permisosClientes.setPermisosCliente();
             unRol.setPermisos(permisosClientes);
@@ -79,6 +81,21 @@ public class InitServlet extends HttpServlet {
             unaTienda.addUsuario("default@ggrosario.com", "default", "default", new Date("02/03/1994"), "Administrador", "Default", "0800-default", unaTienda.getRol("Administrador"));
 
         } catch (UsuarioException ex) {
+            Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            unaTienda.addJuego("F1 - 2016", "F1 - 2016", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471671688/kxloejlvrubty5bmq0qo.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("GTA V", "GTA V", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471806142/qrzeksimej9uol0lsajj.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("No Man's Sky", "No Man's Sky", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471671724/b60vehbpz6xsasguyru3.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("Life is strange", "Life is Strange", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471653826/lnr0gnqywhaygz7o0wn7.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("TWD - Season 1", "TWD - Season 1", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471672925/qjmbkzoyx9osimcal8is.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("TWD - Season 2", "TWD - Season 2", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471673327/rxooukv6569bgyutgmtq.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("Minecraft Story mode", "Minecraft story mode", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471669709/py3dtjdeogwur8oyhhku.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("Minecraft", "Minecraft", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471653658/vxlkg6gqeoojkczcymxu.jpg", unaTienda.getCatalogos().get(0));
+            unaTienda.addJuego("Overwatch", "Overwatch", 29.99, 100, "http://res.cloudinary.com/ggrosario/image/upload/v1471673661/qfqsk4wuu7lvndo1wlbj.jpg", unaTienda.getCatalogos().get(0));
+
+        } catch (JuegoException ex) {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

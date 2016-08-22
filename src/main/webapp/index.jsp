@@ -36,7 +36,7 @@
                                 </div>
                                 
                                 <div class="card-action">
-                                    <a href="#">Reservar</a>
+                                    <a href="info-juego?idJuego=<%= j.getId() %>">Ver juego</a>
                                 </div>
                             </div>
                         </div>
