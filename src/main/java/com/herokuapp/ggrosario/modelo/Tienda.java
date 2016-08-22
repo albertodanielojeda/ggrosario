@@ -60,6 +60,7 @@ public class Tienda implements Serializable {
         this.catalogos = new ArrayList<>();
         this.usuarios = new ArrayList<>();
         this.roles = new ArrayList<>();
+        this.juegos = new ArrayList<>();
     }
 
     /**
