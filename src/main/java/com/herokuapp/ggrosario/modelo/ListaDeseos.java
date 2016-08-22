@@ -59,6 +59,15 @@ public class ListaDeseos implements Serializable {
     public void addJuego(Juego unJuego){
         this.juegos.add(unJuego);
     }
+    
+    public boolean existeJuego(Juego unJuego){
+        for (Juego j : this.juegos){
+            if (unJuego.equals(j)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     
