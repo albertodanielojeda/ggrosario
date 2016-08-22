@@ -15,8 +15,8 @@
     </head>
     <body>
         <% Juego unJuego = unaTienda.getUnJuego(Integer.valueOf(request.getParameter("idJuego")));%>
-        <%@include file="vistas/menuVisitante.jsp" %>
         <div class="no-container">
+            <%@include file="vistas/menu.jsp" %>
             <div class="row">
                 <div class="col s4"></div>
                 <div class="col s8">
