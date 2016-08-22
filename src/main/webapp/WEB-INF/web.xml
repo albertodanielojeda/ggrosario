@@ -60,6 +60,15 @@
         <servlet-name>mi-perfil</servlet-name>
         <url-pattern>/mi-perfil</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>info-juego</servlet-name>
+        <jsp-file>/verJuego.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>info-juego</servlet-name>
+        <url-pattern>/info-juego</url-pattern>
+    </servlet-mapping>
     <!-- Mapeo JSP administrador -->
     <servlet>
         <servlet-name>gestion-usuarios</servlet-name>
