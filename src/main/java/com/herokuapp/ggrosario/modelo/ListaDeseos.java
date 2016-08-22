@@ -58,6 +58,7 @@ public class ListaDeseos implements Serializable {
      */
     public void addJuego(Juego unJuego){
         this.juegos.add(unJuego);
+        HibernateUtil.actualizar(this);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
