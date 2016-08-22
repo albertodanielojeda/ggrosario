@@ -41,14 +41,14 @@
                         <div id="miListaDeDeseos" class="col s12">
                             <div class="row">
                                 <%
-                                    for (Juego j : miUsuario.getUnaListaDeseos().getJuegos()) {
+                                    for (ListaDeseosJuegos ldj : miUsuario.getUnaListaDeseos().getUnaListaDeseosJuegos()) {
                                 %>
 
                                 <div class="col s3">
                                     <div class="card">
                                         <div class="card-image">
-                                            <img src="<%= j.getCover()%>">
-                                            <span class="card-title black right"><b>$ <%= j.getPrecio()%></b></span>
+                                            <img src="<%= ldj.getUnJuego.getCover()%>">
+                                            <span class="card-title black right"><b>$ <%= ldj.getUnJuego.getPrecio()%></b></span>
                                             <!-- Here we can put info and show it over the image! :D -->
                                         </div>
 
