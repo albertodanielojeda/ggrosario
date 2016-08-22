@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.util.Date;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -31,7 +32,7 @@ public class Juego implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", columnDefinition = "text")
     private String descripcion;
 
     @Column(name = "precio")
@@ -64,7 +65,8 @@ public class Juego implements Serializable {
     private Tienda unaTienda;
     
     @OneToMany(mappedBy = "unJuego")
-    private List<Reserva> reservas;
+    private List<ListaDeseosJuegos> unaListaDeseosJuegos;
+
 
     /**
      * Constructor nulo para inicializar las colecciones
@@ -196,6 +198,7 @@ public class Juego implements Serializable {
 
     public void setRequisitosMinimos(Requisito requisitosMinimos) {
         this.requisitosMinimos = requisitosMinimos;
+        HibernateUtil.actualizar(this);
     }
 
     public Requisito getRequisitosRecomendados() {
@@ -204,6 +207,7 @@ public class Juego implements Serializable {
 
     public void setRequisitosRecomendados(Requisito requisitosRecomendados) {
         this.requisitosRecomendados = requisitosRecomendados;
+        HibernateUtil.actualizar(this);
     }
 
     public Categoria getUnaCategoria() {
@@ -253,15 +257,16 @@ public class Juego implements Serializable {
     public void setUnaTienda(Tienda unaTienda) {
         this.unaTienda = unaTienda;
     }
-    
-    public List<Reserva> getReservas() {
-        return reservas;
+
+    public List<ListaDeseosJuegos> getUnaListaDeseosJuegos() {
+        return unaListaDeseosJuegos;
     }
 
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
+    public void setUnaListaDeseosJuegos(List<ListaDeseosJuegos> unaListaDeseosJuegos) {
+        this.unaListaDeseosJuegos = unaListaDeseosJuegos;
     }
-    
+
     // </editor-fold>
 
+    
 }
