@@ -3,7 +3,7 @@
     Created on : 15/08/2016, 04:13:34
     Author     : alber
 --%>
-
+<%@include file="init.jsp" %>
 <%@page isErrorPage="true"%>
 <!DOCTYPE html>
 <html>
