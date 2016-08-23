@@ -33,5 +33,6 @@
         <mapping class="com.herokuapp.ggrosario.modelo.Comentario"/>
         <mapping class="com.herokuapp.ggrosario.modelo.Configuracion"/>
         <mapping class="com.herokuapp.ggrosario.modelo.ListaDeseosJuegos"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Reserva"/>
     </session-factory>
 </hibernate-configuration>

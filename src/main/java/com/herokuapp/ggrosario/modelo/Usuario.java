@@ -1,5 +1,6 @@
 package com.herokuapp.ggrosario.modelo;
 
+import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.exepciones.RolException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public class Usuario implements Serializable {
 
     @OneToMany
     private List<Comentario> comentarios;
+    
+    @OneToMany(mappedBy = "unUsuario")
+    private List<Reserva> reservas;
 
     /**
      * Constructor nulo para inicializar las colecciones
@@ -66,6 +70,7 @@ public class Usuario implements Serializable {
     public Usuario() {
         this.roles = new ArrayList<>();
         this.comentarios = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
     
     /**
@@ -133,6 +138,35 @@ public class Usuario implements Serializable {
     public boolean canAccederPanelAdministracion() {
         for (Rol unRol : this.roles) {
             if (unRol.getPermisos().canAccederPanelAdministracion()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Agrega un juego a su lista de reservas
+     * 
+     * @param unJuego Juego que el usuario quiere agregar a su lista de reservas
+     * @throws JuegoException Si el juego ya está reservado
+     */
+    public void addJuegoToReservas(Juego unJuego) throws JuegoException{
+        if (tieneReservado(unJuego)){
+            throw new JuegoException("El juego ya está reservado por el usuario");
+        }
+        this.reservas.add(new Reserva(this, unJuego));
+    }
+    
+    /**
+     * Revisa si un juego existe o no en la lista de reservas del usuario
+     * 
+     * @param unJuego Juego a revisar si está reservado o no por el usuario
+     * @return <code>true</code> si el usuario ha reservado el juego, o <code>false</code>
+     * en caso contrario
+     */
+    public boolean tieneReservado(Juego unJuego){
+        for (Reserva unaReserva : this.reservas){
+            if (unaReserva.getUnJuego().getId() == unJuego.getId()){
                 return true;
             }
         }
