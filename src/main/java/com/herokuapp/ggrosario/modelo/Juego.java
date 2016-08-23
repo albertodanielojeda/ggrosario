@@ -178,6 +178,7 @@ public class Juego implements Serializable {
 
     public void setStock(int stock) {
         this.stock = stock;
+        HibernateUtil.actualizar(this);
     }
 
     public int getStock() {
