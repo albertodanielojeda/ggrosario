@@ -2,6 +2,7 @@ package com.herokuapp.ggrosario.modelo;
 
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.Column;
@@ -51,10 +52,12 @@ public class Reserva implements Serializable {
      * @param unJuego Juego que reserva el usuario
      */
     public Reserva(Usuario unUsuario, Juego unJuego) {
+        this();
         this.unUsuario = unUsuario;
         this.unJuego = unJuego;
         this.fechaAlta = new GregorianCalendar();
-        // falta this.fechaBaja
+        this.fechaBaja = this.fechaAlta;
+        this.fechaBaja.add(Calendar.DAY_OF_MONTH, 5); // Try to get out of hardcoding this
         HibernateUtil.guardar(this);
     }
 
@@ -68,7 +71,14 @@ public class Reserva implements Serializable {
      * <code>false</code>
      */
     public boolean isJuego(Juego unJuego) {
-        return this.unJuego.equals(unJuego);
+        return this.unJuego == unJuego;
+    }
+    
+    public boolean isValida(){
+        if (new GregorianCalendar().before(this.fechaBaja)){
+            return true;
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
