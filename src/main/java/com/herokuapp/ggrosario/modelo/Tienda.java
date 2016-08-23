@@ -72,7 +72,7 @@ public class Tienda implements Serializable {
     public Tienda(String nombre, Configuracion unaConfiguracion) {
         this();
         this.nombre = nombre;
-        this.unaConfiguracion = unaConfiguracion;
+        this.unaConfiguracion = (Configuracion) unaConfiguracion;
         HibernateUtil.guardar(this);
     }
 

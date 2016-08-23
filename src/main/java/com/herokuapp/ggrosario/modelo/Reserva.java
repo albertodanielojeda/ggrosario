@@ -53,8 +53,8 @@ public class Reserva implements Serializable {
      */
     public Reserva(Usuario unUsuario, Juego unJuego) {
         this();
-        this.unUsuario = unUsuario;
-        this.unJuego = unJuego;
+        this.unUsuario = (Usuario) unUsuario;
+        this.unJuego = (Juego) unJuego;
         this.fechaAlta = new GregorianCalendar();
         this.fechaBaja = this.fechaAlta;
         this.fechaBaja.add(Calendar.DAY_OF_MONTH, 5); // Try to get out of hardcoding this
