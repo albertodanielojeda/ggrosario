@@ -31,15 +31,19 @@
                                 <li class="tab col s3"><a href="#misComentarios">Mis comentarios</a></li>
                             </ul>
                         </div>
-                        <div id="informacion" class="col s12"><h4><%= miUsuario.getNick()%></h4></div>
+                        <div id="informacion" class="col s12">
+                            <p>Nick: <%= miUsuario.getNick()%></p>
+                            <p>E-Mail: <%= miUsuario.getEmail()%></p>
+                        </div>
                         <div id="misReservas" class="col s12">
                             <ul class="collapsible" data-collapsible="accordion">
                                 <% for (Reserva unaReserva : miUsuario.getReservas()) {%>
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i><%= unaReserva.getUnJuego().getNombre()%></div>
+                                    <div class="collapsible-header"><i class="material-icons">cloud</i><%= unaReserva.getUnJuego().getNombre()%></div>
                                     <div class="collapsible-body">
-                                        <p>Realizada: <%= unaReserva.getUnJuego().getFechaAlta()%></p>
-                                        <p>Vence: <%= unaReserva.getUnJuego().getFechaBaja() %></p>
+                                        <p>Precio: <%= unaReserva.getUnJuego().getPrecio()%></p>
+                                        <p>Realizada: <%= unaReserva.getFechaAlta().toString()%></p>
+                                        <p>Vence: <%= unaReserva.getFechaBaja().toString()%></p>
                                     </div>
                                 </li>
                                 <% } %>
@@ -71,12 +75,12 @@
                             <div class="collection">
                                 <% for (Comentario comment : miUsuario.getComentarios()) {%>
                                 <a href="#!" class="collection-item><%= comment.getDescripcion()%></a>
-                                   <% }%>
-                                   </div>
-                                   </div>
-                                   </div>
-                                   </div>
-                                   </div>
-                                   </div>
-                                   </body>
-                                   </html>
+                                   <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
