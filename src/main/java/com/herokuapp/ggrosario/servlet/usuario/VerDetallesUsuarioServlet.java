@@ -47,7 +47,7 @@ public class VerDetallesUsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         String idUsuario = request.getParameter("idUsuario");
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         Usuario unUsuario = unaTienda.getUsuario(idUsuario);
         request.getSession().setAttribute("detallesUsuario", unUsuario);
         request.getRequestDispatcher("detallesUsuario.jsp").forward(request, response);
