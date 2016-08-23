@@ -70,6 +70,7 @@ public class Usuario implements Serializable {
     public Usuario() {
         this.roles = new ArrayList<>();
         this.comentarios = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
     
     /**
@@ -147,6 +148,7 @@ public class Usuario implements Serializable {
      * Agrega un juego a su lista de reservas
      * 
      * @param unJuego Juego que el usuario quiere agregar a su lista de reservas
+     * @throws JuegoException Si el juego ya está reservado
      */
     public void addJuegoToReservas(Juego unJuego) throws JuegoException{
         if (tieneReservado(unJuego)){
@@ -164,7 +166,7 @@ public class Usuario implements Serializable {
      */
     public boolean tieneReservado(Juego unJuego){
         for (Reserva unaReserva : this.reservas){
-            if (unaReserva.isJuego(unJuego)){
+            if (unaReserva.getUnJuego().getId() == unJuego.getId()){
                 return true;
             }
         }
