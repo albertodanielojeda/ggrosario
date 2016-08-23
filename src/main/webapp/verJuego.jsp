@@ -28,6 +28,7 @@
                             </div>
                             <div class="row">
                                 <a href="agregar-a-lista-deseos?idJuego=<%= unJuego.getId()%>&AMP;idUsuario=<%= miUsuario.getNick()%>" class="right"><i class="material-icons left">favorite</i>Agregar a la lista de deseos</a>
+                                <a href="reservar?idJuego=<%= unJuego.getId()%>&AMP;idUsuario=<%= miUsuario.getNick()%>" class="right"><i class="material-icons left">card_membership</i>Reservar ahora mismo</a>
                             </div>
                         </div>
                         <div class="col s8">
