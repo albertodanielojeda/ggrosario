@@ -98,7 +98,7 @@ public class RegistrarJuegoServlet extends HttpServlet {
 
         Map uploadMapResult = cloudinary.uploader().upload(toUpload, ObjectUtils.emptyMap());
         
-        Tienda unaTienda = (Tienda) HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         if (unaTienda.getUnaConfiguracion().isRegistroJuegosCatalogo()) {
             Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(idCatalogo));
             if (unCatalogo != null) {
