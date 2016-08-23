@@ -11,7 +11,7 @@
     <%}%>
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo"><%= unaTienda.getNombre()%></a>
+            <a href="index" class="brand-logo"><%= unaTienda.getNombre()%></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <% if (miUsuario != null) {%>
                 <%@include file="menuVisitante.jsp" %>
