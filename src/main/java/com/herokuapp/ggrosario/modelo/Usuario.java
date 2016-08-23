@@ -94,7 +94,7 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
-        this.unaTienda = unaTienda;
+        this.unaTienda = (Tienda) unaTienda;
         this.unaListaDeseos = new ListaDeseos(this);
         this.roles.add(unRol);
         HibernateUtil.guardar(this);
@@ -166,7 +166,7 @@ public class Usuario implements Serializable {
      */
     public boolean tieneReservado(Juego unJuego){
         for (Reserva unaReserva : this.reservas){
-            if (unaReserva.getUnJuego().getId() == unJuego.getId()){
+            if (unaReserva.getUnJuego() == unJuego){
                 return true;
             }
         }

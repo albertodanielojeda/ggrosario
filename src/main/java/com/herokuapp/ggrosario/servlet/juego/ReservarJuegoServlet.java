@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.herokuapp.ggrosario.servlet.juego;
 
 import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.modelo.Juego;
-import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
-import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,14 +50,11 @@ public class ReservarJuegoServlet extends HttpServlet {
         if (miUsuario.getNick().equals(idUsuario)) {
 
             try {
-                Tienda unaTienda = (Tienda) HibernateUtil.obtener("GG Rosario", "Tienda");
-                Juego unJuego = (Juego)unaTienda.getUnJuego(Integer.valueOf(idJuego));
+                Juego unJuego = (Juego)request.getSession().getAttribute("unJuego");
                 miUsuario.addJuegoToReservas(unJuego);
-                unJuego.setStock(unJuego.getStock() - 1);
-                request.getSession().setAttribute("miUsuario", miUsuario);
                 response.getWriter().print("Listo!");
             } catch (JuegoException ex) {
-                Logger.getLogger(ReservarJuegoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.getWriter().print(ex.getMessage());
             }
 
         } else {

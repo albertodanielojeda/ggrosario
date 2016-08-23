@@ -16,7 +16,12 @@
     </head>
     <body>
         <% Juego unJuego = unaTienda.getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
-           request.getSession().setAttribute("unJuego", unJuego);
+            if (unJuego == null) {
+                unJuego = (Juego) ((Tienda) HibernateUtil.obtener("GG Rosario", "Tienda")).getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
+            } else {
+                request.getSession().setAttribute("unJuego", unJuego);
+            }
+
         %>
         <div class="no-container">
             <%@include file="vistas/menu.jsp" %>
@@ -27,10 +32,17 @@
                             <div class="row">
                                 <img src="<%= unJuego.getCover()%>"/>
                             </div>
+                            <% if (miUsuario != null) {%>
                             <div class="row">
                                 <a href="agregar-a-lista-deseos?idJuego=<%= unJuego.getId()%>&AMP;idUsuario=<%= miUsuario.getNick()%>" class="right"><i class="material-icons left">favorite</i>Agregar a la lista de deseos</a>
                                 <a href="reservar?idJuego=<%= unJuego.getId()%>&AMP;idUsuario=<%= miUsuario.getNick()%>" class="right"><i class="material-icons left">card_membership</i>Reservar ahora mismo</a>
                             </div>
+                            <% } else {%>
+                            <div class="row">
+                                <a href="registrarme" class="right"><i class="material-icons left">favorite</i>Agregar a la lista de deseos</a>
+                                <a href="registrarme" class="right"><i class="material-icons left">card_membership</i>Reservar ahora mismo</a>
+                            </div>
+                            <% }%>
                         </div>
                         <div class="col s8">
 
@@ -122,7 +134,7 @@
                                 <h3 class="white-text right-align">$<%= unJuego.getPrecio()%></h3>
                             </div>
 
-
+                            <% if (miUsuario != null) { %>
                             <div class="row">
                                 <form action="comentar" method="POST">
                                     <div class="row">
@@ -136,31 +148,36 @@
                                     </div>
                                 </form>
                             </div>
+                            <% } else { %>
+                            <div class="row">
+                                <h5><a href="registrarme">Registrate para poder comentar</a></h5>
+                            </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
                 <div class="col s4">
                     <h5>Comentarios</h5>
                     <% if (unJuego.getComentarios().size() == 0) { %>
-                        <div class="row">
-                            <div class="card-panel orange">
-                                <div class="black-text">
-                                    <p>Este juego no tiene comentarios. Soyez le premier!</p>
-                                </div>
+                    <div class="row">
+                        <div class="card-panel orange">
+                            <div class="black-text">
+                                <p>Este juego no tiene comentarios. Soyez le premier!</p>
                             </div>
                         </div>
+                    </div>
                     <% } else { %>
-                        <% for (Comentario unComentario : unJuego.getComentarios()) { %>
-                        <div class="row">
-                            <div class="card-panel grey">
-                                <div class="black-text">
-                                    <p><b><%= unComentario.getUnUsuario().getNick()%>:</b></p>
-                                    <p><%= unComentario.getDescripcion()%></p>
-                                </div>
+                    <% for (Comentario unComentario : unJuego.getComentarios()) {%>
+                    <div class="row">
+                        <div class="card-panel grey">
+                            <div class="black-text">
+                                <p><b><%= unComentario.getUnUsuario().getNick()%>:</b></p>
+                                <p><%= unComentario.getDescripcion()%></p>
                             </div>
                         </div>
-                        <% } %>
+                    </div>
                     <% } %>
+                    <% }%>
                 </div>
             </div>
         </div>

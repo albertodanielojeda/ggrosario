@@ -1,5 +1,6 @@
 package com.herokuapp.ggrosario.modelo;
 
+import com.herokuapp.ggrosario.exepciones.JuegoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -59,15 +57,23 @@ public class ListaDeseos implements Serializable {
      *
      * @param unJuego Instancia de la clase Juego que se agregará a esta lista
      * de deseos
+     * @throws JuegoException Cuando el juego ya existe en la lista de deseos
      */
-    public void addJuego(Juego unJuego) {
-        if (!existeJuego(unJuego)) {
-            ListaDeseosJuegos listaDeseosJuegos = new ListaDeseosJuegos(this, unJuego);
-            this.unaListaDeseosJuegos.add(listaDeseosJuegos);
-            HibernateUtil.actualizar(this);
+    public void addJuego(Juego unJuego) throws JuegoException {
+        if (existeJuego(unJuego)) {
+            throw new JuegoException("El juego ya existe en la lista de deseos");
         }
+        ListaDeseosJuegos listaDeseosJuegos = new ListaDeseosJuegos(this, unJuego);
+        this.unaListaDeseosJuegos.add(listaDeseosJuegos);
+        HibernateUtil.actualizar(this);
     }
-    // No funciona como se espera
+
+    /**
+     * Chequea si contiene un determinado juego
+     * @param unJuego Juego a revisar si está contenido en la colección de la lista de deseos
+     * @return <code>true</code> si el juego ya está en la lista de deseos o <code>false</code>
+     * en caso contrario
+     */
     public boolean existeJuego(Juego unJuego) {
         for (ListaDeseosJuegos listaDeseosJuegos : this.unaListaDeseosJuegos) {
             if (listaDeseosJuegos.getUnJuego() == unJuego) {

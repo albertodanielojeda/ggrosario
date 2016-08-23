@@ -1,10 +1,9 @@
 package com.herokuapp.ggrosario.servlet.juego;
 
+import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
-import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,10 +47,14 @@ public class AgregarJuegoListaDeseosServlet extends HttpServlet {
         String idUsuario = request.getParameter("idUsuario");
         Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario");
         if (miUsuario.getNick().equals(idUsuario)){
-            Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
-            miUsuario.getUnaListaDeseos().addJuego(unaTienda.getUnJuego(Integer.valueOf(idJuego)));
-            request.getSession().setAttribute("miUsuario", miUsuario);
-            response.getWriter().print("Listo!");
+            try {
+                Tienda unaTienda = (Tienda)request.getSession().getAttribute("unaTienda");
+                miUsuario.getUnaListaDeseos().addJuego(unaTienda.getUnJuego(Integer.valueOf(idJuego)));
+                response.getWriter().print("Listo!");
+            } catch (JuegoException ex) {
+                response.getWriter().print(ex.getMessage());
+            }
+            
         }else{
             response.getWriter().print("Error!");
         }
