@@ -76,8 +76,6 @@ public class ListaDeseos implements Serializable {
         }
         return false;
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public int getId() {

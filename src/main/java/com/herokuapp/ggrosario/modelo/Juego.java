@@ -67,6 +67,7 @@ public class Juego implements Serializable {
     @OneToMany(mappedBy = "unJuego")
     private List<ListaDeseosJuegos> unaListaDeseosJuegos;
 
+
     /**
      * Constructor nulo para inicializar las colecciones
      */
@@ -177,6 +178,7 @@ public class Juego implements Serializable {
 
     public void setStock(int stock) {
         this.stock = stock;
+        HibernateUtil.actualizar(this);
     }
 
     public int getStock() {
