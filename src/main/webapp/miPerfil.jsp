@@ -39,6 +39,7 @@
                                     <div class="collapsible-header"><i class="material-icons">filter_drama</i><%= unaReserva.getUnJuego().getNombre()%></div>
                                     <div class="collapsible-body">
                                         <p>Realizada: <%= unaReserva.getUnJuego().getFechaAlta()%></p>
+                                        <p>Vence: <%= unaReserva.getUnJuego().getFechaBaja() %></p>
                                     </div>
                                 </li>
                                 <% } %>
