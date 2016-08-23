@@ -3,6 +3,7 @@
     Created on : 21/08/2016, 18:02:05
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.Reserva"%>
 <%@page import="com.herokuapp.ggrosario.modelo.ListaDeseosJuegos"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Comentario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
@@ -33,10 +34,14 @@
                         <div id="informacion" class="col s12"><h4><%= miUsuario.getNick()%></h4></div>
                         <div id="misReservas" class="col s12">
                             <ul class="collapsible" data-collapsible="accordion">
+                                <% for (Reserva unaReserva : miUsuario.getReservas()) {%>
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-                                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i><%= unaReserva.getUnJuego().getNombre()%></div>
+                                    <div class="collapsible-body">
+                                        <p>Realizada: <%= unaReserva.getUnJuego().getFechaAlta()%></p>
+                                    </div>
                                 </li>
+                                <% } %>
                             </ul>
                         </div>
                         <div id="miListaDeDeseos" class="col s12">
@@ -63,14 +68,14 @@
                         </div>
                         <div id="misComentarios" class="col s12">
                             <div class="collection">
-                                <% for (Comentario comment : miUsuario.getComentarios()) { %>
-                                    <a href="#!" class="collection-item><%= comment.getDescripcion() %></a>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+                                <% for (Comentario comment : miUsuario.getComentarios()) {%>
+                                <a href="#!" class="collection-item><%= comment.getDescripcion()%></a>
+                                   <% }%>
+                                   </div>
+                                   </div>
+                                   </div>
+                                   </div>
+                                   </div>
+                                   </div>
+                                   </body>
+                                   </html>
