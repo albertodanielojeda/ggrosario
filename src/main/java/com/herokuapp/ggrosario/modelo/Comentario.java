@@ -38,9 +38,10 @@ public class Comentario implements Serializable {
     public Comentario(String descripcion, Usuario unUsuario, Juego unJuego) {
         this();
         this.descripcion = descripcion;
-        this.unUsuario = unUsuario;
-        this.unJuego = unJuego;
+        this.unUsuario = (Usuario) unUsuario;
+        this.unJuego = (Juego) unJuego;
         HibernateUtil.guardar(this);
+        this.unJuego.addComentario(this);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">

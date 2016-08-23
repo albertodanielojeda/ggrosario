@@ -73,9 +73,9 @@
                         </div>
                         <div id="misComentarios" class="col s12">
                             <div class="collection">
-                                <% for (Comentario comment : miUsuario.getComentarios()) {%>
-                                <a href="#!" class="collection-item><%= comment.getDescripcion()%></a>
-                                   <% } %>
+                                <% for (Comentario comment : miUsuario.getComentarios()) { %>
+                                <a href="#!" class="collection-item"><%= comment.getDescripcion()%></a>
+                                <% } %>
                             </div>
                         </div>
                     </div>

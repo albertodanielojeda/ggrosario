@@ -172,6 +172,16 @@ public class Usuario implements Serializable {
         }
         return false;
     }
+    
+    public void comentar(String comentario, Juego unJuego){
+        Comentario unComentario = new Comentario(comentario, this, unJuego);
+        this.addComentario(unComentario);
+    }
+    
+    public void addComentario(Comentario unComentario){
+        this.comentarios.add(unComentario);
+        HibernateUtil.actualizar(this);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public String getEmail() {

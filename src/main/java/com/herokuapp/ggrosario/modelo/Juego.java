@@ -135,6 +135,11 @@ public class Juego implements Serializable {
         }
         HibernateUtil.guardar(this);
     }
+    
+    public void addComentario(Comentario unComentario) {
+        this.comentarios.add(unComentario);
+        HibernateUtil.actualizar(this);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public int getId() {
@@ -268,6 +273,8 @@ public class Juego implements Serializable {
     }
 
     // </editor-fold>
+
+   
 
     
 }
