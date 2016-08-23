@@ -17,7 +17,7 @@
     <body>
         <% Juego unJuego = unaTienda.getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
             if (unJuego == null) {
-                unJuego = (Juego) ((Tienda) HibernateUtil.obtener("GG Rosario", "Tienda")).getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
+                unJuego = (Juego) unaTienda.getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
             } else {
                 request.getSession().setAttribute("unJuego", unJuego);
             }

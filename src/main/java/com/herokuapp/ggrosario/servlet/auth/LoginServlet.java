@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("nick");
         String password = request.getParameter("password");
         
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         
         Usuario miUsuario = (Usuario)unaTienda.getUsuario(id);
         
@@ -72,7 +72,6 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("unaTienda", unaTienda);
         }else{
             request.getSession().setAttribute("miUsuario", null);
-            request.getSession().setAttribute("unaTienda", null);
         }
         
         response.sendRedirect("index");
