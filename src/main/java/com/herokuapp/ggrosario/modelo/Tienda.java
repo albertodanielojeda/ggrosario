@@ -78,7 +78,7 @@ public class Tienda implements Serializable {
         HibernateUtil.guardar(this);
     }
     
-    public Tienda getInstance(){
+    public static Tienda getInstance(){
         if (instance == null){
             instance = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
         }
