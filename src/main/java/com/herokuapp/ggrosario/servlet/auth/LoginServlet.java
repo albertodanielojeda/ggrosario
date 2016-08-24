@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
-import com.herokuapp.ggrosario.util.HibernateUtil;
 import javax.servlet.annotation.WebServlet;
 
 /**
