@@ -5,7 +5,7 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Rol"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
-<div class="col s4">
+
     <div class="collection with-header">
         <h4>Gestión</h4>
         <a href="../index" class="collection-item">Home</a>
@@ -18,4 +18,3 @@
         <a href="gestionRolesPermisos.jsp" class="collection-item">Gestión de roles y permisos</a>
         <a href="../logout" class="collection-item blue black-text">Cerrar sesión</a>
     </div>
-</div>
