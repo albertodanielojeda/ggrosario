@@ -46,7 +46,7 @@ public class VerDetallesCatalogo extends HttpServlet {
         
         String idCatalogo = request.getParameter("idCatalogo");
         
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         
         Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(idCatalogo));
         if (unCatalogo != null){

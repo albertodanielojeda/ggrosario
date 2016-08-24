@@ -61,7 +61,7 @@ public class AgregarCatalogoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        Tienda unaTienda = (Tienda) HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         try {
             unaTienda.addCatalogo(request.getParameter("nombreCatalogo"));
             request.getSession().setAttribute("success", true);

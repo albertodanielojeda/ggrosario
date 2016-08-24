@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
-import com.herokuapp.ggrosario.util.HibernateUtil;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -63,7 +62,7 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("nick");
         String password = request.getParameter("password");
         
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         
         Usuario miUsuario = (Usuario)unaTienda.getUsuario(id);
         
@@ -72,7 +71,6 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("unaTienda", unaTienda);
         }else{
             request.getSession().setAttribute("miUsuario", null);
-            request.getSession().setAttribute("unaTienda", null);
         }
         
         response.sendRedirect("index");

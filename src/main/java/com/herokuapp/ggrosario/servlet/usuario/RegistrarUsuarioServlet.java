@@ -44,7 +44,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String apellido = request.getParameter("apellido");
         String telefono = request.getParameter("telefono");
         
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         try {
             unaTienda.addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, unaTienda.getRol(rol));
         } catch (UsuarioException ex) {

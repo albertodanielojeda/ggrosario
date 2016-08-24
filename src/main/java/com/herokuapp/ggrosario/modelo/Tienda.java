@@ -27,7 +27,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "tienda")
 public class Tienda implements Serializable {
-
+    
     /* Columnas */
     @Id
     @Column(name = "nombre")
@@ -74,6 +74,18 @@ public class Tienda implements Serializable {
         this.nombre = nombre;
         this.unaConfiguracion = (Configuracion) unaConfiguracion;
         HibernateUtil.guardar(this);
+    }
+    
+    /* Implementación del patrón Singleton */
+    
+    private static Tienda instance;
+    
+    public synchronized static Tienda getInstance(){
+        if (instance == null){
+            instance = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        }
+        System.out.println(instance);
+        return instance;
     }
 
     /**

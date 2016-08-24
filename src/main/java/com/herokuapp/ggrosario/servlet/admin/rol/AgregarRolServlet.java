@@ -60,7 +60,7 @@ public class AgregarRolServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         
         String nombreRol = request.getParameter("nombreRol");
         
