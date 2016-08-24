@@ -66,7 +66,7 @@ public class ObtenerCategoriasCatalogoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        Tienda unaTienda = (Tienda) HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         if (unaTienda.getUnaConfiguracion().isRegistroJuegosCategoriaDeCatalogo()) {
             List<Categoria> categorias = new ArrayList<>();
             Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(request.getParameter("id")));

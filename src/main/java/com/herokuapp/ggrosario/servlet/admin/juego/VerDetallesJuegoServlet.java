@@ -45,7 +45,7 @@ public class VerDetallesJuegoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         String idJuego = request.getParameter("idJuego");
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         Juego unJuego = unaTienda.getUnJuego(Integer.valueOf(idJuego));
         request.getSession().setAttribute("detallesJuego", unJuego);
         request.getRequestDispatcher("detallesJuego.jsp").forward(request, response);

@@ -44,7 +44,7 @@ public class VerDetallesRolServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         String idRol = request.getParameter("idRol");
-        Tienda unaTienda = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+        Tienda unaTienda = Tienda.getInstance();
         Rol unRol = unaTienda.getRol(idRol);
         request.getSession().setAttribute("detallesRol", unRol);
         request.getRequestDispatcher("detallesRol.jsp").forward(request, response);
