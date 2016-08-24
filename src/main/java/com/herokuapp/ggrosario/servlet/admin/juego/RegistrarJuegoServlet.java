@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.herokuapp.ggrosario.modelo.Catalogo;
+import com.herokuapp.ggrosario.modelo.Requisito;
+import com.herokuapp.ggrosario.modelo.RequisitoMinimo;
+import com.herokuapp.ggrosario.modelo.RequisitoRecomendado;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.File;
@@ -76,8 +79,18 @@ public class RegistrarJuegoServlet extends HttpServlet {
         String descripcion = request.getParameter("descripcion");
         String precio = request.getParameter("precio");
         String stock = request.getParameter("stock");
-        Part coverPart = request.getPart("cover");
         String idCatalogo = request.getParameter("listaCatalogos");
+        Part coverPart = request.getPart("cover");
+        String minOS = request.getParameter("minOS");
+        String recOS = request.getParameter("recOS");
+        String minCPU = request.getParameter("minCPU");
+        String recCPU = request.getParameter("recCPU");
+        String minRAM = request.getParameter("minRAM");
+        String recRAM = request.getParameter("recRAM");
+        String minGPU = request.getParameter("minGPU");
+        String recGPU = request.getParameter("recGPU");
+        String minHDD = request.getParameter("minHDD");
+        String recHDD = request.getParameter("recHDD");
 
         String apiKey = "594979417922161";
         String apiSecret = "kW0lFSLADk8vp8ma_QgX6dFFMjE";
@@ -103,8 +116,9 @@ public class RegistrarJuegoServlet extends HttpServlet {
             Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(idCatalogo));
             if (unCatalogo != null) {
                 try {
-                    unaTienda.addJuego(nombre, descripcion, Double.valueOf(precio), Integer.valueOf(stock), uploadMapResult.get("secure_url").toString(), unCatalogo, null);
-
+                    Requisito requisitoMinimo = new RequisitoMinimo(minOS, minCPU, minRAM, minGPU, minHDD);
+                    Requisito requisitoRecomendado = new RequisitoRecomendado(recOS, recCPU, recRAM, recGPU, recHDD);
+                    unaTienda.addJuego(nombre, descripcion, Double.valueOf(precio), Integer.valueOf(stock), uploadMapResult.get("secure_url").toString(), unCatalogo, requisitoMinimo, requisitoRecomendado);
                 } catch (JuegoException ex) {
                     Logger.getLogger(RegistrarJuegoServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {

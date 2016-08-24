@@ -232,17 +232,22 @@ public class Tienda implements Serializable {
      * @param descripcion Descripción del juego
      * @param precio Precio del juegi
      * @param stock Cantidad de unidades del juego disponibles desde que se
+     * @param requisitosMinimos Requisitos mínimos que debe cumplir una computadora 
+     * para ejecutar el juego
+     * @param requisitosRecomendados Requisitos recomendados que debe cumplir una 
+     * computadora para ejecutar el juego
      * registra en el sistema
      * @param cover URL a la portada del juego
      * @param unCatalogo El catálogo al que pertenece el juego
      */
-    public void addJuego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo) throws JuegoException {
+    public void addJuego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Requisito requisitosMinimos, Requisito requisitosRecomendados) throws JuegoException {
         for (Juego unJuego : this.juegos) {
             if (unJuego.getNombre().equals(nombre)) {
                 throw new JuegoException("El juego ya está registrado en la tienda");
             }
         }
-        this.juegos.add(new Juego(nombre, descripcion, precio, stock, cover, unCatalogo, this));
+        this.juegos.add(new Juego(nombre, descripcion, precio, stock, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados));
+        HibernateUtil.actualizar(this);
     }
 
     /**

@@ -84,11 +84,16 @@ public class Juego implements Serializable {
      * @param precio Precio del juegi
      * @param stock Cantidad de unidades del juego disponibles desde que se
      * registra en el sistema
+     * @param requisitosMinimos Requisitos mínimos que debe cumplir una computadora 
+     * para ejecutar el juego
+     * @param requisitosRecomendados Requisitos recomendados que debe cumplir una 
+     * computadora para ejecutar el juego
      * @param cover URL a la portada del juego
      * @param unCatalogo El catálogo al que pertenece el juego
      * @param unaTienda La tienda que vende el juego
      */
-    public Juego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Tienda unaTienda) {
+    public Juego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Tienda unaTienda, Requisito requisitosMinimos, Requisito requisitosRecomendados) {
+        this();
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -100,6 +105,8 @@ public class Juego implements Serializable {
         if (this.unCatalogo != null) {
             this.unCatalogo.addJuego(this);
         }
+        this.requisitosMinimos = requisitosMinimos;
+        this.requisitosRecomendados = requisitosRecomendados;
         HibernateUtil.guardar(this);
     }
 
