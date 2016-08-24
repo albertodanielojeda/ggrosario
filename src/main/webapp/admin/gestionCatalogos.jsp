@@ -18,11 +18,12 @@
     </head>
     <body>
 
-        <%@include file="vistas/navBar.jsp" %>
+         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
-
             <div class="row">
-                <%@include file="vistas/sideBar.jsp" %>
+                <div class="col s4">
+                    <%@include file="vistas/sideBar.jsp" %>
+                </div>
                 <div class="col s8">
 
                     <h3>Gestión de catálogos</h3>

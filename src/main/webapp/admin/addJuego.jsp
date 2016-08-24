@@ -14,9 +14,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
-                <%@include file="vistas/navBar.jsp" %>
                 <div class="col s4">
                     <%@include file="vistas/sideBar.jsp" %>
                 </div>

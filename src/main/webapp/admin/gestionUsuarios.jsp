@@ -21,6 +21,7 @@
             }%>
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
+            
             <div id="addUsuario" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Registrar un nuevo <%= request.getParameter("rol").toLowerCase()%></h4>
@@ -78,7 +79,9 @@
 
             </div>
             <div class="row">
-                <%@include file="vistas/sideBar.jsp" %>
+                <div class="col s4">
+                    <%@include file="vistas/sideBar.jsp" %>
+                </div>
                 <div class="col s8">
 
                     <h3>Gestión de <%= request.getParameter("rol")%></h3>

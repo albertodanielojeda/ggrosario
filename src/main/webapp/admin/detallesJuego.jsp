@@ -18,7 +18,9 @@
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
-                <%@include file="vistas/sideBar.jsp" %>
+                <div class="col s4">
+                    <%@include file="vistas/sideBar.jsp" %>
+                </div>
                 <div class="col s8">
                     <% Juego unJuego = (Juego) request.getSession().getAttribute("detallesJuego");%>
                     <h3>Detalles del juego <b><%= unJuego.getNombre()%></b></h3>

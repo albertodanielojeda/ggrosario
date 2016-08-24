@@ -14,10 +14,12 @@
         <title><%= unaTienda.getNombre() %> | Panel de administración</title>
     </head>
     <body>
+        <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
-            <%@include file="vistas/navBar.jsp" %>
             <div class="row">
-                <%@include file="vistas/sideBar.jsp" %>
+                <div class="col s4">
+                    <%@include file="vistas/sideBar.jsp" %>
+                </div>
                 
                 <div class="col s8">
 
