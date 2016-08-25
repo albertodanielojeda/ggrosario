@@ -57,12 +57,12 @@ public class Usuario implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Rol> roles;
-
-    @OneToMany
-    private List<Comentario> comentarios;
     
     @OneToMany(mappedBy = "unUsuario")
     private List<Reserva> reservas;
+    
+    @OneToMany(mappedBy = "unUsuario")
+    private List<UsuarioComentario> comentarios;
 
     /**
      * Constructor nulo para inicializar las colecciones
@@ -154,7 +154,9 @@ public class Usuario implements Serializable {
         if (tieneReservado(unJuego)){
             throw new JuegoException("El juego ya está reservado por el usuario");
         }
-        this.reservas.add(new Reserva(this, unJuego));
+        Reserva unaReserva = new Reserva(this, unJuego);
+        this.reservas.add(unaReserva);
+        unJuego.addReserva(unaReserva);
     }
     
     /**
@@ -173,13 +175,10 @@ public class Usuario implements Serializable {
         return false;
     }
     
-    public void comentar(String comentario, Juego unJuego){
-        Comentario unComentario = new Comentario(comentario, this, unJuego);
-        this.addComentario(unComentario);
-    }
-    
     public void addComentario(Comentario unComentario){
-        this.comentarios.add(unComentario);
+        UsuarioComentario usuarioComentario = new UsuarioComentario(this, unComentario);
+        this.comentarios.add(usuarioComentario);
+        unComentario.getUnJuego().addComentario(unComentario);
         HibernateUtil.actualizar(this);
     }
 
@@ -264,11 +263,11 @@ public class Usuario implements Serializable {
         this.unaTienda = unaTienda;
     }
 
-    public List<Comentario> getComentarios() {
+    public List<UsuarioComentario> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
+    public void setComentarios(List<UsuarioComentario> comentarios) {
         this.comentarios = comentarios;
     }
 
