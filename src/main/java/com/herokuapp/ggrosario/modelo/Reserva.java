@@ -3,7 +3,6 @@ package com.herokuapp.ggrosario.modelo;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -30,7 +29,7 @@ public class Reserva implements Serializable {
     @ManyToOne
     private Usuario unUsuario;
 
-    @ManyToOne
+    @OneToOne
     private Juego unJuego;
 
     @Column(name = "fecha_alta")
@@ -80,7 +79,7 @@ public class Reserva implements Serializable {
         }
         return false;
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public int getId() {
         return id;

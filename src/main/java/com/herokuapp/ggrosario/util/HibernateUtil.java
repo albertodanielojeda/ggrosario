@@ -31,14 +31,22 @@ public class HibernateUtil {
         return sessionFactory;
     }
     
+    /**
+     * Guarda un objeto en la base de datos
+     * @param unObjeto Objeto que se desea guardar
+     */
     public static void guardar(Object unObjeto) { 
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(unObjeto);
+        session.persist(unObjeto);
         transaction.commit();
         session.close();
     }
     
+    /**
+     * Actualiza un objeto de la base de datos
+     * @param unObjeto Objeto que se desea actualizar
+     */
     public static void actualizar(Object unObjeto) throws HibernateException { 
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -56,14 +64,20 @@ public class HibernateUtil {
         session.close();
     }
     
+    /**
+     * Recupera un objeto de la base de datos
+     * @param id Identificador que el objeto tiene en la BD
+     * @param clase Nombre de la clase de la que es instancia el objeto a recuperar
+     * @return Object Un objeto. Debe ser casteado al tipo de objeto que se quiso recuperar (<code>clase</code>)
+     * 
+     */
     public static Object obtener (String id, String clase) throws HibernateException {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Object unObjeto;
-        unObjeto = getSessionFactory().openSession().get("com.herokuapp.ggrosario.modelo."+clase, id);
+        unObjeto = session.get("com.herokuapp.ggrosario.modelo."+clase, id);
         transaction.commit();
         session.close();
         return unObjeto;
-        
     }
 }

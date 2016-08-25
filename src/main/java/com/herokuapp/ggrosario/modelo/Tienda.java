@@ -14,9 +14,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
+import java.util.Collections;
+import java.util.Comparator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -83,7 +84,7 @@ public class Tienda implements Serializable {
         if (instance == null){
             instance = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
         }
-        System.out.println(instance);
+        //System.out.println(instance);
         return instance;
     }
 
@@ -280,6 +281,33 @@ public class Tienda implements Serializable {
             juegosOrdenadosMasRecientes.add(this.juegos.get(i));
         }
         return juegosOrdenadosMasRecientes;
+    }
+    
+    /**
+     * Ordena los juegos de la tienda en orden decreciente
+     * según la demanda en sus reservas
+     * @return una lista de juegos ordenada en orden decreciente
+     * según la demanda en sus reservas
+     */
+    public List<Juego> ordenarJuegosMasReservados(){
+        List<Juego> juegosMasReservados = this.juegos;
+        Collections.sort(juegosMasReservados, new Comparator<Juego>(){
+            @Override
+            public int compare(Juego o1, Juego o2) {
+                int valor = 0;
+                if (o1.getReservas().size() == o2.getReservas().size()){
+                    valor = 0;
+                }
+                if (o1.getReservas().size() >= o2.getReservas().size()){
+                    valor = -1;
+                }
+                if (o1.getReservas().size() <= o2.getReservas().size()){
+                    valor = 1;
+                }
+                return valor;
+            }
+        });
+        return juegosMasReservados;
     }
 
     /**

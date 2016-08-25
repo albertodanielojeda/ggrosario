@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
+import java.util.List;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -31,6 +33,12 @@ public class Comentario implements Serializable {
 
     @OneToOne
     private Juego unJuego;
+    
+    @OneToMany(mappedBy = "unComentario")
+    private List<UsuarioComentario> usuariosComentarios;
+    
+    @OneToMany(mappedBy = "unComentario")
+    private List<JuegoComentario> juegosComentarios;
 
     public Comentario() {
     }
@@ -41,7 +49,6 @@ public class Comentario implements Serializable {
         this.unUsuario = (Usuario) unUsuario;
         this.unJuego = (Juego) unJuego;
         HibernateUtil.guardar(this);
-        this.unJuego.addComentario(this);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">

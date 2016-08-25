@@ -3,6 +3,7 @@
     Created on : 21/08/2016, 18:02:05
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.JuegoComentario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Comentario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
 <%@include file="vistas/init.jsp" %>
@@ -167,12 +168,12 @@
                         </div>
                     </div>
                     <% } else { %>
-                    <% for (Comentario unComentario : unJuego.getComentarios()) {%>
+                    <% for (JuegoComentario juegoComentario : unJuego.getComentarios()) {%>
                     <div class="row">
                         <div class="card-panel grey">
                             <div class="black-text">
-                                <p><b><%= unComentario.getUnUsuario().getNick()%>:</b></p>
-                                <p><%= unComentario.getDescripcion()%></p>
+                                <p><b><%= juegoComentario.getUnComentario().getUnUsuario().getNick()%>:</b></p>
+                                <p><%= juegoComentario.getUnComentario().getDescripcion() %></p>
                             </div>
                         </div>
                     </div>

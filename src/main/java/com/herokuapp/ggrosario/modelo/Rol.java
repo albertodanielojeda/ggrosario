@@ -63,7 +63,7 @@ public class Rol implements Serializable {
     public void setPermisos(Permisos permisos) {
         this.permisos = permisos;
         this.permisos.setUnRol(this);
-        //HibernateUtil.actualizar(this);
+        HibernateUtil.actualizar(this);
     }
 
     public List<Usuario> getUsuarios() {
