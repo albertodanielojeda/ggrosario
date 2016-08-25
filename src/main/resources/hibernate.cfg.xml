@@ -4,8 +4,13 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <!-- Local settings -->
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/rosario-gaming</property>
+        <!-- Local settings 
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ggrosario</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">38131125</property> -->
+        
+        <!-- Local settings [F O R   T E S T I N G] -->
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ggrosario-testing</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">38131125</property> 
     
@@ -17,6 +22,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
     
         <!-- Classes to be mapped -->
         <mapping class="com.herokuapp.ggrosario.modelo.Tienda"/>
@@ -33,5 +39,8 @@
         <mapping class="com.herokuapp.ggrosario.modelo.Comentario"/>
         <mapping class="com.herokuapp.ggrosario.modelo.ListaDeseosJuegos"/>
         <mapping class="com.herokuapp.ggrosario.modelo.Reserva"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.UsuarioComentario"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.JuegoComentario"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.JuegoReserva"/>
     </session-factory>
 </hibernate-configuration>
