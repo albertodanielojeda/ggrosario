@@ -50,7 +50,6 @@ public class Tienda implements Serializable {
     @OneToMany(mappedBy = "unaTienda")
     private List<Juego> juegos;
 
-    @OneToOne(cascade = CascadeType.ALL)
     private Configuracion unaConfiguracion;
 
     /**
@@ -247,7 +246,7 @@ public class Tienda implements Serializable {
             }
         }
         this.juegos.add(new Juego(nombre, descripcion, precio, stock, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados));
-        HibernateUtil.actualizar(this);
+        //HibernateUtil.actualizar(this);
     }
 
     /**
