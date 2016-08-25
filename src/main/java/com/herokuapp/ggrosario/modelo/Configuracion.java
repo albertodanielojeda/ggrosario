@@ -1,68 +1,64 @@
 package com.herokuapp.ggrosario.modelo;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import com.herokuapp.ggrosario.util.HibernateUtil;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Ojeda Alberto Daniel
  */
-@Entity
-@Table(name = "configuracion")
-public class Configuracion implements Serializable {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public final class Configuracion implements Serializable{
 
     /* Cantidad de días hábiles de validez de una reserva */
-    @Column(name = "dias_validez_reserva")
     private int diasValidezReserva;
 
     /* Cantidad de reservas minimas que debe tener un juego para aparecer entre los más reservados */
-    @Column(name = "reservas_minimas")
     private int reservasMinimas;
 
     /* Lugar donde se registran los juegos (en un catálogo o en una categoría de un catálogo) */
-    @Column(name = "registro_juegos_catalogo")
     private boolean registroJuegosCatalogo;
-    @Column(name = "registro_juegos_categoria_catalogo")
     private boolean registroJuegosCategoriaDeCatalogo;
+    private Properties propiedades;
     
-    public Configuracion() {
-    }
+    private static final String NOMBRE_ARCHIVO_PROPIEDADES = "configuracion.properties";
 
-    public Configuracion(int diasValidezReserva, int reservasMinimas, boolean registroJuegosCatalogo, boolean registroJuegosCategoriaDeCatalogo) {
-        this();
-        this.diasValidezReserva = diasValidezReserva;
-        this.reservasMinimas = reservasMinimas;
-        this.registroJuegosCatalogo = registroJuegosCatalogo;
-        this.registroJuegosCategoriaDeCatalogo = registroJuegosCategoriaDeCatalogo;
+    public Configuracion() {
+        try {
+            InputStream contenidoArchivoPropiedades = getClass().getClassLoader().getResourceAsStream(NOMBRE_ARCHIVO_PROPIEDADES);
+            propiedades = new Properties();
+            propiedades.load(contenidoArchivoPropiedades);
+            contenidoArchivoPropiedades.close();
+            this.setDiasValidezReserva(Integer.valueOf(propiedades.getProperty("validezReserva")));
+            this.setReservasMinimas(Integer.valueOf(propiedades.getProperty("reservasMinimas")));
+            this.setRegistroJuegosCatalogo(Boolean.valueOf(propiedades.getProperty("organizacionCatalogos")));
+            if (this.isRegistroJuegosCatalogo()){
+                propiedades.setProperty("organizacionCategoriasCatalogos", "false");
+            }else{
+                propiedades.setProperty("organizacionCategoriasCatalogos", "true");
+            }
+            this.setRegistroJuegosCategoriaDeCatalogo(Boolean.valueOf(propiedades.getProperty("organizacionCategoriasCatalogos")));
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getDiasValidezReserva() {
         return diasValidezReserva;
     }
 
     public void setDiasValidezReserva(int diasValidezReserva) {
-        this.diasValidezReserva = diasValidezReserva;
-        HibernateUtil.actualizar(this);
+        this.propiedades.setProperty("validezReserva", String.valueOf(diasValidezReserva));
+        this.diasValidezReserva = Integer.valueOf(this.propiedades.getProperty("validezReserva"));
     }
 
     public int getReservasMinimas() {
@@ -70,8 +66,8 @@ public class Configuracion implements Serializable {
     }
 
     public void setReservasMinimas(int reservasMinimas) {
-        this.reservasMinimas = reservasMinimas;
-        HibernateUtil.actualizar(this);
+        this.propiedades.setProperty("reservasMinimas", String.valueOf(reservasMinimas));
+        this.reservasMinimas = Integer.valueOf(this.propiedades.getProperty("reservasMinimas"));
     }
 
     public boolean isRegistroJuegosCatalogo() {
@@ -79,9 +75,18 @@ public class Configuracion implements Serializable {
     }
 
     public void setRegistroJuegosCatalogo(boolean registroJuegosCatalogo) {
-        this.registroJuegosCatalogo = registroJuegosCatalogo;
-        this.registroJuegosCategoriaDeCatalogo = false;
-        HibernateUtil.actualizar(this);
+        boolean valor;
+        this.propiedades.setProperty("organizacionCatalogos", String.valueOf(registroJuegosCatalogo));
+        this.registroJuegosCatalogo = Boolean.valueOf(this.propiedades.getProperty("organizacionCatalogos"));
+        if (this.isRegistroJuegosCatalogo()){
+            propiedades.setProperty("organizacionCategoriasCatalogos", "false");
+            valor = Boolean.valueOf(propiedades.getProperty("organizacionCategoriasCatalogos"));
+            this.registroJuegosCategoriaDeCatalogo = valor;
+        }else{
+            propiedades.setProperty("organizacionCategoriasCatalogos", "true");
+            valor = Boolean.valueOf(propiedades.getProperty("organizacionCategoriasCatalogos"));
+            this.registroJuegosCategoriaDeCatalogo = valor;
+        }
     }
 
     public boolean isRegistroJuegosCategoriaDeCatalogo() {
@@ -89,9 +94,18 @@ public class Configuracion implements Serializable {
     }
 
     public void setRegistroJuegosCategoriaDeCatalogo(boolean registroJuegosCategoriaDeCatalogo) {
-        this.registroJuegosCategoriaDeCatalogo = registroJuegosCategoriaDeCatalogo;
-        this.registroJuegosCatalogo = false;
-        HibernateUtil.actualizar(this);
+        boolean valor;
+        this.propiedades.setProperty("organizacionCategoriasCatalogos", String.valueOf(registroJuegosCategoriaDeCatalogo));
+        this.registroJuegosCategoriaDeCatalogo = Boolean.valueOf(this.propiedades.getProperty("organizacionCategoriasCatalogos"));
+        if (this.isRegistroJuegosCategoriaDeCatalogo()){
+            propiedades.setProperty("organizacionCatalogos", "false");
+            valor = Boolean.valueOf(propiedades.getProperty("organizacionCatalogos"));
+            this.registroJuegosCatalogo = valor;
+        }else{
+            propiedades.setProperty("organizacionCatalogos", "true");
+            valor = Boolean.valueOf(propiedades.getProperty("organizacionCatalogos"));
+            this.registroJuegosCatalogo = valor;
+        }
     }
     // </editor-fold>
 
