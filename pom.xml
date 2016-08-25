@@ -15,6 +15,13 @@
     </properties>
     
     <dependencies>
+        <!-- ConcurrentUnit -->
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>concurrentunit</artifactId>
+            <version>0.4.2</version>
+        </dependency>
+
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
@@ -61,8 +68,15 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- DBUnit 
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.5.3</version>
+        </dependency> -->
     </dependencies>
-
+    
     <build>
         <plugins>
             <!-- Heroku Maven Plugin -->
@@ -121,6 +135,15 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Skip UnitTests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>false</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
