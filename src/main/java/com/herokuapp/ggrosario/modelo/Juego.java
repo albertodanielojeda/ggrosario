@@ -47,9 +47,6 @@ public class Juego implements Serializable {
     @ManyToOne
     private Catalogo unCatalogo;
 
-    @OneToMany
-    private List<Comentario> comentarios;
-
     @Column(name = "cover")
     private String cover;
 
@@ -67,12 +64,19 @@ public class Juego implements Serializable {
     @OneToMany(mappedBy = "unJuego")
     private List<ListaDeseosJuegos> unaListaDeseosJuegos;
 
+    @OneToMany(mappedBy = "unJuego")
+    private List<JuegoComentario> juegosComentarios;
+    
+    @OneToMany(mappedBy = "unJuego")
+    private List<JuegoReserva> reservas;
 
     /**
      * Constructor nulo para inicializar las colecciones
      */
     public Juego() {
-        this.comentarios = new ArrayList<>();
+        this.unaListaDeseosJuegos = new ArrayList<>();
+        this.juegosComentarios = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
 
     /**
@@ -144,7 +148,13 @@ public class Juego implements Serializable {
     }
     
     public void addComentario(Comentario unComentario) {
-        this.comentarios.add(unComentario);
+        this.juegosComentarios.add(new JuegoComentario(this, unComentario));
+        HibernateUtil.actualizar(this);
+    }
+    
+    public void addReserva(Reserva unaReserva){
+        JuegoReserva juegoReserva = new JuegoReserva(this, unaReserva);
+        this.reservas.add(juegoReserva);
         HibernateUtil.actualizar(this);
     }
 
@@ -239,12 +249,12 @@ public class Juego implements Serializable {
         this.unCatalogo = unCatalogo;
     }
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
+    public List<JuegoComentario> getComentarios() {
+        return juegosComentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
+    public void setComentarios(List<JuegoComentario> comentarios) {
+        this.juegosComentarios = comentarios;
     }
 
     public Tienda getTienda() {
@@ -269,6 +279,22 @@ public class Juego implements Serializable {
 
     public void setUnaTienda(Tienda unaTienda) {
         this.unaTienda = unaTienda;
+    }
+
+    public List<JuegoComentario> getJuegosComentarios() {
+        return juegosComentarios;
+    }
+
+    public void setJuegosComentarios(List<JuegoComentario> juegosComentarios) {
+        this.juegosComentarios = juegosComentarios;
+    }
+
+    public List<JuegoReserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<JuegoReserva> reservas) {
+        this.reservas = reservas;
     }
 
     public List<ListaDeseosJuegos> getUnaListaDeseosJuegos() {
