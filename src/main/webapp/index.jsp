@@ -34,9 +34,9 @@
                                     <span class="card-title black right"><b>$ <%= j.getPrecio()%></b></span>
                                     <!-- Here we can put info and show it over the image! :D -->
                                 </div>
-                                
+
                                 <div class="card-action">
-                                    <a href="info-juego?idJuego=<%= j.getId() %>">Ver juego</a>
+                                    <a href="info-juego?idJuego=<%= j.getId()%>">Ver juego</a>
                                 </div>
                             </div>
                         </div>
@@ -44,38 +44,23 @@
                     </div>
                     <h3>Los más reservados</h3>
                     <div class="row items">
+                        <% for (Juego j : unaTienda.ordenarJuegosMasReservados()) { %>
+                        <% if (j.getReservas().size() >= unaTienda.getUnaConfiguracion().getReservasMinimas()) {%>
                         <div class="col s3">
-                            <div class="imagen">
-                                <img src="Imagenes/minecraft.jpg"/>
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="<%= j.getCover()%>">
+                                    <span class="card-title black right"><b>$ <%= j.getPrecio()%></b></span>
+                                    <!-- Here we can put info and show it over the image! :D -->
+                                </div>
 
-                                <h5 class="center">Minecraft</h5>
+                                <div class="card-action">
+                                    <a href="info-juego?idJuego=<%= j.getId()%>">Ver juego</a>
+                                </div>
                             </div>
-                            <a class="btn right" href="#!">Ver detalles</a>
                         </div>
-                        <div class="col s3">
-                            <div class="imagen">
-                                <img src="Imagenes/overwatch.jpg"/>
-
-                                <h5 class="center">Overwatch</h5>
-                            </div>
-                            <a class="btn right" href="#!">Ver detalles</a>
-                        </div>
-                        <div class="col s3">
-                            <div class="imagen">
-                                <img src="Imagenes/lifeisstrange.jpg"/>
-
-                                <h5 class="center">Life is strange</h5>
-                            </div>
-                            <a class="btn right" href="#!">Ver detalles</a>
-                        </div>
-                        <div class="col s3">
-                            <div class="imagen">
-                                <img src="Imagenes/f12016.jpg"/>
-                                <h5 class="center">F1 2016</h5>
-                            </div>
-
-                            <a class="btn right" href="#!">Ver detalles</a>
-                        </div>
+                        <% } %>
+                        <% } %>
                     </div>
                 </div>
 
@@ -101,7 +86,7 @@
                             </div>
                         </div>
                     </form>
-                    <% } %>
+                    <% }%>
                 </div>
             </div>
     </body>
