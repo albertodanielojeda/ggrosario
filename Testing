@@ -1,0 +1,31 @@
+## Tips and steps for successful testing
+
+- Work on the ggrosario-testing data base (must be empty)
+
+- in pom.xml set to true the value of the 
+```
+<skipTests></skipTests>
+```
+configuration to skip unit test and be able to initialize the system for the first time.
+
+- Turn off Glassfish server
+
+- Clean the project
+
+- Turn on Glassfish server
+
+- Initialize the system
+
+- Stop Glassfish server
+
+- in pom.xml set to **false** the value of the 
+
+```
+<skipTests></skipTests>
+```
+
+configuration to skip unit test and be able to initialize the system for the first time.
+
+- Start Glassfish server again
+
+- Feel free to run just the UnitTests or the entrie project and test!
