@@ -1,9 +1,9 @@
 package com.herokuapp.ggrosario.servlet.comentario;
 
+import com.herokuapp.ggrosario.modelo.Comentario;
 import com.herokuapp.ggrosario.modelo.Juego;
 import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +63,7 @@ public class AgregarComentarioServlet extends HttpServlet {
         Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario");
         Juego unJuego = (Juego)request.getSession().getAttribute("unJuego");
         
-        miUsuario.comentar(comentarioEnviado, unJuego);
+        miUsuario.addComentario(new Comentario(comentarioEnviado, miUsuario, unJuego));
         response.sendRedirect("info-juego?idJuego="+unJuego.getId());
     }
 
