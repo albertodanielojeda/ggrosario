@@ -3,6 +3,7 @@
     Created on : 21/08/2016, 18:02:05
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.UsuarioComentario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Reserva"%>
 <%@page import="com.herokuapp.ggrosario.modelo.ListaDeseosJuegos"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Comentario"%>
@@ -73,8 +74,8 @@
                         </div>
                         <div id="misComentarios" class="col s12">
                             <div class="collection">
-                                <% for (Comentario comment : miUsuario.getComentarios()) { %>
-                                <a href="#!" class="collection-item"><%= comment.getDescripcion()%></a>
+                                <% for (UsuarioComentario usuarioComentario : miUsuario.getComentarios()) { %>
+                                <a href="#!" class="collection-item"><%= usuarioComentario.getUnComentario().getDescripcion()%></a>
                                 <% } %>
                             </div>
                         </div>
