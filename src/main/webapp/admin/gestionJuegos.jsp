@@ -45,7 +45,7 @@
                                 <td><img src="<%= juego.getCover()%>" height="20%" width="20%"/></td>
                                 <td><%= juego.getNombre()%></td>
                                 <td><%= juego.getPrecio()%></td>
-                                <td><%= juego.getStock()%></td>
+                                <td><%= juego.getStock().getCantidad() %></td>
                                 <td><%= juego.getFechaAlta().toString().split(" ")[0]%></td>                                
                                 <td><a href="verDetallesJuego?idJuego=<%= juego.getId()%>">Ver detalles</a></td>
                             </tr>
