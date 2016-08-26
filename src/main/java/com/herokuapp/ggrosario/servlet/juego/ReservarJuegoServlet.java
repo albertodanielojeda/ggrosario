@@ -2,6 +2,7 @@ package com.herokuapp.ggrosario.servlet.juego;
 
 import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.modelo.Juego;
+import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -51,7 +52,7 @@ public class ReservarJuegoServlet extends HttpServlet {
 
             try {
                 Juego unJuego = (Juego) request.getSession().getAttribute("unJuego");
-                miUsuario.addJuegoToReservas(unJuego);
+                Tienda.getInstance().addReserva("Valida", miUsuario, unJuego);
                 response.getWriter().print("Listo!");
             } catch (JuegoException ex) {
                 response.getWriter().print(ex.getMessage());
