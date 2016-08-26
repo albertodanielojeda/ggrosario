@@ -42,9 +42,10 @@
                                 <li>
                                     <div class="collapsible-header"><i class="material-icons">cloud</i><%= unaReserva.getUnJuego().getNombre()%></div>
                                     <div class="collapsible-body">
-                                        <p>Precio: <%= unaReserva.getUnJuego().getPrecio()%></p>
-                                        <p>Realizada: <%= unaReserva.getFechaAlta().toString()%></p>
-                                        <p>Vence: <%= unaReserva.getFechaBaja().toString()%></p>
+                                        <p>Precio: <%= unaReserva.getUnJuego().getPrecio() %></p>
+                                        <p>Realizada: <%= unaReserva.getFechaAltaAsString() %></p>
+                                        <p>Vence: <%= unaReserva.getFechaBajaAsString() %></p>
+                                        <p>Estado: <%= unaReserva.getEstadoReserva().getDescripcion() %></p>
                                     </div>
                                 </li>
                                 <% } %>
