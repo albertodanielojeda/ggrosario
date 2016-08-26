@@ -50,7 +50,7 @@ public class ReservarJuegoServlet extends HttpServlet {
         if (miUsuario.getNick().equals(idUsuario)) {
 
             try {
-                Juego unJuego = (Juego)request.getSession().getAttribute("unJuego");
+                Juego unJuego = (Juego) request.getSession().getAttribute("unJuego");
                 miUsuario.addJuegoToReservas(unJuego);
                 response.getWriter().print("Listo!");
             } catch (JuegoException ex) {

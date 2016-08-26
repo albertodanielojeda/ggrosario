@@ -42,5 +42,6 @@
         <mapping class="com.herokuapp.ggrosario.modelo.UsuarioComentario"/>
         <mapping class="com.herokuapp.ggrosario.modelo.JuegoComentario"/>
         <mapping class="com.herokuapp.ggrosario.modelo.JuegoReserva"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.Stock"/>
     </session-factory>
 </hibernate-configuration>

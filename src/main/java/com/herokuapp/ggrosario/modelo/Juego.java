@@ -38,8 +38,8 @@ public class Juego implements Serializable {
     @Column(name = "precio")
     private double precio;
 
-    @Column(name = "stock")
-    private int stock;
+    @OneToOne
+    private Stock stock;
 
     @ManyToOne
     private Categoria unaCategoria;
@@ -85,9 +85,7 @@ public class Juego implements Serializable {
      *
      * @param nombre Nombre del juego
      * @param descripcion Descripción del juego
-     * @param precio Precio del juegi
-     * @param stock Cantidad de unidades del juego disponibles desde que se
-     * registra en el sistema
+     * @param precio Precio del juego
      * @param requisitosMinimos Requisitos mínimos que debe cumplir una computadora 
      * para ejecutar el juego
      * @param requisitosRecomendados Requisitos recomendados que debe cumplir una 
@@ -96,12 +94,11 @@ public class Juego implements Serializable {
      * @param unCatalogo El catálogo al que pertenece el juego
      * @param unaTienda La tienda que vende el juego
      */
-    public Juego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Tienda unaTienda, Requisito requisitosMinimos, Requisito requisitosRecomendados) {
+    public Juego(String nombre, String descripcion, double precio, String cover, Catalogo unCatalogo, Tienda unaTienda, Requisito requisitosMinimos, Requisito requisitosRecomendados) {
         this();
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.stock = stock;
         this.cover = cover;
         this.unaTienda = unaTienda;
         this.fechaAlta = new Date();
@@ -120,19 +117,16 @@ public class Juego implements Serializable {
      *
      * @param nombre Nombre del juego
      * @param descripcion Descripción del juego
-     * @param precio Precio del juegi
-     * @param stock Cantidad de unidades del juego disponibles desde que se
-     * registra en el sistema
+     * @param precio Precio del juego
      * @param cover URL a la portada del juego
      * @param unCatalogo El catálogo al que pertenece el juego
      * @param unaCategoria La categoría del catálogo a la que pertenece el juego
      * @param unaTienda La tienda que vende el juego
      */
-    public Juego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Categoria unaCategoria, Tienda unaTienda) {
+    public Juego(String nombre, String descripcion, double precio, String cover, Catalogo unCatalogo, Categoria unaCategoria, Tienda unaTienda) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.stock = stock;
         this.cover = cover;
         this.unaTienda = unaTienda;
         this.fechaAlta = new Date();
@@ -191,19 +185,19 @@ public class Juego implements Serializable {
         this.precio = precio;
     }
 
-    public boolean isStock() {
-        if (this.stock > 0) {
+    public boolean hasStock() {
+        if (this.stock.getCantidad() > 0) {
             return true;
         }
         return false;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Stock stock) {
         this.stock = stock;
         HibernateUtil.actualizar(this);
     }
 
-    public int getStock() {
+    public Stock getStock() {
         return stock;
     }
 

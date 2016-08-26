@@ -50,6 +50,9 @@ public class Tienda implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "unaTienda")
     private List<Juego> juegos;
+    
+    @OneToMany(mappedBy = "unaTienda")
+    private List<Stock> stocks;
 
     private Configuracion unaConfiguracion;
 
@@ -61,6 +64,7 @@ public class Tienda implements Serializable {
         this.usuarios = new ArrayList<>();
         this.roles = new ArrayList<>();
         this.juegos = new ArrayList<>();
+        this.stocks = new ArrayList<>();
     }
 
     /**
@@ -215,13 +219,18 @@ public class Tienda implements Serializable {
      * @param unCatalogo El catálogo al que pertenece el juego
      * @param unaCategoria La categoría del catálogo a la que pertenece el juego
      */
-    public void addJuego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Categoria unaCategoria) throws JuegoException {
+    public void addJuego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Categoria unaCategoria, Requisito requisitosMinimos, Requisito requisitosRecomendados) throws JuegoException {
         for (Juego unJuego : this.juegos) {
             if (unJuego.getNombre().equals(nombre)) {
                 throw new JuegoException("El juego ya está registrado en la tienda");
             }
         }
-        this.juegos.add(new Juego(nombre, descripcion, precio, stock, cover, unCatalogo, unaCategoria, this));
+        Juego unJuego = new Juego(nombre, descripcion, precio, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados);
+        Stock unStock = new Stock(stock, this, unJuego);
+        unJuego.setStock(unStock);
+        this.juegos.add(unJuego);
+        this.stocks.add(unStock);
+        //HibernateUtil.actualizar(this);
     }
     
     /**
@@ -246,7 +255,11 @@ public class Tienda implements Serializable {
                 throw new JuegoException("El juego ya está registrado en la tienda");
             }
         }
-        this.juegos.add(new Juego(nombre, descripcion, precio, stock, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados));
+        Juego unJuego = new Juego(nombre, descripcion, precio, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados);
+        Stock unStock = new Stock(stock, this, unJuego);
+        unJuego.setStock(unStock);
+        this.juegos.add(unJuego);
+        this.stocks.add(unStock);
         //HibernateUtil.actualizar(this);
     }
 
@@ -365,6 +378,14 @@ public class Tienda implements Serializable {
 
     public void setJuegos(List<Juego> juegos) {
         this.juegos = juegos;
+    }
+
+    public List<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<Stock> stocks) {
+        this.stocks = stocks;
     }
 
     public Configuracion getUnaConfiguracion() {
