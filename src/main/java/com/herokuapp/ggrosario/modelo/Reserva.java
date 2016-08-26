@@ -2,14 +2,18 @@ package com.herokuapp.ggrosario.modelo;
 
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,10 +37,15 @@ public class Reserva implements Serializable {
     private Juego unJuego;
 
     @Column(name = "fecha_alta")
-    private GregorianCalendar fechaAlta;
+    private Calendar fechaAlta;
 
     @Column(name = "fecha_baja")
-    private GregorianCalendar fechaBaja;
+    private Calendar fechaBaja;
+
+    @OneToOne(mappedBy = "unaReserva")
+    private EstadoReserva estadoReserva;
+
+    private static final SimpleDateFormat formatoDia = new SimpleDateFormat("dd/mm/yyyy");
 
     /**
      * Constructor nulo
@@ -54,9 +63,12 @@ public class Reserva implements Serializable {
         this();
         this.unUsuario = (Usuario) unUsuario;
         this.unJuego = (Juego) unJuego;
-        this.fechaAlta = new GregorianCalendar();
-        this.fechaBaja = this.fechaAlta;
-        this.fechaBaja.add(Calendar.DAY_OF_MONTH, 5); // Try to get out of hardcoding this
+        this.fechaAlta = Calendar.getInstance();
+        this.fechaBaja = Calendar.getInstance();
+        Date fechaActual = new Date();
+        this.fechaAlta.setTime(fechaActual);
+        this.fechaBaja.setTime(fechaActual);
+        this.fechaBaja.add(Calendar.DATE, Tienda.getInstance().getUnaConfiguracion().getDiasValidezReserva());
         HibernateUtil.guardar(this);
     }
 
@@ -72,14 +84,14 @@ public class Reserva implements Serializable {
     public boolean isJuego(Juego unJuego) {
         return this.unJuego == unJuego;
     }
-    
-    public boolean isValida(){
-        if (new GregorianCalendar().before(this.fechaBaja)){
+
+    public boolean isValida() {
+        if (new GregorianCalendar().before(this.fechaBaja)) {
             return true;
         }
         return false;
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public int getId() {
         return id;
@@ -105,19 +117,36 @@ public class Reserva implements Serializable {
         this.unJuego = unJuego;
     }
 
-    public GregorianCalendar getFechaAlta() {
-        return fechaAlta;
+    public EstadoReserva getEstadoReserva() {
+        return estadoReserva;
     }
 
-    public void setFechaAlta(GregorianCalendar fechaAlta) {
+    public void setEstadoReserva(EstadoReserva estadoReserva) {
+        this.estadoReserva = estadoReserva;
+        HibernateUtil.actualizar(this);
+    }
+
+    public String getFechaAltaAsString() {
+        return formatoDia.format(fechaAlta.getTime());
+    }
+    
+    public Calendar getFecha() {
+        return fechaAlta;
+    }
+    
+    public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
-    public GregorianCalendar getFechaBaja() {
+    public String getFechaBajaAsString() {
+        return formatoDia.format(fechaBaja.getTime());
+    }
+    
+    public Calendar getFechaBaja() {
         return fechaBaja;
     }
 
-    public void setFechaBaja(GregorianCalendar fechaBaja) {
+    public void setFechaBaja(Calendar fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
     // <editor-fold>

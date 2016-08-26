@@ -60,13 +60,13 @@ public class Juego implements Serializable {
 
     @ManyToOne
     private Tienda unaTienda;
-    
+
     @OneToMany(mappedBy = "unJuego")
     private List<ListaDeseosJuegos> unaListaDeseosJuegos;
 
     @OneToMany(mappedBy = "unJuego")
     private List<JuegoComentario> juegosComentarios;
-    
+
     @OneToMany(mappedBy = "unJuego")
     private List<JuegoReserva> reservas;
 
@@ -86,10 +86,10 @@ public class Juego implements Serializable {
      * @param nombre Nombre del juego
      * @param descripcion Descripción del juego
      * @param precio Precio del juego
-     * @param requisitosMinimos Requisitos mínimos que debe cumplir una computadora 
-     * para ejecutar el juego
-     * @param requisitosRecomendados Requisitos recomendados que debe cumplir una 
+     * @param requisitosMinimos Requisitos mínimos que debe cumplir una
      * computadora para ejecutar el juego
+     * @param requisitosRecomendados Requisitos recomendados que debe cumplir
+     * una computadora para ejecutar el juego
      * @param cover URL a la portada del juego
      * @param unCatalogo El catálogo al que pertenece el juego
      * @param unaTienda La tienda que vende el juego
@@ -140,15 +140,16 @@ public class Juego implements Serializable {
         }
         HibernateUtil.guardar(this);
     }
-    
+
     public void addComentario(Comentario unComentario) {
         this.juegosComentarios.add(new JuegoComentario(this, unComentario));
         HibernateUtil.actualizar(this);
     }
-    
-    public void addReserva(Reserva unaReserva){
+
+    public void addReserva(Reserva unaReserva) {
         JuegoReserva juegoReserva = new JuegoReserva(this, unaReserva);
         this.reservas.add(juegoReserva);
+        this.getStock().setCantidad(this.getStock().getCantidad() - 1);
         HibernateUtil.actualizar(this);
     }
 
@@ -300,8 +301,4 @@ public class Juego implements Serializable {
     }
 
     // </editor-fold>
-
-   
-
-    
 }
