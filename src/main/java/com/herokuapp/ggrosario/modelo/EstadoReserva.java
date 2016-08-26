@@ -17,32 +17,32 @@ import javax.persistence.Table;
  * @author Ojeda Alberto Daniel
  */
 @Entity
-@Table(name = "stocks")
-public class Stock implements Serializable {
-
+@Table(name = "estados_reservas")
+public class EstadoReserva implements Serializable{
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Column(name = "cantidad")
-    private int cantidad;
-
+    
+    @Column(name = "descripcion")
+    private String descripcion;
+    
     @ManyToOne
     @JoinColumn(name = "fk_tienda_nombre", referencedColumnName = "nombre")
     private Tienda unaTienda;
+    
+    @ManyToOne
+    @JoinColumn(name = "fk_reserva_id", referencedColumnName = "id")
+    private Reserva unaReserva;
 
-    @OneToOne
-    @JoinColumn(name = "fk_juego_id", referencedColumnName = "id")
-    private Juego unJuego;
-
-    public Stock() {
+    public EstadoReserva() {
     }
 
-    public Stock(int cantidad, Tienda unaTienda, Juego unJuego) {
+    public EstadoReserva(String descripcion, Tienda unaTienda, Reserva unaReserva) {
         this();
-        this.cantidad = cantidad;
+        this.descripcion = descripcion;
         this.unaTienda = (Tienda) unaTienda;
-        this.unJuego = (Juego) unJuego;
+        this.unaReserva = (Reserva) unaReserva;
         HibernateUtil.guardar(this);
     }
 
@@ -54,15 +54,6 @@ public class Stock implements Serializable {
         this.id = id;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-        HibernateUtil.actualizar(this);
-    }
-
     public Tienda getUnaTienda() {
         return unaTienda;
     }
@@ -71,12 +62,20 @@ public class Stock implements Serializable {
         this.unaTienda = unaTienda;
     }
 
-    public Juego getUnJuego() {
-        return unJuego;
+    public Reserva getUnaReserva() {
+        return unaReserva;
     }
 
-    public void setUnJuego(Juego unJuego) {
-        this.unJuego = unJuego;
+    public void setUnaReserva(Reserva unaReserva) {
+        this.unaReserva = unaReserva;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
 }
