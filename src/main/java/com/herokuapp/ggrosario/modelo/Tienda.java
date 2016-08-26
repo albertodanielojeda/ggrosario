@@ -28,7 +28,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "tienda")
 public class Tienda implements Serializable {
-    
+
     /* Columnas */
     @Id
     @Column(name = "nombre")
@@ -50,9 +50,12 @@ public class Tienda implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "unaTienda")
     private List<Juego> juegos;
-    
+
     @OneToMany(mappedBy = "unaTienda")
     private List<Stock> stocks;
+
+    @OneToMany(mappedBy = "unaTienda")
+    private List<EstadoReserva> estadosReservas;
 
     private Configuracion unaConfiguracion;
 
@@ -65,6 +68,7 @@ public class Tienda implements Serializable {
         this.roles = new ArrayList<>();
         this.juegos = new ArrayList<>();
         this.stocks = new ArrayList<>();
+        this.estadosReservas = new ArrayList<>();
     }
 
     /**
@@ -79,14 +83,13 @@ public class Tienda implements Serializable {
         this.unaConfiguracion = (Configuracion) unaConfiguracion;
         HibernateUtil.guardar(this);
     }
-    
+
     /* Implementación del patrón Singleton */
-    
     private static Tienda instance;
-    
-    public synchronized static Tienda getInstance(){
-        if (instance == null){
-            instance = (Tienda)HibernateUtil.obtener("GG Rosario", "Tienda");
+
+    public synchronized static Tienda getInstance() {
+        if (instance == null) {
+            instance = (Tienda) HibernateUtil.obtener("GG Rosario", "Tienda");
         }
         //System.out.println(instance);
         return instance;
@@ -176,9 +179,10 @@ public class Tienda implements Serializable {
 
     /**
      * Agrega un catálogo a la tienda
+     *
      * @param nombre Nombre del catálogo a agregar
-     * @throws CatalogoException Cuando la tienda ya tiene un catálogo con el nombre
-     * especificado
+     * @throws CatalogoException Cuando la tienda ya tiene un catálogo con el
+     * nombre especificado
      */
     public void addCatalogo(String nombre) throws CatalogoException {
         for (Catalogo unCatalogo : this.catalogos) {
@@ -189,13 +193,14 @@ public class Tienda implements Serializable {
         this.catalogos.add(new Catalogo(nombre, this));
         HibernateUtil.actualizar(this);
     }
-    
+
     /**
      * Intenta buscar y recuperar un catálogo según su ID
+     *
      * @param id ID del catálogo a recuperar
      * @return Una instancia de la clase Catalogo si la tienda tiene un catálogo
-     * con el ID especificado o <code>null</code> si la tienda no tiene ningún catálogo
-     * con el ID especificado
+     * con el ID especificado o <code>null</code> si la tienda no tiene ningún
+     * catálogo con el ID especificado
      */
     public Catalogo getUnCatalogo(int id) {
         for (Catalogo unCatalogo : this.catalogos) {
@@ -232,7 +237,7 @@ public class Tienda implements Serializable {
         this.stocks.add(unStock);
         //HibernateUtil.actualizar(this);
     }
-    
+
     /**
      * Agrega un juego a la colección de juegos de la tienda (cuando la tienda
      * se organiza únicamente por catálogos)
@@ -241,11 +246,10 @@ public class Tienda implements Serializable {
      * @param descripcion Descripción del juego
      * @param precio Precio del juegi
      * @param stock Cantidad de unidades del juego disponibles desde que se
-     * @param requisitosMinimos Requisitos mínimos que debe cumplir una computadora 
-     * para ejecutar el juego
-     * @param requisitosRecomendados Requisitos recomendados que debe cumplir una 
+     * @param requisitosMinimos Requisitos mínimos que debe cumplir una
      * computadora para ejecutar el juego
-     * registra en el sistema
+     * @param requisitosRecomendados Requisitos recomendados que debe cumplir
+     * una computadora para ejecutar el juego registra en el sistema
      * @param cover URL a la portada del juego
      * @param unCatalogo El catálogo al que pertenece el juego
      */
@@ -295,26 +299,27 @@ public class Tienda implements Serializable {
         }
         return juegosOrdenadosMasRecientes;
     }
-    
+
     /**
-     * Ordena los juegos de la tienda en orden decreciente
-     * según la demanda en sus reservas
-     * @return una lista de juegos ordenada en orden decreciente
-     * según la demanda en sus reservas
+     * Ordena los juegos de la tienda en orden decreciente según la demanda en
+     * sus reservas
+     *
+     * @return una lista de juegos ordenada en orden decreciente según la
+     * demanda en sus reservas
      */
-    public List<Juego> ordenarJuegosMasReservados(){
+    public List<Juego> ordenarJuegosMasReservados() {
         List<Juego> juegosMasReservados = this.juegos;
-        Collections.sort(juegosMasReservados, new Comparator<Juego>(){
+        Collections.sort(juegosMasReservados, new Comparator<Juego>() {
             @Override
             public int compare(Juego o1, Juego o2) {
                 int valor = 0;
-                if (o1.getReservas().size() == o2.getReservas().size()){
+                if (o1.getReservas().size() == o2.getReservas().size()) {
                     valor = 0;
                 }
-                if (o1.getReservas().size() >= o2.getReservas().size()){
+                if (o1.getReservas().size() >= o2.getReservas().size()) {
                     valor = -1;
                 }
-                if (o1.getReservas().size() <= o2.getReservas().size()){
+                if (o1.getReservas().size() <= o2.getReservas().size()) {
                     valor = 1;
                 }
                 return valor;
@@ -337,6 +342,25 @@ public class Tienda implements Serializable {
             ultimos--;
         }
         return ultimosJuegos;
+    }
+    
+    /**
+     * Añade una reserva
+     * @param descripcion Descripción del estado de la reserva
+     * @param unUsuario Usuario que quiere hacer la reserva
+     * @param unJuego Juego que el usario quiere reservar
+     * @throws JuegoException Si el juego ya está reservado por el usuario
+     */
+    public synchronized void addReserva(String descripcion, Usuario unUsuario, Juego unJuego) throws JuegoException {
+        if (unUsuario.tieneReservado(unJuego)) {
+            throw new JuegoException("El juego ya está reservado por el usuario");
+        }
+        Reserva unaReserva = new Reserva(unUsuario, unJuego);
+        EstadoReserva estadoReserva = new EstadoReserva(descripcion, this, unaReserva);
+        unaReserva.setEstadoReserva(estadoReserva);
+        this.estadosReservas.add(estadoReserva);
+        unUsuario.addJuegoToReservas(unJuego, unaReserva);
+        unJuego.addReserva(unaReserva);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
@@ -386,6 +410,14 @@ public class Tienda implements Serializable {
 
     public void setStocks(List<Stock> stocks) {
         this.stocks = stocks;
+    }
+
+    public List<EstadoReserva> getEstadosReservas() {
+        return estadosReservas;
+    }
+
+    public void setEstadosReservas(List<EstadoReserva> estadosReservas) {
+        this.estadosReservas = estadosReservas;
     }
 
     public Configuracion getUnaConfiguracion() {

@@ -149,15 +149,10 @@ public class Usuario implements Serializable {
      * Agrega un juego a su lista de reservas
      *
      * @param unJuego Juego que el usuario quiere agregar a su lista de reservas
-     * @throws JuegoException Si el juego ya está reservado
+     * @param unaReserva Reserva asignada al usuario
      */
-    public void addJuegoToReservas(Juego unJuego) throws JuegoException {
-        if (tieneReservado(unJuego)) {
-            throw new JuegoException("El juego ya está reservado por el usuario");
-        }
-        Reserva unaReserva = new Reserva(this, unJuego);
+    public void addJuegoToReservas(Juego unJuego, Reserva unaReserva){
         this.reservas.add(unaReserva);
-        unJuego.addReserva(unaReserva);
     }
 
     /**
