@@ -57,10 +57,10 @@ public class Usuario implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Rol> roles;
-    
+
     @OneToMany(mappedBy = "unUsuario")
     private List<Reserva> reservas;
-    
+
     @OneToMany(mappedBy = "unUsuario")
     private List<UsuarioComentario> comentarios;
 
@@ -72,9 +72,10 @@ public class Usuario implements Serializable {
         this.comentarios = new ArrayList<>();
         this.reservas = new ArrayList<>();
     }
-    
+
     /**
      * Constructor para instanciar un usuario
+     *
      * @param email E-Mail del usuario
      * @param nick Nick del usuario
      * @param password Contraseña del usuario
@@ -123,7 +124,7 @@ public class Usuario implements Serializable {
      * <code>false</code> en caso contrario
      */
     public boolean hasRol(Rol unRol) {
-        if (this.roles.contains(unRol)){
+        if (this.roles.contains(unRol)) {
             return true;
         }
         return false;
@@ -143,39 +144,39 @@ public class Usuario implements Serializable {
         }
         return false;
     }
-    
+
     /**
      * Agrega un juego a su lista de reservas
-     * 
+     *
      * @param unJuego Juego que el usuario quiere agregar a su lista de reservas
      * @throws JuegoException Si el juego ya está reservado
      */
-    public void addJuegoToReservas(Juego unJuego) throws JuegoException{
-        if (tieneReservado(unJuego)){
+    public void addJuegoToReservas(Juego unJuego) throws JuegoException {
+        if (tieneReservado(unJuego)) {
             throw new JuegoException("El juego ya está reservado por el usuario");
         }
         Reserva unaReserva = new Reserva(this, unJuego);
         this.reservas.add(unaReserva);
         unJuego.addReserva(unaReserva);
     }
-    
+
     /**
      * Revisa si un juego existe o no en la lista de reservas del usuario
-     * 
+     *
      * @param unJuego Juego a revisar si está reservado o no por el usuario
-     * @return <code>true</code> si el usuario ha reservado el juego, o <code>false</code>
-     * en caso contrario
+     * @return <code>true</code> si el usuario ha reservado el juego, o
+     * <code>false</code> en caso contrario
      */
-    public boolean tieneReservado(Juego unJuego){
-        for (Reserva unaReserva : this.reservas){
-            if (unaReserva.getUnJuego() == unJuego){
+    public boolean tieneReservado(Juego unJuego) {
+        for (Reserva unaReserva : this.reservas) {
+            if (unaReserva.getUnJuego() == unJuego) {
                 return true;
             }
         }
         return false;
     }
-    
-    public void addComentario(Comentario unComentario){
+
+    public void addComentario(Comentario unComentario) {
         UsuarioComentario usuarioComentario = new UsuarioComentario(this, unComentario);
         this.comentarios.add(usuarioComentario);
         unComentario.getUnJuego().addComentario(unComentario);
@@ -278,7 +279,6 @@ public class Usuario implements Serializable {
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
     }
-    
+
     // </editor-fold>
-    
 }
