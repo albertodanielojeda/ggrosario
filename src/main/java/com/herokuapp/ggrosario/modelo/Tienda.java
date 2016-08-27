@@ -155,7 +155,7 @@ public class Tienda implements Serializable {
             }
         }
         this.roles.add(new Rol(nombre));
-        //HibernateUtil.actualizar(this);
+        HibernateUtil.actualizar(this);
     }
 
     /**
