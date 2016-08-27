@@ -73,7 +73,7 @@
                                 <input id="fecha-nacimiento" type="date" class="datepicker" name="fecha-nacimiento" />
                             </div>
                             <div class="input-field col s6">
-                                <button class="btn" type="submit" name="btnLogin">¡Registrarme!</button>
+                                <button class="btn" type="submit" name="btnSignup">¡Registrarme!</button>
                             </div>
                         </div>
                     </form>

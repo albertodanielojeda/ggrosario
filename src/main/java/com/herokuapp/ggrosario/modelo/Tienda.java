@@ -110,7 +110,7 @@ public class Tienda implements Serializable {
      * alguno de los siguientes datos: email, nick o telefono
      *
      */
-    public void addUsuario(String email, String nick, String password, Date fechaNacimiento, String nombre, String apellido, String telefono, Rol unRol) throws UsuarioException {
+    public synchronized void addUsuario(String email, String nick, String password, Date fechaNacimiento, String nombre, String apellido, String telefono, Rol unRol) throws UsuarioException {
         for (Usuario unUsuario : this.usuarios) {
             if (unUsuario.getEmail().equals(email)) {
                 throw new UsuarioException("Ya se ha registrado un usuario con ese e-mail");

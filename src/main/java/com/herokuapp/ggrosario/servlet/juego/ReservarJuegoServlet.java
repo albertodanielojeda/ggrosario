@@ -49,7 +49,7 @@ public class ReservarJuegoServlet extends HttpServlet {
         String idUsuario = request.getParameter("idUsuario");
         Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
         if (miUsuario.getNick().equals(idUsuario)) {
-
+            
             try {
                 Juego unJuego = (Juego) request.getSession().getAttribute("unJuego");
                 Tienda.getInstance().addReserva("Valida", miUsuario, unJuego);
