@@ -44,6 +44,8 @@ public class Rol implements Serializable {
     public Rol(String nombre) {
         this();
         this.nombre = nombre;
+        this.permisos = new Permisos();
+        this.permisos.setPermisosNuevoRol();
         HibernateUtil.guardar(this);
     }
 
@@ -62,7 +64,6 @@ public class Rol implements Serializable {
 
     public void setPermisos(Permisos permisos) {
         this.permisos = permisos;
-        this.permisos.setUnRol(this);
         HibernateUtil.actualizar(this);
     }
 

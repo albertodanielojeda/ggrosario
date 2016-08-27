@@ -1,5 +1,6 @@
 package com.herokuapp.ggrosario.modelo;
 
+import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -97,15 +98,11 @@ public class Permisos implements Serializable {
     @Column(name="acceso_panel_administracion")
     private boolean accederPanelAdministracion;
     
-    @OneToOne
-    private Rol unRol;
-    
     public Permisos() {
-        //this.roles = new ArrayList<>();
         //HibernateUtil.guardar(this);
     }
 
-    public Permisos(boolean altaRol, boolean bajaRol, boolean modificarRol, boolean altaAdministrador, boolean bajaAdministrador, boolean modificarAdministrador, boolean altaEmpleado, boolean bajaEmpleado, boolean modificarEmpleado, boolean altaCliente, boolean bajaCliente, boolean modificarCliente, boolean altaCatalogo, boolean bajaCatalogo, boolean modificarCatalogo, boolean altaCategoria, boolean bajaCategoria, boolean modificarCategoria, boolean altaJuego, boolean bajaJuego, boolean modificarJuego, boolean altaReserva, boolean bajaReserva, boolean modificarReserva, Rol unRol) {
+    public Permisos(boolean altaRol, boolean bajaRol, boolean modificarRol, boolean altaAdministrador, boolean bajaAdministrador, boolean modificarAdministrador, boolean altaEmpleado, boolean bajaEmpleado, boolean modificarEmpleado, boolean altaCliente, boolean bajaCliente, boolean modificarCliente, boolean altaCatalogo, boolean bajaCatalogo, boolean modificarCatalogo, boolean altaCategoria, boolean bajaCategoria, boolean modificarCategoria, boolean altaJuego, boolean bajaJuego, boolean modificarJuego, boolean altaReserva, boolean bajaReserva, boolean modificarReserva) {
         this();
         this.altaRol = altaRol;
         this.bajaRol = bajaRol;
@@ -159,6 +156,35 @@ public class Permisos implements Serializable {
         this.bajaReserva = valor;
         this.modificarReserva = valor;
         this.accederPanelAdministracion = valor;
+        //HibernateUtil.actualizar(this);
+    }
+    
+    public void setPermisosNuevoRol(){
+        this.altaRol = false;
+        this.bajaRol = false;
+        this.modificarRol = false;
+        this.altaAdministrador = false;
+        this.bajaAdministrador = false;
+        this.modificarAdministrador = false;
+        this.altaEmpleado = false;
+        this.bajaEmpleado = false;
+        this.modificarEmpleado = false;
+        this.altaCliente = false;
+        this.bajaCliente = false;
+        this.modificarCliente = false;
+        this.altaCatalogo = false;
+        this.bajaCatalogo = false;
+        this.modificarCatalogo = false;
+        this.altaCategoria = false;
+        this.bajaCategoria = false;
+        this.modificarCategoria = false;
+        this.altaJuego = false;
+        this.bajaJuego = false;
+        this.modificarJuego = false;
+        this.altaReserva = false;
+        this.bajaReserva = false;
+        this.modificarReserva = false;
+        this.accederPanelAdministracion = false;
         //HibernateUtil.actualizar(this);
     }
     
@@ -224,14 +250,6 @@ public class Permisos implements Serializable {
         this.roles.add(unRol);
         //HibernateUtil.actualizar(this);
     }*/
-
-    public Rol getUnRol() {
-        return unRol;
-    }
-
-    public void setUnRol(Rol unRol) {
-        this.unRol = unRol;
-    }
     
     public int getId() {
         return id;
@@ -247,6 +265,7 @@ public class Permisos implements Serializable {
 
     public void setAltaRol(boolean altaRol) {
         this.altaRol = altaRol;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaRol() {
@@ -255,6 +274,7 @@ public class Permisos implements Serializable {
 
     public void setBajaRol(boolean bajaRol) {
         this.bajaRol = bajaRol;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionRol() {
@@ -263,6 +283,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionRol(boolean modificarRol) {
         this.modificarRol = modificarRol;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaAdministrador() {
@@ -271,6 +292,7 @@ public class Permisos implements Serializable {
 
     public void setAltaAdministrador(boolean altaAdministrador) {
         this.altaAdministrador = altaAdministrador;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaAdministrador() {
@@ -279,6 +301,7 @@ public class Permisos implements Serializable {
 
     public void setBajaAdministrador(boolean bajaAdministrador) {
         this.bajaAdministrador = bajaAdministrador;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionAdministrador() {
@@ -287,6 +310,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionAdministrador(boolean modificarAdministrador) {
         this.modificarAdministrador = modificarAdministrador;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaEmpleado() {
@@ -295,6 +319,7 @@ public class Permisos implements Serializable {
 
     public void setAltaEmpleado(boolean altaEmpleado) {
         this.altaEmpleado = altaEmpleado;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaEmpleado() {
@@ -303,6 +328,7 @@ public class Permisos implements Serializable {
 
     public void setBajaEmpleado(boolean bajaEmpleado) {
         this.bajaEmpleado = bajaEmpleado;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionEmpleado() {
@@ -311,6 +337,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionEmpleado(boolean modificarEmpleado) {
         this.modificarEmpleado = modificarEmpleado;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaCliente() {
@@ -319,6 +346,7 @@ public class Permisos implements Serializable {
 
     public void setAltaCliente(boolean altaCliente) {
         this.altaCliente = altaCliente;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaCliente() {
@@ -327,6 +355,7 @@ public class Permisos implements Serializable {
 
     public void setBajaCliente(boolean bajaCliente) {
         this.bajaCliente = bajaCliente;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionCliente() {
@@ -335,6 +364,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionCliente(boolean modificarCliente) {
         this.modificarCliente = modificarCliente;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaCatalogo() {
@@ -343,6 +373,7 @@ public class Permisos implements Serializable {
 
     public void setAltaCatalogo(boolean altaCatalogo) {
         this.altaCatalogo = altaCatalogo;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaCatalogo() {
@@ -351,6 +382,7 @@ public class Permisos implements Serializable {
 
     public void setBajaCatalogo(boolean bajaCatalogo) {
         this.bajaCatalogo = bajaCatalogo;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionCatalogo() {
@@ -359,6 +391,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionCatalogo(boolean modificarCatalogo) {
         this.modificarCatalogo = modificarCatalogo;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaCategoria() {
@@ -367,6 +400,7 @@ public class Permisos implements Serializable {
 
     public void setAltaCategoria(boolean altaCategoria) {
         this.altaCategoria = altaCategoria;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaCategoria() {
@@ -375,6 +409,7 @@ public class Permisos implements Serializable {
 
     public void setBajaCategoria(boolean bajaCategoria) {
         this.bajaCategoria = bajaCategoria;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionCategoria() {
@@ -383,6 +418,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionCategoria(boolean modificarCategoria) {
         this.modificarCategoria = modificarCategoria;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaJuego() {
@@ -391,6 +427,7 @@ public class Permisos implements Serializable {
 
     public void setAltaJuego(boolean altaJuego) {
         this.altaJuego = altaJuego;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaJuego() {
@@ -399,6 +436,7 @@ public class Permisos implements Serializable {
 
     public void setBajaJuego(boolean bajaJuego) {
         this.bajaJuego = bajaJuego;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionJuego() {
@@ -407,6 +445,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionJuego(boolean modificarJuego) {
         this.modificarJuego = modificarJuego;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAltaReserva() {
@@ -415,6 +454,7 @@ public class Permisos implements Serializable {
 
     public void setAltaReserva(boolean altaReserva) {
         this.altaReserva = altaReserva;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canBajaReserva() {
@@ -423,6 +463,7 @@ public class Permisos implements Serializable {
 
     public void setBajaReserva(boolean bajaReserva) {
         this.bajaReserva = bajaReserva;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canModificacionReserva() {
@@ -431,6 +472,7 @@ public class Permisos implements Serializable {
 
     public void setModificacionReserva(boolean modificarReserva) {
         this.modificarReserva = modificarReserva;
+        HibernateUtil.actualizar(this);
     }
 
     public boolean canAccederPanelAdministracion() {
@@ -439,6 +481,7 @@ public class Permisos implements Serializable {
 
     public void setAccederPanelAdministracion(boolean accederPanelAdministracion) {
         this.accederPanelAdministracion = accederPanelAdministracion;
+        HibernateUtil.actualizar(this);
     }
 
     
