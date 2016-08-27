@@ -31,7 +31,7 @@
                         <thead>
                             <tr>
                                 <th data-field="id">Nombre rol</th>
-                                <th data-field="name">Permisos</th>
+                                <th data-field="id">Configurar permisos</th>
                             </tr>
                         </thead>
 
@@ -40,8 +40,7 @@
 
                             <tr id="<%= unRol.getNombre()%>">
                                 <td><%= unRol.getNombre()%></td>
-                                <td><%= unRol.getPermisos()%></td>
-                                <td><a href="verDetallesRol?idRol=<%= unRol.getNombre()%>">Modificar permisos del rol</a></td>
+                                <td><a href="verDetallesRol?idRol=<%= unRol.getNombre()%>">Configurar permisos del rol</a></td>
                             </tr>
                             <%
                                 }%>

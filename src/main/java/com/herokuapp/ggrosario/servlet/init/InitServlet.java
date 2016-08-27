@@ -45,38 +45,27 @@ public class InitServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Configuracion unaConfiguracion = new Configuracion();
         Tienda unaTienda = new Tienda("GG Rosario", unaConfiguracion);
-        Rol unRol;
+        
 
         try {
+            /* Crea rol de administrador */
             unaTienda.addRol("Administrador");
-            unRol = unaTienda.getRol("Administrador");
-            Permisos permisosAdministrador = new Permisos();
-            permisosAdministrador.setCanDoAll(true);
-            unRol.setPermisos(permisosAdministrador);
-        } catch (RolException ex) {
-            Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
+            Rol rolAdministrador = unaTienda.getRol("Administrador");
+            rolAdministrador.getPermisos().setCanDoAll(true);
+            
+            /* Crea rol de empleado */
             unaTienda.addRol("Empleado");
-            unRol = unaTienda.getRol("Empleado");
-            Permisos permisosEmpleados = new Permisos();
-            permisosEmpleados.setPermisosEmpleado();
-            unRol.setPermisos(permisosEmpleados);
-        } catch (RolException ex) {
-            Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
+            Rol rolEmpleado = unaTienda.getRol("Empleado");
+            rolEmpleado.getPermisos().setPermisosEmpleado();
+            
+            /* Crea rol de cliente */
             unaTienda.addRol("Cliente");
-            unRol = unaTienda.getRol("Cliente");
-            Permisos permisosClientes = new Permisos();
-            permisosClientes.setPermisosCliente();
-            unRol.setPermisos(permisosClientes);
+            Rol rolCliente = unaTienda.getRol("Cliente");
+            rolCliente.getPermisos().setPermisosCliente();
         } catch (RolException ex) {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         try {
             unaTienda.addCatalogo("Catálogo de " + unaTienda.getNombre());
         } catch (CatalogoException ex) {
