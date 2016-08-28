@@ -7,6 +7,7 @@
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% if (miRol != null && miRol.getPermisos().canModificacionRol())  { %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -347,3 +348,4 @@
         </div>
     </body>
 </html>
+<% } %>

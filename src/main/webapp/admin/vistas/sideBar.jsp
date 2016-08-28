@@ -9,8 +9,8 @@
     <div class="collection with-header">
         <h4>Gestión</h4>
         <a href="../index" class="collection-item">Home</a>
-        <% for (Rol unRol : unaTienda.getRoles()){ %> 
-        <a href="gestion-usuarios?rol=<%= unRol.getNombre() %>" class="collection-item">Gestión de <%= unRol.getNombre() %></a>
+        <% for (Rol unRol : unaTienda.getRoles()){ %>
+            <a href="gestion-usuarios?rol=<%= unRol.getNombre() %>" class="collection-item">Gestión de <%= unRol.getNombre() %></a>
         <%}%>
         <a href="gestion-catalogos" class="collection-item">Gestión de catálogos</a>
         <a href="#" class="collection-item">Gestión de categorías</a>

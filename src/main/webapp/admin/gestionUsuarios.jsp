@@ -8,8 +8,20 @@
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% boolean puedeEntrar = false; %>
+
+<% for (Rol r : miUsuario.getRoles()) {
+        if (r.getPermisos().canAltaAdministrador() || r.getPermisos().canAltaEmpleado() || r.getPermisos().canAltaCliente()) {
+            puedeEntrar = true;
+            miRol = r;
+        }
+    } %>
+
+
+<% if (puedeEntrar) { %>
 <!DOCTYPE html>
 <html>
+
     <head>
         <%@include file="vistas/assetsAdmin.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,14 +33,16 @@
             }%>
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
-            
+
             <div id="addUsuario" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Registrar un nuevo <%= request.getParameter("rol").toLowerCase()%></h4>
+                    <% if (miRol.getPermisos().canAltaAdministrador() || miRol.getPermisos().canAltaEmpleado() || miRol.getPermisos().canAltaCliente()) {%>
                     <div class="col s5">
                         <form action="../registrar-usuario" method="POST">
                             <input type="text" hidden value="<%= request.getParameter("rol")%>" name="rol"/> <!-- Keep an eye on this -->
-                            <% request.getSession().setAttribute("usuarioRegistrante", miUsuario); %>
+                            <% request.getSession().setAttribute("usuarioRegistrante", miUsuario);
+                            %>
                             <div class="row">
                                 <div class="input-field col s6">
                                     <label for="nombre">Nombre</label>
@@ -73,6 +87,8 @@
                             </div>
                         </form>
                     </div>
+                    <% }
+                       %>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -114,10 +130,15 @@
                                 }%>
                         </tbody>
                     </table>
+                    <% if (miRol.getPermisos().canAltaAdministrador() || miRol.getPermisos().canAltaEmpleado() || miRol.getPermisos().canAltaCliente()) {%>
                     <a href="#addUsuario" class="btn modal-trigger-add-usuario"><i class="material-icons">add</i>Registrar <%= request.getParameter("rol")%></a>
-
+                    <% } %>
                 </div>
             </div>
         </div>
     </body>
+
 </html>
+<% } else {
+        response.sendError(404);
+    }%>

@@ -9,6 +9,16 @@
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% boolean puedeEntrar = false; %>
+
+<% for (Rol r : miUsuario.getRoles()) {
+        if (r.getPermisos().canAltaCatalogo()|| r.getPermisos().canBajaCatalogo()|| r.getPermisos().canModificacionCatalogo()) {
+            puedeEntrar = true;
+            miRol = r;
+        }
+    } %>
+<% if (puedeEntrar) {
+%>
 <!DOCTYPE html>
 <html>
     <head>
