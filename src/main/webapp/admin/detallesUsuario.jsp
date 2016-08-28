@@ -7,6 +7,7 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<% if (miRol != null && miRol.getPermisos().canModificacionAdministrador() || miRol.getPermisos().canModificacionEmpleado() || miRol.getPermisos().canModificacionCliente()) { %>
 <html>
     <head>
         <%@include file="vistas/assetsAdmin.jsp" %>
@@ -26,3 +27,6 @@
         </div>
     </body>
 </html>
+<% } else {
+    response.sendError(404);
+} %>

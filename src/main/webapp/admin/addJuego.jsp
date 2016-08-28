@@ -6,6 +6,7 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Catalogo"%>
 <%@include file="vistas/init.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% if (miRol != null && miRol.getPermisos().canAltaJuego()) { %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -166,3 +167,6 @@
         </div>
     </body>
 </html>
+<% } else {
+    response.sendError(404);
+}%>

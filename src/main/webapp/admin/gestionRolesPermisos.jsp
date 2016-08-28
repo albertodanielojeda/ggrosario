@@ -10,6 +10,17 @@
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% boolean puedeEntrar = false; %>
+
+<% for (Rol r : miUsuario.getRoles()) {
+        if (r.getPermisos().canAltaRol() || r.getPermisos().canBajaRol() || r.getPermisos().canModificacionRol()) {
+            puedeEntrar = true;
+            miRol = r;
+        }
+    } %>
+<% if (puedeEntrar) {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +36,7 @@
                     <%@include file="vistas/sideBar.jsp" %>
                 </div>
                 <div class="col s8">
-                    
+
                     <h3>Gestión de roles y permisos</h3>
                     <table>
                         <thead>
@@ -36,17 +47,20 @@
                         </thead>
 
                         <tbody>
-                            <% for (Rol unRol : unaTienda.getRoles()) { %>
+                            <% for (Rol unRol : unaTienda.getRoles()) {%>
 
                             <tr id="<%= unRol.getNombre()%>">
                                 <td><%= unRol.getNombre()%></td>
-                                <td><a href="verDetallesRol?idRol=<%= unRol.getNombre()%>">Configurar permisos del rol</a></td>
+                                <% if (miRol.getPermisos().canModificacionRol()) { %>
+                                    <td><a href="verDetallesRol?idRol=<%= unRol.getNombre()%>">Configurar permisos del rol</a></td>
+                                <% } %>
                             </tr>
                             <%
                                 }%>
                         </tbody>
                     </table>
-                        <div class="col s5">
+                    <% if (miRol.getPermisos().canAltaRol()) { %>
+                    <div class="col s5">
                         <form action="agregar-rol" method="POST">
                             <div class="row">
                                 <div class="input-field col s6">
@@ -59,8 +73,12 @@
                             </div>
                         </form>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>
     </body>
 </html>
+<% } else {
+        response.sendError(404);
+    }%>

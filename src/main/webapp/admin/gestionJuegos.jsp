@@ -10,6 +10,17 @@
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% boolean puedeEntrar = false; %>
+
+<% for (Rol r : miUsuario.getRoles()) {
+        if (r.getPermisos().canAltaJuego()|| r.getPermisos().canBajaJuego()|| r.getPermisos().canModificacionJuego()) {
+            puedeEntrar = true;
+            miRol = r;
+        }
+    } %>
+<% if (puedeEntrar) {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +38,9 @@
 
                 <div class="col s8">
                     <h3>Gestión de juegos</h3>
+                    <% if (miRol.getPermisos().canAltaJuego()) { %>
                     <a href="agregar-juego" class="btn right"><i class="material-icons">add</i>Agregar juego</a>
+                    <% } %>
                     <table class="highlight centered responsive-table bordered">
                         <thead>
                             <tr>
@@ -46,8 +59,10 @@
                                 <td><%= juego.getNombre()%></td>
                                 <td><%= juego.getPrecio()%></td>
                                 <td><%= juego.getStock().getCantidad() %></td>
-                                <td><%= juego.getFechaAlta().toString().split(" ")[0]%></td>                                
+                                <td><%= juego.getFechaAlta().toString().split(" ")[0]%></td>
+                                <% if (miRol.getPermisos().canModificacionJuego()) { %>
                                 <td><a href="verDetallesJuego?idJuego=<%= juego.getId()%>">Ver detalles</a></td>
+                                <% } %>
                             </tr>
                             <%}%>
                         </tbody>
