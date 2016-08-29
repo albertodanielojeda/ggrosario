@@ -3,6 +3,7 @@
     del rol a considerar es enviado por GET
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="com.herokuapp.ggrosario.modelo.ABMRol"%>
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
@@ -11,11 +12,17 @@
 <% boolean puedeEntrar = false; %>
 
 <% for (Rol r : miUsuario.getRoles()) {
-        if (r.getPermisos().canAltaAdministrador() || r.getPermisos().canAltaEmpleado() || r.getPermisos().canAltaCliente()) {
-            puedeEntrar = true;
-            miRol = r;
+        for (ABMRol abmRol : r.getPermisos().getAbmRoles()) {
+
+            if (abmRol.canAlta() || abmRol.canBaja() || abmRol.canModificar()) {
+                puedeEntrar = true;
+                miRol = r;
+                miABMRol = abmRol;
+            }
         }
-    } %>
+    }
+
+%>
 
 
 <% if (puedeEntrar) { %>
@@ -37,7 +44,7 @@
             <div id="addUsuario" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Registrar un nuevo <%= request.getParameter("rol").toLowerCase()%></h4>
-                    <% if (miRol.getPermisos().canAltaAdministrador() || miRol.getPermisos().canAltaEmpleado() || miRol.getPermisos().canAltaCliente()) {%>
+                    <% if (miABMRol.getPermisos().canAltaUsuario(request.getParameter("rol"))) {%>
                     <div class="col s5">
                         <form action="../registrar-usuario" method="POST">
                             <input type="text" hidden value="<%= request.getParameter("rol")%>" name="rol"/> <!-- Keep an eye on this -->
@@ -131,7 +138,7 @@
                                 }%>
                         </tbody>
                     </table>
-                    <% if (miRol.getPermisos().canAltaAdministrador() || miRol.getPermisos().canAltaEmpleado() || miRol.getPermisos().canAltaCliente()) {%>
+                    <% if (miABMRol.getPermisos().canAltaUsuario(request.getParameter("rol"))) {%>
                     <a href="#addUsuario" class="btn modal-trigger-add-usuario"><i class="material-icons">add</i>Registrar <%= request.getParameter("rol")%></a>
                     <% } %>
                 </div>

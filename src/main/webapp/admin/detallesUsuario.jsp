@@ -6,8 +6,22 @@
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% boolean puedeEntrar = false; %>
+<% for (Rol r : miUsuario.getRoles()) {
+        for (ABMRol abmRol : r.getPermisos().getAbmRoles()) {
+
+            if (abmRol.canAlta() || abmRol.canBaja() || abmRol.canModificar()) {
+                puedeEntrar = true;
+                miRol = r;
+                miABMRol = abmRol;
+            }
+        }
+    }
+
+%>
+<% if (miABMRol != null && puedeEntrar){ %>
+
 <!DOCTYPE html>
-<% if (miRol != null && miRol.getPermisos().canModificacionAdministrador() || miRol.getPermisos().canModificacionEmpleado() || miRol.getPermisos().canModificacionCliente()) { %>
 <html>
     <head>
         <%@include file="vistas/assetsAdmin.jsp" %>
@@ -18,7 +32,9 @@
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
+                <div class="col s4">
                 <%@include file="vistas/sideBar.jsp" %>
+                </div>
                 <div class="col s8">
                     <% Usuario unUsuario = (Usuario) request.getSession().getAttribute("detallesUsuario");%>
                     <h3>Detalles del usuario <b><%= unUsuario.getNick()%></b></h3>

@@ -18,9 +18,9 @@
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo"><%= unaTienda.getNombre()%></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <% if (unUsuario == null || !unUsuario.hasRol(unaTienda.buscarRol("Administrador"))) { %>
+                    <% if (unUsuario == null || !unUsuario.hasRol(unaTienda.buscarRol("Administrador").getNombre())) { %>
                     <%@include file="vistas/menuVisitante.jsp" %>
-                    <% } else if (unUsuario.hasRol(unaTienda.buscarRol("Administrador"))) { %>
+                    <% } else if (unUsuario.hasRol(unaTienda.buscarRol("Administrador").getNombre())) { %>
                     <%@include file="vistas/menuAdministrador.jsp" %>
                     <% }%>
                 </ul>
