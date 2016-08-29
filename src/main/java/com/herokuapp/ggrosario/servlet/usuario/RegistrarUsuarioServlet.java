@@ -39,12 +39,18 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String email = request.getParameter("email");
         String nick = request.getParameter("nick");
         String password = request.getParameter("password");
-        String fechaNacimiento = request.getParameter("fecha-nacimiento");
+        String fechaNacimiento = request.getParameter("fechanacimiento");
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String telefono = request.getParameter("telefono");
         
+        // Cuando se usa el formulario de "Regisrarse"
+        if (rol == null){
+            rol = "Cliente";
+        }
+        
         Tienda unaTienda = Tienda.getInstance();
+        
         try {
             unaTienda.addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, unaTienda.buscarRol(rol));
         } catch (UsuarioException ex) {
@@ -52,7 +58,6 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         }
         request.getSession().setAttribute("unaTienda", unaTienda);
         
-        /** Always goes to else because of the usuarioRegistrante = null **/
         if (usuarioRegistrante != null && usuarioRegistrante.canAccederPanelAdministracion()){
             response.sendRedirect("admin/gestion-usuarios?rol="+rol);
         }else{

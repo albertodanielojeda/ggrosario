@@ -106,6 +106,11 @@
     <!-- Mapeo de páginas de error -->
     <error-page>
         <error-code>404</error-code>
-        <location>/vistas/404.jsp</location>
+        <location>/errores/404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/errores/403.jsp</location>
     </error-page>
 </web-app>
