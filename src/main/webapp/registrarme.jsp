@@ -33,7 +33,6 @@
                 <h4>¡Registrate para poder reservar tus juegos favoritos!</h4>
                 <div class="col s5">
                     <form id="signupForm" action="registrar-usuario" method="POST">
-                        <input type="text" hidden value="Cliente" name="rol"/> <!-- Keep an eye on this -->
                         <div class="row">
                             <div class="input-field col s6">
                                 <label for="nombre">Nombre</label>
