@@ -19,7 +19,9 @@
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
+                <div class="col s4">
                 <%@include file="vistas/sideBar.jsp" %>
+                </div>
                 <div class="col s8">
                     <% Catalogo unCatalogo = (Catalogo) request.getSession().getAttribute("detallesCatalogo");%>
                     <h3>Detalles del catálogo <b><%= unCatalogo.getNombre()%></b></h3>

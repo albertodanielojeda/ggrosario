@@ -85,7 +85,7 @@ public class ModificarPermisosRolServlet extends HttpServlet {
         String modificarReserva = request.getParameter("modificarReserva");
         String accederPanelAdministracion = request.getParameter("accederPanelAdministracion");
         
-        Rol unRol = (Rol) Tienda.getInstance().getRol(idRol);
+        Rol unRol = (Rol) Tienda.getInstance().buscarRol(idRol);
         if (altaRol != null && altaRol.equals("on"))
             unRol.getPermisos().setAltaRol(true);
         else

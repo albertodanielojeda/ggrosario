@@ -45,7 +45,7 @@ public class VerDetallesRolServlet extends HttpServlet {
         processRequest(request, response);
         String idRol = request.getParameter("idRol");
         Tienda unaTienda = Tienda.getInstance();
-        Rol unRol = unaTienda.getRol(idRol);
+        Rol unRol = unaTienda.buscarRol(idRol);
         request.getSession().setAttribute("detallesRol", unRol);
         request.getRequestDispatcher("detallesRol.jsp").forward(request, response);
     }

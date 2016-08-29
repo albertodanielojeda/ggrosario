@@ -88,3 +88,6 @@
         </div>
     </body>
 </html>
+<% } else {
+    response.sendError(404);
+} %>

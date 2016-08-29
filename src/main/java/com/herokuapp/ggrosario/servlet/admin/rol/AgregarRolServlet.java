@@ -64,7 +64,7 @@ public class AgregarRolServlet extends HttpServlet {
         
         String nombreRol = request.getParameter("nombreRol");
         
-        if (unaTienda.getRol(nombreRol) == null){
+        if (unaTienda.buscarRol(nombreRol) == null){
             try {
                 unaTienda.addRol(nombreRol);
             } catch (RolException ex) {

@@ -50,17 +50,17 @@ public class InitServlet extends HttpServlet {
         try {
             /* Crea rol de administrador */
             unaTienda.addRol("Administrador");
-            Rol rolAdministrador = unaTienda.getRol("Administrador");
+            Rol rolAdministrador = unaTienda.buscarRol("Administrador");
             rolAdministrador.getPermisos().setCanDoAll(true);
             
             /* Crea rol de empleado */
             unaTienda.addRol("Empleado");
-            Rol rolEmpleado = unaTienda.getRol("Empleado");
+            Rol rolEmpleado = unaTienda.buscarRol("Empleado");
             rolEmpleado.getPermisos().setPermisosEmpleado();
             
             /* Crea rol de cliente */
             unaTienda.addRol("Cliente");
-            Rol rolCliente = unaTienda.getRol("Cliente");
+            Rol rolCliente = unaTienda.buscarRol("Cliente");
             rolCliente.getPermisos().setPermisosCliente();
         } catch (RolException ex) {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +73,7 @@ public class InitServlet extends HttpServlet {
         }
 
         try {
-            unaTienda.addUsuario("default@ggrosario.com", "default", "default", new Date("02/03/1994"), "Administrador", "Default", "0800-default", unaTienda.getRol("Administrador"));
+            unaTienda.addUsuario("default@ggrosario.com", "default", "default", new Date("02/03/1994"), "Administrador", "Default", "0800-default", unaTienda.buscarRol("Administrador"));
 
         } catch (UsuarioException ex) {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);

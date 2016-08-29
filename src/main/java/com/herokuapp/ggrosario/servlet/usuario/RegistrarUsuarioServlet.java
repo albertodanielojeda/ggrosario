@@ -46,7 +46,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         
         Tienda unaTienda = Tienda.getInstance();
         try {
-            unaTienda.addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, unaTienda.getRol(rol));
+            unaTienda.addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, unaTienda.buscarRol(rol));
         } catch (UsuarioException ex) {
             Logger.getLogger(RegistrarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

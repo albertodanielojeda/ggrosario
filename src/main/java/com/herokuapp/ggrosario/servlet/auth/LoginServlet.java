@@ -64,13 +64,14 @@ public class LoginServlet extends HttpServlet {
         
         Tienda unaTienda = Tienda.getInstance();
         
-        Usuario miUsuario = (Usuario)unaTienda.getUsuario(id);
+        Usuario miUsuario = (Usuario)unaTienda.buscarUsuario(id);
         
         if (miUsuario != null && miUsuario.getPassword().equals(password)){
             request.getSession().setAttribute("miUsuario", miUsuario);
             request.getSession().setAttribute("unaTienda", unaTienda);
+            request.getSession().setAttribute("success", true);
         }else{
-            request.getSession().setAttribute("miUsuario", null);
+            request.getSession().setAttribute("success", false);
         }
         
         response.sendRedirect("index");

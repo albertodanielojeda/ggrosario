@@ -7,7 +7,16 @@
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% if (miRol != null && miRol.getPermisos().canModificacionRol())  { %>
+<% boolean puedeEntrar = false; %>
+
+<% for (Rol r : miUsuario.getRoles()) {
+        if (r.getPermisos().canAltaRol() || r.getPermisos().canBajaRol() || r.getPermisos().canModificacionRol()) {
+            puedeEntrar = true;
+            miRol = r;
+        }
+    } %>
+
+<% if (puedeEntrar && miRol.getPermisos().canModificacionRol())  { %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +32,7 @@
                     <%@include file="vistas/sideBar.jsp" %>
                 </div>
                 <div class="col s8">
-                    <% Rol unRol = (Rol) Tienda.getInstance().getRol(request.getParameter("idRol"));%>
+                    <% Rol unRol = (Rol) Tienda.getInstance().buscarRol(request.getParameter("idRol"));%>
                     <h3>Editar permisos para el rol <%= unRol.getNombre()%></h3>
                     <form action="modificar-permisos-rol" method="POST">
                         <table class="striped bordered">
@@ -348,4 +357,6 @@
         </div>
     </body>
 </html>
-<% } %>
+<% } else {
+    response.sendError(404);
+} %>

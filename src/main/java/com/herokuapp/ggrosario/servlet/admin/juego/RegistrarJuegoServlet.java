@@ -113,7 +113,7 @@ public class RegistrarJuegoServlet extends HttpServlet {
         
         Tienda unaTienda = Tienda.getInstance();
         if (unaTienda.getUnaConfiguracion().isRegistroJuegosCatalogo()) {
-            Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(idCatalogo));
+            Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(idCatalogo));
             if (unCatalogo != null) {
                 try {
                     Requisito requisitoMinimo = new RequisitoMinimo(minOS, minCPU, minRAM, minGPU, minHDD);

@@ -69,7 +69,7 @@ public class ObtenerCategoriasCatalogoServlet extends HttpServlet {
         Tienda unaTienda = Tienda.getInstance();
         if (unaTienda.getUnaConfiguracion().isRegistroJuegosCategoriaDeCatalogo()) {
             List<Categoria> categorias = new ArrayList<>();
-            Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(request.getParameter("id")));
+            Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
             for (Categoria unaCategoria : unCatalogo.getCategorias()) {
                 categorias.add(unaCategoria);
             }

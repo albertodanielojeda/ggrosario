@@ -19,8 +19,7 @@
             miRol = r;
         }
     } %>
-<% if (puedeEntrar) {
-%>
+<% if (puedeEntrar) { %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -54,8 +53,8 @@
 
                         <tbody>
                             <% for (Juego juego : unaTienda.getJuegos()) {%>
-                            <tr id="<%= juego.getId()%>">
-                                <td><img src="<%= juego.getCover()%>" height="20%" width="20%"/></td>
+                            <tr id="<%=juego.getId()%>">
+                                <td><img src="<%= juego.getCover()%>"/></td>
                                 <td><%= juego.getNombre()%></td>
                                 <td><%= juego.getPrecio()%></td>
                                 <td><%= juego.getStock().getCantidad() %></td>
@@ -72,3 +71,6 @@
         </div>
     </body>
 </html>
+<% } else {
+    response.sendError(404);
+} %>

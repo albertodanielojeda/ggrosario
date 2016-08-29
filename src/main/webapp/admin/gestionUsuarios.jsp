@@ -28,7 +28,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% if (unaTienda.getRol(request.getParameter("rol")) == null) {
+        <% if (unaTienda.buscarRol(request.getParameter("rol")) == null) {
                 response.sendError(404);
             }%>
         <%@include file="vistas/navBar.jsp" %>
@@ -115,7 +115,7 @@
 
                         <tbody>
                             <% for (Usuario user : unaTienda.getUsuarios()) {
-                                    if (user.hasRol(unaTienda.getRol(request.getParameter("rol")))) {%>
+                                    if (user.hasRol(unaTienda.buscarRol(request.getParameter("rol")))) {%>
 
                             <tr id="<%= user.getNick()%>">
                                 <td><%= user.getEmail()%></td>

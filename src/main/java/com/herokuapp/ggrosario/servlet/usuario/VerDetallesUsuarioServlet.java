@@ -48,7 +48,7 @@ public class VerDetallesUsuarioServlet extends HttpServlet {
         processRequest(request, response);
         String idUsuario = request.getParameter("idUsuario");
         Tienda unaTienda = Tienda.getInstance();
-        Usuario unUsuario = unaTienda.getUsuario(idUsuario);
+        Usuario unUsuario = unaTienda.buscarUsuario(idUsuario);
         request.getSession().setAttribute("detallesUsuario", unUsuario);
         request.getRequestDispatcher("detallesUsuario.jsp").forward(request, response);
     }

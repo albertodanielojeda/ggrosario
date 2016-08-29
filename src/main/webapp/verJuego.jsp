@@ -16,9 +16,9 @@
         <title></title>
     </head>
     <body>
-        <% Juego unJuego = unaTienda.getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
+        <% Juego unJuego = unaTienda.buscarJuego(Integer.valueOf(request.getParameter("idJuego")));
             if (unJuego == null) {
-                unJuego = (Juego) unaTienda.getUnJuego(Integer.valueOf(request.getParameter("idJuego")));
+                unJuego = (Juego) unaTienda.buscarJuego(Integer.valueOf(request.getParameter("idJuego")));
             } else {
                 request.getSession().setAttribute("unJuego", unJuego);
             }

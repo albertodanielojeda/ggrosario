@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -29,23 +30,29 @@ public class Rol implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Permisos permisos;
-    
+
+    @ManyToOne
+    private Tienda unaTienda;
+
     /**
      * Constructor nulo para inicializar las colecciones
      */
     public Rol() {
         this.usuarios = new ArrayList<>();
     }
-    
+
     /**
      * Constructor para instanciar un nuevo rol
+     *
      * @param nombre Nombre del rol
+     * @param unaTienda Tienda a la que pertenece el rol
      */
-    public Rol(String nombre) {
+    public Rol(String nombre, Tienda unaTienda) {
         this();
         this.nombre = nombre;
         this.permisos = new Permisos();
         this.permisos.setPermisosNuevoRol();
+        this.unaTienda = (Tienda) unaTienda;
         HibernateUtil.guardar(this);
     }
 
@@ -74,5 +81,14 @@ public class Rol implements Serializable {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public Tienda getUnaTienda() {
+        return unaTienda;
+    }
+
+    public void setUnaTienda(Tienda unaTienda) {
+        this.unaTienda = unaTienda;
+    }
+
     // </editor-fold>
 }

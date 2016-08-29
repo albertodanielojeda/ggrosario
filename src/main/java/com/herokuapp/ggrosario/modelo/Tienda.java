@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -35,16 +37,13 @@ public class Tienda implements Serializable {
     private String nombre;
 
     /* Asociaciones */
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL)
     private List<Catalogo> catalogos;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "unaTienda", cascade = CascadeType.ALL)
     private List<Usuario> usuarios;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "unaTienda", cascade = CascadeType.ALL)
     private List<Rol> roles;
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -130,7 +129,7 @@ public class Tienda implements Serializable {
      * @return Usuario si lo encuentra o null si no lo encuentra
      *
      */
-    public Usuario getUsuario(String id) {
+    public Usuario buscarUsuario(String id) {
         Iterator iter = this.usuarios.iterator();
         Usuario unUsuario = null;
         while (iter.hasNext()) {
@@ -154,8 +153,8 @@ public class Tienda implements Serializable {
                 throw new RolException("Ya existe un rol con ese nombre.");
             }
         }
-        this.roles.add(new Rol(nombre));
-        HibernateUtil.actualizar(this);
+        this.roles.add(new Rol(nombre, this));
+        //HibernateUtil.actualizar(this);
     }
 
     /**
@@ -165,7 +164,7 @@ public class Tienda implements Serializable {
      * @return Una instancia de la clase Rol o <code>null</code> si no encuentra
      * ningun rol con el nombre especificado
      */
-    public Rol getRol(String nombre) {
+    public Rol buscarRol(String nombre) {
         Iterator iter = this.roles.iterator();
         Rol unRol = null;
         while (iter.hasNext()) {
@@ -202,7 +201,7 @@ public class Tienda implements Serializable {
      * con el ID especificado o <code>null</code> si la tienda no tiene ningún
      * catálogo con el ID especificado
      */
-    public Catalogo getUnCatalogo(int id) {
+    public Catalogo buscarCatalogo(int id) {
         for (Catalogo unCatalogo : this.catalogos) {
             if (unCatalogo.getId() == id) {
                 return unCatalogo;
@@ -275,7 +274,7 @@ public class Tienda implements Serializable {
      * @return Una instancia de la clase Juego o <code>null</code> si no se
      * encontró el juego por el ID
      */
-    public Juego getUnJuego(int id) {
+    public Juego buscarJuego(int id) {
         for (Juego unJuego : this.juegos) {
             if (unJuego.getId() == id) {
                 return unJuego;

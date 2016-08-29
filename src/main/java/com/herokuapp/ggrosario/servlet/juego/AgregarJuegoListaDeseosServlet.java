@@ -49,7 +49,7 @@ public class AgregarJuegoListaDeseosServlet extends HttpServlet {
         if (miUsuario.getNick().equals(idUsuario)){
             try {
                 Tienda unaTienda = Tienda.getInstance();
-                miUsuario.getUnaListaDeseos().addJuego(unaTienda.getUnJuego(Integer.valueOf(idJuego)));
+                miUsuario.getUnaListaDeseos().addJuego(unaTienda.buscarJuego(Integer.valueOf(idJuego)));
                 response.getWriter().print("Listo!");
             } catch (JuegoException ex) {
                 response.getWriter().print(ex.getMessage());

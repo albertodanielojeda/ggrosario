@@ -6,7 +6,15 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Catalogo"%>
 <%@include file="vistas/init.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% if (miRol != null && miRol.getPermisos().canAltaJuego()) { %>
+<% boolean puedeEntrar = false; %>
+
+<% for (Rol r : miUsuario.getRoles()) {
+        if (r.getPermisos().canAltaJuego()|| r.getPermisos().canBajaJuego()|| r.getPermisos().canModificacionJuego()) {
+            puedeEntrar = true;
+            miRol = r;
+        }
+    } %>
+<% if (puedeEntrar && miRol.getPermisos().canAltaJuego()) { %>
 <!DOCTYPE html>
 <html>
     <head>

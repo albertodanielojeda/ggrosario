@@ -89,5 +89,11 @@
                     <% }%>
                 </div>
             </div>
+            <% if ((request.getSession().getAttribute("success") != null) && !Boolean.parseBoolean(request.getSession().getAttribute("success").toString())) { %>
+            <script>
+                Materialize.toast("Los datos ingresados no corresponden", 3000);
+                <% request.getSession().setAttribute("success", null); %>
+            </script>
+            <% }%>
     </body>
 </html>

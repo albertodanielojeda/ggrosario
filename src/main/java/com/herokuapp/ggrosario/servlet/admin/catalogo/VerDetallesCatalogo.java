@@ -48,7 +48,7 @@ public class VerDetallesCatalogo extends HttpServlet {
         
         Tienda unaTienda = Tienda.getInstance();
         
-        Catalogo unCatalogo = unaTienda.getUnCatalogo(Integer.valueOf(idCatalogo));
+        Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(idCatalogo));
         if (unCatalogo != null){
             request.getSession().setAttribute("detallesCatalogo", unCatalogo);
         }
