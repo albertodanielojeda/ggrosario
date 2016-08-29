@@ -4,6 +4,6 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Rol"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
-<% Tienda unaTienda = Tienda.getInstance(); %>
+<% Tienda unaTienda = (Tienda)request.getSession().getAttribute("unaTienda"); %>
 <% Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario"); %>
 <% Rol miRol = null; %>

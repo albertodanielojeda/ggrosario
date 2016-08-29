@@ -1,5 +1,6 @@
 package com.herokuapp.ggrosario.servlet.auth;
 
+import com.herokuapp.ggrosario.modelo.Tienda;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.getSession().invalidate();
+        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
         response.sendRedirect("index");
     }
 

@@ -116,7 +116,7 @@
 
                         <tbody>
                             <% for (Usuario user : unaTienda.getUsuarios()) {
-                                    if (user.hasRol(unaTienda.buscarRol(request.getParameter("rol")))) {%>
+                                    if (user.hasRol(request.getParameter("rol"))) {%>
 
                             <tr id="<%= user.getNick()%>">
                                 <td><%= user.getEmail()%></td>

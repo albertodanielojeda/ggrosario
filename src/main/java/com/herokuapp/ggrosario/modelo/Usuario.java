@@ -108,7 +108,7 @@ public class Usuario implements Serializable {
      * @throws RolException Si el usuario tiene asociado el rol especificado
      */
     public void addRol(Rol unRol) throws RolException {
-        if (!this.hasRol(unRol)) {
+        if (!this.hasRol(unRol.getNombre())) {
             this.roles.add(unRol);
             HibernateUtil.actualizar(this);
         } else {
@@ -119,13 +119,15 @@ public class Usuario implements Serializable {
     /**
      * Evalúa si este usuario tiene un rol determinado
      *
-     * @param unRol Rol que se espera que el usuario tenga, o no
+     * @param nombreRol Rol que se espera que el usuario tenga, o no
      * @return <code>true</code> Si tiene el rol especificado o
      * <code>false</code> en caso contrario
      */
-    public boolean hasRol(Rol unRol) {
-        if (this.roles.contains(unRol)) {
-            return true;
+    public boolean hasRol(String nombreRol) {
+        for (Rol rol : this.roles){
+            if (rol.getNombre().equals(nombreRol)){
+                return true;
+            }
         }
         return false;
     }

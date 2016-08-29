@@ -62,18 +62,15 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("nick");
         String password = request.getParameter("password");
         
-        Tienda unaTienda = Tienda.getInstance();
-        
-        Usuario miUsuario = (Usuario)unaTienda.buscarUsuario(id);
+        Usuario miUsuario = (Usuario)Tienda.getInstance().buscarUsuario(id);
         
         if (miUsuario != null && miUsuario.getPassword().equals(password)){
             request.getSession().setAttribute("miUsuario", miUsuario);
-            request.getSession().setAttribute("unaTienda", unaTienda);
             request.getSession().setAttribute("success", true);
         }else{
             request.getSession().setAttribute("success", false);
         }
-        
+        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
         response.sendRedirect("index");
     }
 

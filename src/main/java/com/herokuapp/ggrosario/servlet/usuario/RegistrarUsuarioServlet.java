@@ -49,14 +49,12 @@ public class RegistrarUsuarioServlet extends HttpServlet {
             rol = "Cliente";
         }
         
-        Tienda unaTienda = Tienda.getInstance();
-        
         try {
-            unaTienda.addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, unaTienda.buscarRol(rol));
+            Tienda.getInstance().addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, Tienda.getInstance().buscarRol(rol));
         } catch (UsuarioException ex) {
             Logger.getLogger(RegistrarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getSession().setAttribute("unaTienda", unaTienda);
+        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
         
         if (usuarioRegistrante != null && usuarioRegistrante.canAccederPanelAdministracion()){
             response.sendRedirect("admin/gestion-usuarios?rol="+rol);
