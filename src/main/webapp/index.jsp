@@ -67,16 +67,16 @@
                 <div class="barra-lateral col s3 right">
                     <% if (miUsuario == null) { %>
                     <h3>Iniciar sesión</h3>
-                    <form action="login" method="POST">
+                    <form id="loginForm" action="login" method="POST">
                         <div class="row">
                             <div class="input-field col s12">
-                                <label for="nick">Nick o e-mail</label>
+                                <label id="lblNick" for="nick" data-error="Ingrese su nick o su e-mail">Nick o e-mail</label>
                                 <input id="nick" type="text" name="nick" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <label for="password">Password</label>
+                                <label id="lblPassword" for="password" data-error="Ingrese su contraseña">Password</label>
                                 <input id="password" type="password" name="password" />
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </form>
-                    <% }%>
+                    <% } %>
                 </div>
             </div>
             <% if ((request.getSession().getAttribute("success") != null) && !Boolean.parseBoolean(request.getSession().getAttribute("success").toString())) { %>
@@ -94,6 +94,6 @@
                 Materialize.toast("Los datos ingresados no corresponden", 3000);
                 <% request.getSession().removeAttribute("success"); %>
             </script>
-            <% }%>
+            <% } %>
     </body>
 </html>
