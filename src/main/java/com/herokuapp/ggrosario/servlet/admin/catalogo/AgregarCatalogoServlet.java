@@ -1,9 +1,12 @@
 package com.herokuapp.ggrosario.servlet.admin.catalogo;
 
 import com.herokuapp.ggrosario.exepciones.CatalogoException;
+import com.herokuapp.ggrosario.modelo.Rol;
 import com.herokuapp.ggrosario.modelo.Tienda;
+import com.herokuapp.ggrosario.modelo.Usuario;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -61,16 +64,37 @@ public class AgregarCatalogoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        Tienda unaTienda = Tienda.getInstance();
-        try {
-            unaTienda.addCatalogo(request.getParameter("nombreCatalogo"));
-            request.getSession().setAttribute("success", true);
-        } catch (CatalogoException ex) {
-            request.getSession().setAttribute("success", false);
-            Logger.getLogger(AgregarCatalogoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            request.getSession().setAttribute("unaTienda", unaTienda);
-            response.sendRedirect("../admin/gestion-catalogos");
+        boolean puedeAgregarCatalogos = false;
+        Usuario usuario = (Usuario) request.getSession().getAttribute("miUsuario");
+
+        if (usuario != null) {
+
+            Iterator iterRolesUsuario = usuario.getRoles().iterator();
+
+            while (iterRolesUsuario.hasNext() && puedeAgregarCatalogos == false) {
+                Rol rol = (Rol) iterRolesUsuario.next();
+                if (rol.getPermisos().canAltaCatalogo()) {
+                    puedeAgregarCatalogos = true;
+                }
+            }
+
+            if (puedeAgregarCatalogos) {
+                Tienda unaTienda = Tienda.getInstance();
+                try {
+                    unaTienda.addCatalogo(request.getParameter("nombreCatalogo"));
+                    request.getSession().setAttribute("success", true);
+                } catch (CatalogoException ex) {
+                    request.getSession().setAttribute("success", false);
+                    Logger.getLogger(AgregarCatalogoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    request.getSession().setAttribute("unaTienda", unaTienda);
+                    response.sendRedirect("../admin/gestion-catalogos");
+                }
+            }else{
+                response.sendError(403);
+            }
+        }else{
+            response.sendError(403);
         }
     }
 
