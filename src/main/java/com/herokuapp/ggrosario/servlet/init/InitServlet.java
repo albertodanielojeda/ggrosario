@@ -53,6 +53,7 @@ public class InitServlet extends HttpServlet {
             Rol rolAdministrador = unaTienda.buscarRol("Administrador");
             rolAdministrador.getPermisos().setCanDoAll(true);
             
+            
             /* Crea rol de empleado */
             unaTienda.addRol("Empleado");
             Rol rolEmpleado = unaTienda.buscarRol("Empleado");
@@ -62,6 +63,33 @@ public class InitServlet extends HttpServlet {
             unaTienda.addRol("Cliente");
             Rol rolCliente = unaTienda.buscarRol("Cliente");
             rolCliente.getPermisos().setPermisosCliente();
+            
+            rolAdministrador.getPermisos().addAMBUsuarioRol("Administrador");
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Administrador").setCanAlta(true);
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Administrador").setCanBaja(true);
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Administrador").setCanModificar(true);
+            rolAdministrador.getPermisos().addAMBUsuarioRol("Empleado");
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Empleado").setCanAlta(true);
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Empleado").setCanBaja(true);
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Empleado").setCanModificar(true);
+            rolAdministrador.getPermisos().addAMBUsuarioRol("Cliente");
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Cliente").setCanAlta(true);
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Cliente").setCanBaja(true);
+            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Cliente").setCanModificar(true);
+            
+            rolEmpleado.getPermisos().addAMBUsuarioRol("Empleado");
+            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Empleado").setCanAlta(true);
+            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Empleado").setCanBaja(true);
+            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Empleado").setCanModificar(true);
+            rolEmpleado.getPermisos().addAMBUsuarioRol("Cliente");
+            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Cliente").setCanAlta(true);
+            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Cliente").setCanBaja(true);
+            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Cliente").setCanModificar(true);
+            
+            rolCliente.getPermisos().addAMBUsuarioRol("Cliente");
+            rolCliente.getPermisos().buscarAMBUsuarioRol("Cliente").setCanAlta(false);
+            rolCliente.getPermisos().buscarAMBUsuarioRol("Cliente").setCanBaja(false);
+            rolCliente.getPermisos().buscarAMBUsuarioRol("Cliente").setCanModificar(false);
         } catch (RolException ex) {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,7 +207,7 @@ public class InitServlet extends HttpServlet {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        request.getSession().setAttribute("unaTienda", unaTienda);
+        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
         response.sendRedirect("index");
     }
 

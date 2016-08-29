@@ -1,6 +1,7 @@
 package com.herokuapp.ggrosario.servlet.usuario;
 
 import com.herokuapp.ggrosario.exepciones.UsuarioException;
+import com.herokuapp.ggrosario.modelo.Rol;
 import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
 import com.herokuapp.ggrosario.util.HibernateUtil;
+import java.util.Iterator;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -34,8 +36,10 @@ public class RegistrarUsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String rol = request.getParameter("rol");
-        /** Gets null **/
-        Usuario usuarioRegistrante = (Usuario)request.getSession().getAttribute("usuarioRegistrante");
+        /**
+         * Gets null *
+         */
+        Usuario usuarioRegistrante = (Usuario) request.getSession().getAttribute("usuarioRegistrante");
         String email = request.getParameter("email");
         String nick = request.getParameter("nick");
         String password = request.getParameter("password");
@@ -43,23 +47,41 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String telefono = request.getParameter("telefono");
-        
+
         // Cuando se usa el formulario de "Regisrarse"
-        if (rol == null){
+        if (rol == null) {
             rol = "Cliente";
         }
         
-        try {
-            Tienda.getInstance().addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, Tienda.getInstance().buscarRol(rol));
-        } catch (UsuarioException ex) {
-            Logger.getLogger(RegistrarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+        boolean puedeRegistrarUsuario = false;
         
-        if (usuarioRegistrante != null && usuarioRegistrante.canAccederPanelAdministracion()){
-            response.sendRedirect("admin/gestion-usuarios?rol="+rol);
-        }else{
-            response.sendRedirect("index");
+        if (usuarioRegistrante != null) {
+            Iterator iterUsuarioRoles = usuarioRegistrante.getRoles().iterator();
+            while (iterUsuarioRoles.hasNext() && puedeRegistrarUsuario == false) {
+                Rol r = (Rol) iterUsuarioRoles.next();
+                if (r.getPermisos().canAltaUsuario(rol)) {
+                    puedeRegistrarUsuario = true;
+                }
+            }
+        } else {
+            puedeRegistrarUsuario = true;
+        }
+        
+        if (puedeRegistrarUsuario) {
+            try {
+                Tienda.getInstance().addUsuario(email, nick, password, new Date(fechaNacimiento), nombre, apellido, telefono, Tienda.getInstance().buscarRol(rol));
+            } catch (UsuarioException ex) {
+                Logger.getLogger(RegistrarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+            
+            if (usuarioRegistrante != null && usuarioRegistrante.canAccederPanelAdministracion()) {
+                response.sendRedirect("admin/gestion-usuarios?rol=" + rol);
+            } else {
+                response.sendRedirect("index");
+            }
+        } else {
+            response.sendError(403);
         }
     }
 
@@ -100,5 +122,5 @@ public class RegistrarUsuarioServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
+    
 }
