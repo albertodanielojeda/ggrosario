@@ -12,7 +12,7 @@
 <% boolean puedeEntrar = false; %>
 
 <% for (Rol r : miUsuario.getRoles()) {
-        if (r.getPermisos().canAltaCatalogo()|| r.getPermisos().canBajaCatalogo()|| r.getPermisos().canModificacionCatalogo()) {
+        if (r.getPermisos().canAltaCatalogo() || r.getPermisos().canBajaCatalogo() || r.getPermisos().canModificacionCatalogo()) {
             puedeEntrar = true;
             miRol = r;
         }
@@ -28,7 +28,7 @@
     </head>
     <body>
 
-         <%@include file="vistas/navBar.jsp" %>
+        <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
                 <div class="col s4">
@@ -50,8 +50,9 @@
                             <tr id="<%= unCatalogo.getId()%>">
                                 <td><%= unCatalogo.getNombre()%></td>
 
-
+                                <% if (miRol.getPermisos().canModificacionCatalogo() || miRol.getPermisos().canBajaCatalogo()) { %>
                                 <td><a href="verDetallesCatalogo?idCatalogo=<%= unCatalogo.getId()%>">Administrar</a></td>
+                                <% } %>
                             </tr>
                             <%
                                 }%>
@@ -70,6 +71,7 @@
                     <% }
                             request.getSession().removeAttribute("success");
                         }%>
+                    <% if (miRol.getPermisos().canAltaCatalogo()) { %>
                     <div class="col s5">
                         <form action="agregar-catalogo" method="POST">
                             <div class="row">
@@ -83,6 +85,7 @@
                             </div>
                         </form>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>
