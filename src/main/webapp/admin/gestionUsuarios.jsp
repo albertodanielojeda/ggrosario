@@ -50,14 +50,15 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <label for="apellido">Apellido</label>
-                                    <input id="apellido" type="text" name="apellido" />
+                                    <input id="apellido" type="text" name="apellido"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s6">
                                     <label for="email">E-mail</label>
-                                    <input id="email" type="text" name="email" />
+                                    <input id="email" type="email" name="email" class="validate"/>
+                                    <div></div>
                                 </div>
                                 <div class="input-field col s6">
                                     <label for="nick">Nick</label>
@@ -88,7 +89,7 @@
                         </form>
                     </div>
                     <% }
-                       %>
+                    %>
                 </div>
                 <div class="modal-footer">
                 </div>
