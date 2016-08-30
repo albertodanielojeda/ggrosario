@@ -101,8 +101,8 @@
                 </div>
             </div>
         </main>
-        <footer class="page-footer">
+        
             <%@include file="vistas/footer.jsp" %>
-        </footer>
+        
     </body>
 </html>
