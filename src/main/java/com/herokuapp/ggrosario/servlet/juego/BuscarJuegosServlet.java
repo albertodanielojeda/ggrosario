@@ -46,25 +46,36 @@ public class BuscarJuegosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        /* Obtiene el id del catálogo en el que buscar los juegos */
         String idCatalogo = request.getParameter("idCatalogo");
+        /* Obtiene la cadena de juegos a buscar */
         String juegosABuscar = request.getParameter("buscarJuegos");
+        
+        /* Recuperamos los objetos para poder buscar el juego*/
         Tienda unaTienda = Tienda.getInstance();
         Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(idCatalogo));
+        
+        /* Estructura donde se guardarán los juegos encontrados */
         List<Juego> juegosEntontrados = new ArrayList<>();
+        /* Si se busca más de un juego, la cadena contentrá comas <","> */
         if (juegosABuscar.contains(",")) {
+            /* Divide la cadena en un array usando la coma como delimitador */
             String[] nombresJuegos = juegosABuscar.split(",");
+            /* Por cada nombre de juego en el array */
             for (String nombreJuego : nombresJuegos) {
+                /* Se va a comparar el nombre de cada juego por el primero del array (siempre en minúsculas) */
                 for (Juego juegoCatalogo : unCatalogo.getJuegos()) {
+                    /* Si un juego contiene en su nombre una secuencia de caracteres igual a la que 
+                     se está buscando, lo agrega a la colección de juegos encontrados */
                     if (juegoCatalogo.getNombre().toLowerCase().contains(nombreJuego.trim().toLowerCase())) {
                         juegosEntontrados.add(juegoCatalogo);
                     }
                 }
             }
-
+        /* Si la cadena de búsqueda no tiene comas, se busca el juego tal como se introdujo */
         } else {
-            String juegoABuscar = juegosABuscar.split(",")[0];
             for (Juego juegoCatalogo : unCatalogo.getJuegos()) {
-                if (juegoCatalogo.getNombre().toLowerCase().contains(juegoABuscar.trim().toLowerCase())) {
+                if (juegoCatalogo.getNombre().toLowerCase().contains(juegosABuscar.trim().toLowerCase())) {
                     juegosEntontrados.add(juegoCatalogo);
                 }
             }
