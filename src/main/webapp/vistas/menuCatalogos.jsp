@@ -3,7 +3,7 @@
     <div class="nav-wrapper container">
         <ul class="right">
             <% for (Catalogo unCatalogo : unaTienda.getCatalogos()) {%>
-            <li><a href="sass.html"><%= unCatalogo.getNombre()%></a></li>
+            <li><a href="categoria?id=<%= unCatalogo.getId() %>"><%= unCatalogo.getNombre()%></a></li>
             <%}%>
         </ul>
     </div>

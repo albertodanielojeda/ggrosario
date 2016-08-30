@@ -9,8 +9,9 @@
 
             <% } else if (miUsuario == null) { %>
             <li><a href="registrarme"><b>Registrarse o iniciá sesión<i class="material-icons right">input</i></b></a></li>
-            <% } %>
+                <% }
+               %>
         </ul>
     </div>
 </nav>
-<%@include file="categorias.jsp" %>
+<%@include file="menuCatalogos.jsp" %>
