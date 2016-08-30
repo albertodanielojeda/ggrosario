@@ -17,72 +17,83 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
     </head>
-    <body>
-        <div class="no-container">
+    <body class="lighten-5 light-green">
+        <header>
             <%@include file="vistas/menu.jsp" %>
-            <div class="row">
-                <div class="col s4"></div>
-                <div class="col s8">
-                    <div class="row">
-                        <div class="col s12">
-                            <ul class="tabs">
-                                <li class="tab col s3"><a class="active" href="#informacion">Información</a></li>
-                                <li class="tab col s3"><a href="#misReservas">Mis reservas</a></li>
-                                <li class="tab col s3"><a href="#miListaDeDeseos">Mi lista de deseos</a></li>
-                                <li class="tab col s3"><a href="#misComentarios">Mis comentarios</a></li>
-                            </ul>
-                        </div>
-                        <div id="informacion" class="col s12">
-                            <p>Nick: <%= miUsuario.getNick()%></p>
-                            <p>E-Mail: <%= miUsuario.getEmail()%></p>
-                        </div>
-                        <div id="misReservas" class="col s12">
-                            <ul class="collapsible" data-collapsible="accordion">
-                                <% for (Reserva unaReserva : miUsuario.getReservas()) {%>
-                                <li>
-                                    <div class="collapsible-header"><i class="material-icons">cloud</i><%= unaReserva.getUnJuego().getNombre()%></div>
-                                    <div class="collapsible-body">
-                                        <p>Precio: <%= unaReserva.getUnJuego().getPrecio() %></p>
-                                        <p>Realizada: <%= unaReserva.getFechaAltaAsString() %></p>
-                                        <p>Vence: <%= unaReserva.getFechaBajaAsString() %></p>
-                                        <p>Estado: <%= unaReserva.getEstadoReserva().getDescripcion() %></p>
-                                    </div>
-                                </li>
-                                <% } %>
-                            </ul>
-                        </div>
-                        <div id="miListaDeDeseos" class="col s12">
-                            <div class="row">
-                                <%
-                                    for (ListaDeseosJuegos ldj : miUsuario.getUnaListaDeseos().getUnaListaDeseosJuegos()) {
-                                %>
+        </header>
+        <main>
+            <div class="no-container">
+                <div class="row">
 
-                                <div class="col s3">
-                                    <div class="card">
-                                        <div class="card-image">
-                                            <img src="<%= ldj.getUnJuego().getCover()%>">
-                                            <span class="card-title black right"><b>$ <%= ldj.getUnJuego().getPrecio()%></b></span>
-                                            <!-- Here we can put info and show it over the image! :D -->
-                                        </div>
-
-                                        <div class="card-action">
-                                            <a href="#">Reservar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% } %>
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs">
+                                    <li class="tab col s3"><a class="active" href="#informacion">Información</a></li>
+                                    <li class="tab col s3"><a href="#misReservas">Mis reservas</a></li>
+                                    <li class="tab col s3"><a href="#miListaDeDeseos">Mi lista de deseos</a></li>
+                                    <li class="tab col s3"><a href="#misComentarios">Mis comentarios</a></li>
+                                </ul>
                             </div>
-                        </div>
-                        <div id="misComentarios" class="col s12">
-                            <div class="collection">
-                                <% for (UsuarioComentario usuarioComentario : miUsuario.getComentarios()) { %>
-                                <a href="#!" class="collection-item"><%= usuarioComentario.getUnComentario().getDescripcion()%></a>
-                                <% } %>
+                            <div id="informacion" class="col s9">
+                                <p>Nick: <%= miUsuario.getNick()%></p>
+                                <p>E-Mail: <%= miUsuario.getEmail()%></p>
+                            </div>
+                            <div id="misReservas" class="col s9">
+                                <div class="row items">
+                                    <% for (Reserva unaReserva : miUsuario.getReservas()) {%>
+                                    <div class="col s3">
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img src="<%= unaReserva.getUnJuego().getCover()%>"/>
+                                                <span class="card-title black right"><b>$ <%= unaReserva.getUnJuego().getPrecio()%></b></span>
+                                                <!-- Here we can put info and show it over the image! :D -->
+                                            </div>
+
+                                            <div class="card-action">
+                                                <p>Precio: <%= unaReserva.getUnJuego().getPrecio()%></p>
+                                                <p>Realizada: <%= unaReserva.getFechaAltaAsString()%></p>
+                                                <p>Vence: <%= unaReserva.getFechaBajaAsString()%></p>
+                                                <p>Estado: <%= unaReserva.getEstadoReserva().getDescripcion()%></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                </div>
+                            </div>
+                            <div id="miListaDeDeseos" class="col s9">
+                                <div class="row items">
+                                    <% for (ListaDeseosJuegos ldj : miUsuario.getUnaListaDeseos().getUnaListaDeseosJuegos()) {%>
+                                    <div class="col s3">
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img src="<%= ldj.getUnJuego().getCover()%>"/>
+                                                <span class="card-title black right"><b>$ <%= ldj.getUnJuego().getPrecio()%></b></span>
+                                                <!-- Here we can put info and show it over the image! :D -->
+                                            </div>
+
+                                            <div class="card-action">
+                                                <a href="#">Reservar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div id="misComentarios" class="col s9">
+                                <div class="collection">
+                                    <% for (UsuarioComentario usuarioComentario : miUsuario.getComentarios()) {%>
+                                    <a href="#!" class="collection-item"><%= usuarioComentario.getUnComentario().getDescripcion()%></a>
+                                    <% }%>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        <footer class="page-footer">
+            <%@include file="vistas/footer.jsp" %>
+        </footer>
     </body>
 </html>

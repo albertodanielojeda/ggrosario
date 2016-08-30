@@ -2,6 +2,13 @@ $(document).ready(function () {
     /* Activa el menú de usuario desplegable de Materialize CSS */
     $(".dropdown-button").dropdown();
     
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 240
+      edge: 'right', // Choose the horizontal origin
+      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    }
+  );
+    
     /* Permite el uso del control datepicker de Materialize CSS */
     $('.datepicker').pickadate({
         selectMonths:   true, // Creates a dropdown to control month

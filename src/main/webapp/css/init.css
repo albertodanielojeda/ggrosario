@@ -7,6 +7,17 @@ and open the template in the editor.
     Created on : 14/08/2016, 00:25:31
     Author     : Ojeda Alberto Daniel
 */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 .imagen{
     background: #0097a7;
 }
@@ -17,11 +28,20 @@ and open the template in the editor.
 }
 
 .items {
-    background: #ab47bc;
     padding: 10px;
 }
 
 .barra-lateral{
     background: #f7f7f7;
     margin-top: 6.5%;
+}
+
+.card .card-image .card-title {
+    left: auto;
+    right: 0;
+}
+
+.img-link:hover img{
+     opacity: 0.7;
+     filter: alpha(opacity=70);
 }
