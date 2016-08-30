@@ -3,6 +3,8 @@
     modificar los permisos del mismo
     Author     : Ojeda Alberto Daniel
 --%>
+<%@page import="java.util.List"%>
+<%@page import="com.herokuapp.ggrosario.modelo.ABMRol"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Rol"%>
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
@@ -16,7 +18,8 @@
         }
     } %>
 
-<% if (puedeEntrar && miRol.getPermisos().canModificacionRol())  { %>
+<% if (puedeEntrar && miRol.getPermisos().canModificacionRol()) {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -83,106 +86,45 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Usuarios administradores
+                                        Usuarios
                                     </td>
                                     <td>
+                                        <% List<Rol> roles = Tienda.getInstance().getRoles(); %>
                                         <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="altaAdministrador" <% if (unRol.getPermisos().canAltaAdministrador()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
+                                            <div class="input-field col s12">
+                                                <select multiple name="altaUsuarios">
+                                                    <option value="" disabled selected>Usuarios que puede dar de alta</option>
+                                                    <% for (Rol r : roles) {%>
+                                                    <% if (miRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null) { %>
+                                                    <option <% if (unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()).canAlta()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                    <% } %>
+                                                    <% } %>
+                                                </select>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="bajaAdministrador" <% if (unRol.getPermisos().canBajaAdministrador()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
+                                        <div class="input-field col s12">
+                                            <select multiple name="bajaUsuarios">
+                                                <option value="" disabled selected>Usuarios que puede dar de baja</option>
+                                                <% for (Rol r : roles) {%>
+                                                <% if (miRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null) { %>
+                                                <option <% if (unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()).canBaja()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                <% } %>
+                                                <% } %>
+                                            </select>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="modificarAdministrador" <% if (unRol.getPermisos().canModificacionAdministrador()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Usuarios empleados
-                                    </td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="altaEmpleado" <% if (unRol.getPermisos().canAltaEmpleado()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="bajaEmpleado" <% if (unRol.getPermisos().canBajaEmpleado()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="modificarEmpleado" <% if (unRol.getPermisos().canModificacionEmpleado()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Usuarios clientes
-                                    </td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="altaCliente" <% if (unRol.getPermisos().canAltaCliente()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="bajaCliente" <% if (unRol.getPermisos().canBajaCliente()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="switch">
-                                            <label>
-                                                No
-                                                <input name="modificarCliente" <% if (unRol.getPermisos().canModificacionCliente()) { %> checked <% } %> type="checkbox">
-                                                <span class="lever"></span>
-                                                Si
-                                            </label>
+                                        <div class="input-field col s12">
+                                            <select multiple name="modificarUsuarios">
+                                                <option value="" disabled selected>Usuarios que puede modificar</option>
+                                                <% for (Rol r : roles) {%>
+                                                <% if (miRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null) { %>
+                                                <option <% if (unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()).canModificar()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                <% } %>
+                                                <% } %>
+                                            </select>
                                         </div>
                                     </td>
                                 </tr>
@@ -358,5 +300,5 @@
     </body>
 </html>
 <% } else {
-    response.sendError(404);
-} %>
+        response.sendError(404);
+    }%>

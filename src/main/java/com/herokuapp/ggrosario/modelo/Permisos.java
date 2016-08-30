@@ -1,12 +1,18 @@
 package com.herokuapp.ggrosario.modelo;
 
+import com.herokuapp.ggrosario.exepciones.RolException;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,90 +21,94 @@ import javax.persistence.Table;
  * @author Ojeda Alberto Daniel
  */
 @Entity
-@Table(name="permisos")
+@Table(name = "permisos")
 public class Permisos implements Serializable {
-    
+
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
-    @Column(name="alta_rol")
+
+    @Column(name = "alta_rol")
     private boolean altaRol;
-    
-    @Column(name="baja_rol")
+
+    @Column(name = "baja_rol")
     private boolean bajaRol;
-    
-    @Column(name="modificar_rol")
+
+    @Column(name = "modificar_rol")
     private boolean modificarRol;
-    
-    @Column(name="alta_administrador")
+
+    @Column(name = "alta_administrador")
     private boolean altaAdministrador;
-    
-    @Column(name="baja_administrador")
+
+    @Column(name = "baja_administrador")
     private boolean bajaAdministrador;
-    
-    @Column(name="modificar_administrador")
+
+    @Column(name = "modificar_administrador")
     private boolean modificarAdministrador;
-    
-    @Column(name="alta_empleado")
+
+    @Column(name = "alta_empleado")
     private boolean altaEmpleado;
-    
-    @Column(name="baja_empleado")
+
+    @Column(name = "baja_empleado")
     private boolean bajaEmpleado;
-    
-    @Column(name="modificar_empleado")
+
+    @Column(name = "modificar_empleado")
     private boolean modificarEmpleado;
-    
-    @Column(name="alta_cliente")
+
+    @Column(name = "alta_cliente")
     private boolean altaCliente;
-    
-    @Column(name="baja_cliente")
+
+    @Column(name = "baja_cliente")
     private boolean bajaCliente;
-    
-    @Column(name="modificar_cliente")
+
+    @Column(name = "modificar_cliente")
     private boolean modificarCliente;
-    
-    @Column(name="alta_catalogo")
+
+    @Column(name = "alta_catalogo")
     private boolean altaCatalogo;
-    
-    @Column(name="baja_catalogo")
+
+    @Column(name = "baja_catalogo")
     private boolean bajaCatalogo;
-    
-    @Column(name="modificar_catalogo")
+
+    @Column(name = "modificar_catalogo")
     private boolean modificarCatalogo;
-    
-    @Column(name="alta_categoria")
+
+    @Column(name = "alta_categoria")
     private boolean altaCategoria;
-    
-    @Column(name="baja_categoria")
+
+    @Column(name = "baja_categoria")
     private boolean bajaCategoria;
-    
-    @Column(name="modificar_categoria")
+
+    @Column(name = "modificar_categoria")
     private boolean modificarCategoria;
-    
-    @Column(name="alta_juego")
+
+    @Column(name = "alta_juego")
     private boolean altaJuego;
-    
-    @Column(name="baja_juego")
+
+    @Column(name = "baja_juego")
     private boolean bajaJuego;
-    
-    @Column(name="modificar_juego")
+
+    @Column(name = "modificar_juego")
     private boolean modificarJuego;
-    
-    @Column(name="alta_reserva")
+
+    @Column(name = "alta_reserva")
     private boolean altaReserva;
-    
-    @Column(name="baja_reserva")
+
+    @Column(name = "baja_reserva")
     private boolean bajaReserva;
-    
-    @Column(name="modificar_reserva")
+
+    @Column(name = "modificar_reserva")
     private boolean modificarReserva;
-    
-    @Column(name="acceso_panel_administracion")
+
+    @Column(name = "acceso_panel_administracion")
     private boolean accederPanelAdministracion;
-    
+
+    @OneToMany(mappedBy = "permisos", cascade = CascadeType.ALL)
+    private List<ABMRol> abmRoles;
+
     public Permisos() {
+        this.abmRoles = new ArrayList<>();
         //HibernateUtil.guardar(this);
     }
 
@@ -129,8 +139,8 @@ public class Permisos implements Serializable {
         this.bajaReserva = bajaReserva;
         this.modificarReserva = modificarReserva;
     }
-    
-    public void setCanDoAll(boolean valor){
+
+    public void setCanDoAll(boolean valor) {
         this.altaRol = valor;
         this.bajaRol = valor;
         this.modificarRol = valor;
@@ -158,8 +168,8 @@ public class Permisos implements Serializable {
         this.accederPanelAdministracion = valor;
         //HibernateUtil.actualizar(this);
     }
-    
-    public void setPermisosNuevoRol(){
+
+    public void setPermisosNuevoRol() {
         this.altaRol = false;
         this.bajaRol = false;
         this.modificarRol = false;
@@ -187,8 +197,8 @@ public class Permisos implements Serializable {
         this.accederPanelAdministracion = false;
         //HibernateUtil.actualizar(this);
     }
-    
-    public void setPermisosCliente(){
+
+    public void setPermisosCliente() {
         this.altaRol = false;
         this.bajaRol = false;
         this.modificarRol = false;
@@ -216,8 +226,8 @@ public class Permisos implements Serializable {
         this.accederPanelAdministracion = false;
         //HibernateUtil.actualizar(this);
     }
-    
-    public void setPermisosEmpleado(){
+
+    public void setPermisosEmpleado() {
         this.altaRol = false;
         this.bajaRol = false;
         this.modificarRol = false;
@@ -245,12 +255,11 @@ public class Permisos implements Serializable {
         this.accederPanelAdministracion = true;
         //HibernateUtil.actualizar(this);
     }
-    
+
     /*public void addRol(Rol unRol){
         this.roles.add(unRol);
         //HibernateUtil.actualizar(this);
     }*/
-    
     public int getId() {
         return id;
     }
@@ -484,9 +493,72 @@ public class Permisos implements Serializable {
         HibernateUtil.actualizar(this);
     }
 
-    
+    public List<ABMRol> getAbmRoles() {
+        return abmRoles;
+    }
 
+    public void setAbmRoles(List<ABMRol> abmRoles) {
+        this.abmRoles = abmRoles;
+    }
+
+    public boolean canAltaUsuario(String nombreRol) {
+        for (ABMRol abmRol : this.abmRoles) {
+            if (abmRol.canAlta()) {
+                return true;
+            }
+        }
+        return false;
+    }
     
+    public boolean canBajaUsuario(String nombreRol) {
+        for (ABMRol abmRol : this.abmRoles) {
+            if (abmRol.canBaja()) {
+                return true;
+            }
+        }
+        return false;
+    }
     
+    public boolean canModificarUsuario(String nombreRol) {
+        for (ABMRol abmRol : this.abmRoles) {
+            if (abmRol.canModificar()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addAMBUsuarioRol(String nombreRol, boolean alta, boolean baja, boolean modificar) throws RolException {
+        for (ABMRol abmRol : this.abmRoles) {
+            if (abmRol.getUnRol().getNombre().equals(nombreRol)) {
+                throw new RolException("Este permiso ya puede dar de alta usuarios con ese rol");
+            }
+        }
+        this.abmRoles.add(new ABMRol(Tienda.getInstance().buscarRol(nombreRol), alta, baja, modificar, this));
+        HibernateUtil.actualizar(this);
+    }
     
+    public void addAMBUsuarioRol(String nombreRol) throws RolException {
+        for (ABMRol abmRol : this.abmRoles) {
+            if (abmRol.getUnRol().getNombre().equals(nombreRol)) {
+                throw new RolException("Este rol ya tiene permiso para dar de alta usuarios del rol indicado");
+            }
+        }
+        this.abmRoles.add(new ABMRol(Tienda.getInstance().buscarRol(nombreRol), false, false, false, this));
+        HibernateUtil.actualizar(this);
+    }
+    
+    public ABMRol buscarAMBUsuarioRol(String nombreRol){
+        ABMRol abmRol = null;
+        Iterator iterAbmRoles = this.abmRoles.iterator();
+        while (iterAbmRoles.hasNext()) {
+            abmRol = (ABMRol) iterAbmRoles.next();
+            if (abmRol.getUnRol().getNombre().equals(nombreRol)){
+                return abmRol;
+            }
+            
+        }
+        return null;
+    }
+
 }

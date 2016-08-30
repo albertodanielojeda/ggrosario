@@ -19,7 +19,7 @@
         <property name="hibernate.connection.username">feejrrccubunjv</property>
         <property name="hibernate.connection.password">itqTkbRPEcunzkJ3moRLjswU2G</property> -->
     
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
@@ -44,5 +44,6 @@
         <mapping class="com.herokuapp.ggrosario.modelo.JuegoReserva"/>
         <mapping class="com.herokuapp.ggrosario.modelo.Stock"/>
         <mapping class="com.herokuapp.ggrosario.modelo.EstadoReserva"/>
+        <mapping class="com.herokuapp.ggrosario.modelo.ABMRol"/>
     </session-factory>
 </hibernate-configuration>

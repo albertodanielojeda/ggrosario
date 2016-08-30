@@ -1,9 +1,18 @@
 package com.herokuapp.ggrosario.servlet.admin.rol;
 
+import com.herokuapp.ggrosario.exepciones.RolException;
+import com.herokuapp.ggrosario.modelo.ABMRol;
 import com.herokuapp.ggrosario.modelo.Rol;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,20 +66,89 @@ public class ModificarPermisosRolServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        // Los switches toman valores string "on" si están activados y "null" si están desactivados
+        /* Los switches toman valores string "on" si están activados y "null" si están desactivados */
         String idRol = request.getParameter("idRol");
+        Rol unRol = (Rol) Tienda.getInstance().buscarRol(idRol);
+
         String altaRol = request.getParameter("altaRol");
         String bajaRol = request.getParameter("bajaRol");
         String modificarRol = request.getParameter("modificarRol");
-        String altaAdministrador = request.getParameter("altaAdministrador");
-        String bajaAdministrador = request.getParameter("bajaAdministrador");
-        String modificarAdministrador = request.getParameter("modificarAdministrador");
-        String altaEmpleado = request.getParameter("altaEmpleado");
-        String bajaEmpleado = request.getParameter("bajaEmpleado");
-        String modificarEmpleado = request.getParameter("modificarEmpleado");
-        String altaCliente = request.getParameter("altaCliente");
-        String bajaCliente = request.getParameter("bajaCliente");
-        String modificarCliente = request.getParameter("modificarCliente");
+
+        /* Se pasan los String[] a Set<String> para trabajarlos más cómodamente */
+        String altaUsuarios[] = request.getParameterValues("altaUsuarios");
+        Set<String> nuevosAltaUsuarios = new HashSet<>();
+        if (altaUsuarios != null) {
+            nuevosAltaUsuarios.addAll(Arrays.asList(altaUsuarios));
+        }
+        String bajaUsuarios[] = request.getParameterValues("bajaUsuarios");
+        Set<String> nuevosBajaUsuarios = new HashSet<>();
+        if (bajaUsuarios != null) {
+            nuevosBajaUsuarios.addAll(Arrays.asList(bajaUsuarios));
+        }
+        String modificarUsuarios[] = request.getParameterValues("modificarUsuarios");
+        Set<String> nuevosModificarUsuarios = new HashSet<>();
+        if (modificarUsuarios != null) {
+            nuevosModificarUsuarios.addAll(Arrays.asList(modificarUsuarios));
+        }
+        Set<String> todosABMRol = new HashSet<>();
+        for (ABMRol abm : unRol.getPermisos().getAbmRoles()) {
+            todosABMRol.add(abm.getUnRol().getNombre());
+        }
+        for (String tipoUsuario : nuevosAltaUsuarios) {
+            try {
+                unRol.getPermisos().addAMBUsuarioRol(tipoUsuario);
+            } catch (RolException ex) {
+                System.out.println(ex.getMessage());
+            }finally{
+                unRol.getPermisos().buscarAMBUsuarioRol(tipoUsuario).setCanAlta(false);
+            }
+        }
+        
+        for (String tipoUsuario : nuevosBajaUsuarios) {
+            try {
+                unRol.getPermisos().addAMBUsuarioRol(tipoUsuario);
+            } catch (RolException ex) {
+                System.out.println(ex.getMessage());
+            }finally{
+                unRol.getPermisos().buscarAMBUsuarioRol(tipoUsuario).setCanBaja(false);
+            }
+        }
+        
+        for (String tipoUsuario : nuevosModificarUsuarios) {
+            try {
+                unRol.getPermisos().addAMBUsuarioRol(tipoUsuario);
+            } catch (RolException ex) {
+                System.out.println(ex.getMessage());
+            }finally{
+                unRol.getPermisos().buscarAMBUsuarioRol(tipoUsuario).setCanModificar(false);
+            }
+        }
+
+        /* Chequea para cada ABMRol de los permisos a modificar del rol */
+        for (ABMRol abmRol : unRol.getPermisos().getAbmRoles()) {
+            /* Si el nombre de un rol NO estaba marcado en la lista de altas, no lo puede dar de alta */
+            if (!nuevosAltaUsuarios.contains(abmRol.getUnRol().getNombre())) {
+                abmRol.setCanAlta(false);
+            } else {
+                /* Si estaba marcado, lo puede dar de alta */
+                abmRol.setCanAlta(true);
+            }
+            /* Si el nombre de un rol NO estaba marcado en la lista de bajas, no lo puede dar de baja */
+            if (!nuevosBajaUsuarios.contains(abmRol.getUnRol().getNombre())) {
+                abmRol.setCanBaja(false);
+            } else {
+                /* Si estaba marcado, lo puede dar de baja */
+                abmRol.setCanBaja(true);
+            }
+            /* Si el nombre de un rol NO estaba marcado en la lista de modificacion, no lo puede modificar */
+            if (!nuevosModificarUsuarios.contains(abmRol.getUnRol().getNombre())) {
+                abmRol.setCanModificar(false);
+            } else {
+                /* Si estaba marcado, lo puede modificar */
+                abmRol.setCanModificar(true);
+            }
+        }
+
         String altaCatalogo = request.getParameter("altaCatalogo");
         String bajaCatalogo = request.getParameter("bajaCatalogo");
         String modificarCatalogo = request.getParameter("modificarCatalogo");
@@ -84,134 +162,105 @@ public class ModificarPermisosRolServlet extends HttpServlet {
         String bajaReserva = request.getParameter("bajaReserva");
         String modificarReserva = request.getParameter("modificarReserva");
         String accederPanelAdministracion = request.getParameter("accederPanelAdministracion");
-        
-        Rol unRol = (Rol) Tienda.getInstance().buscarRol(idRol);
-        if (altaRol != null && altaRol.equals("on"))
+
+        if (altaRol != null && altaRol.equals("on")) {
             unRol.getPermisos().setAltaRol(true);
-        else
+        } else {
             unRol.getPermisos().setAltaRol(false);
-        
-        if (bajaRol != null && bajaRol.equals("on"))
+        }
+
+        if (bajaRol != null && bajaRol.equals("on")) {
             unRol.getPermisos().setBajaRol(true);
-        else
+        } else {
             unRol.getPermisos().setBajaRol(false);
-        
-        if (modificarRol != null && modificarRol.equals("on"))
+        }
+
+        if (modificarRol != null && modificarRol.equals("on")) {
             unRol.getPermisos().setModificacionRol(true);
-        else
+        } else {
             unRol.getPermisos().setModificacionRol(false);
-        
-        if (altaAdministrador != null && altaAdministrador.equals("on"))
-            unRol.getPermisos().setAltaAdministrador(true);
-        else
-            unRol.getPermisos().setAltaAdministrador(false);
-        
-        if (bajaAdministrador != null && bajaAdministrador.equals("on"))
-            unRol.getPermisos().setBajaAdministrador(true);
-        else
-            unRol.getPermisos().setBajaAdministrador(false);
-        
-        if (modificarAdministrador != null && modificarAdministrador.equals("on"))
-            unRol.getPermisos().setModificacionAdministrador(true);
-        else
-            unRol.getPermisos().setModificacionAdministrador(false);
-        
-        if (altaEmpleado != null && altaEmpleado.equals("on"))
-            unRol.getPermisos().setAltaEmpleado(true);
-        else
-            unRol.getPermisos().setAltaEmpleado(false);
-        
-        if (bajaEmpleado != null && bajaEmpleado.equals("on"))
-            unRol.getPermisos().setBajaEmpleado(true);
-        else
-            unRol.getPermisos().setBajaEmpleado(false);
-        
-        if (modificarEmpleado != null && modificarEmpleado.equals("on"))
-            unRol.getPermisos().setModificacionEmpleado(true);
-        else
-            unRol.getPermisos().setModificacionEmpleado(false);
-        
-        if (altaCliente != null && altaCliente.equals("on"))
-            unRol.getPermisos().setAltaCliente(true);
-        else
-            unRol.getPermisos().setAltaCliente(false);
-        
-        if (bajaCliente != null && bajaCliente.equals("on"))
-            unRol.getPermisos().setBajaCliente(true);
-        else
-            unRol.getPermisos().setBajaCliente(false);
-        
-        if (modificarCliente != null && modificarCliente.equals("on"))
-            unRol.getPermisos().setModificacionCliente(true);
-        else
-            unRol.getPermisos().setModificacionCliente(false);
-        
-        if (altaCatalogo != null && altaCatalogo.equals("on"))
+        }
+
+        if (altaCatalogo != null && altaCatalogo.equals("on")) {
             unRol.getPermisos().setAltaCatalogo(true);
-        else
+        } else {
             unRol.getPermisos().setAltaCatalogo(false);
-        
-        if (bajaCatalogo != null && bajaCatalogo.equals("on"))
+        }
+
+        if (bajaCatalogo != null && bajaCatalogo.equals("on")) {
             unRol.getPermisos().setBajaCatalogo(true);
-        else
+        } else {
             unRol.getPermisos().setBajaCatalogo(false);
-        
-        if (modificarCatalogo != null && modificarCatalogo.equals("on"))
+        }
+
+        if (modificarCatalogo != null && modificarCatalogo.equals("on")) {
             unRol.getPermisos().setModificacionCatalogo(true);
-        else
+        } else {
             unRol.getPermisos().setModificacionCatalogo(false);
-        
-        if (altaCategoria != null && altaCategoria.equals("on"))
+        }
+
+        if (altaCategoria != null && altaCategoria.equals("on")) {
             unRol.getPermisos().setAltaCategoria(true);
-        else
+        } else {
             unRol.getPermisos().setAltaCategoria(false);
-        
-        if (bajaCategoria != null && bajaCategoria.equals("on"))
+        }
+
+        if (bajaCategoria != null && bajaCategoria.equals("on")) {
             unRol.getPermisos().setBajaCategoria(true);
-        else
+        } else {
             unRol.getPermisos().setBajaCategoria(false);
-        
-        if (modificarCategoria != null && modificarCategoria.equals("on"))
+        }
+
+        if (modificarCategoria != null && modificarCategoria.equals("on")) {
             unRol.getPermisos().setModificacionCategoria(true);
-        else
+        } else {
             unRol.getPermisos().setModificacionCategoria(false);
-        
-        if (altaJuego != null && altaJuego.equals("on"))
+        }
+
+        if (altaJuego != null && altaJuego.equals("on")) {
             unRol.getPermisos().setAltaJuego(true);
-        else
+        } else {
             unRol.getPermisos().setAltaJuego(false);
-        
-        if (bajaJuego != null && bajaJuego.equals("on"))
+        }
+
+        if (bajaJuego != null && bajaJuego.equals("on")) {
             unRol.getPermisos().setBajaJuego(true);
-        else
+        } else {
             unRol.getPermisos().setBajaJuego(false);
-        
-        if (modificarJuego != null && modificarJuego.equals("on"))
+        }
+
+        if (modificarJuego != null && modificarJuego.equals("on")) {
             unRol.getPermisos().setModificacionJuego(true);
-        else
+        } else {
             unRol.getPermisos().setModificacionJuego(false);
-        
-        if (altaReserva != null && altaReserva.equals("on"))
+        }
+
+        if (altaReserva != null && altaReserva.equals("on")) {
             unRol.getPermisos().setAltaReserva(true);
-        else
+        } else {
             unRol.getPermisos().setAltaReserva(false);
-        
-        if (bajaReserva != null && bajaReserva.equals("on"))
+        }
+
+        if (bajaReserva != null && bajaReserva.equals("on")) {
             unRol.getPermisos().setBajaReserva(true);
-        else
+        } else {
             unRol.getPermisos().setBajaReserva(false);
-        
-        if (modificarReserva != null && modificarReserva.equals("on"))
+        }
+
+        if (modificarReserva != null && modificarReserva.equals("on")) {
             unRol.getPermisos().setModificacionReserva(true);
-        else
+        } else {
             unRol.getPermisos().setModificacionReserva(false);
-        
-        if (accederPanelAdministracion != null && accederPanelAdministracion.equals("on"))
+        }
+
+        if (accederPanelAdministracion != null && accederPanelAdministracion.equals("on")) {
             unRol.getPermisos().setAccederPanelAdministracion(true);
-        else
+        } else {
             unRol.getPermisos().setAccederPanelAdministracion(false);
-        
-        
+        }
+        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+        response.sendRedirect("verDetallesRol?idRol=" + idRol);
+
     }
 
     /**
