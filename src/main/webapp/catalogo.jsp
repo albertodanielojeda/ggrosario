@@ -56,7 +56,8 @@
                                     </div>
                                 </a>
                             </div>
-                            <% } %>
+                            <% request.getSession().removeAttribute("encontrado");
+                                                } %>
                             <% } else {
                                 List<Juego> juegosCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id"))).getJuegos();
                                 for (Juego juego : juegosCatalogo) {%>
