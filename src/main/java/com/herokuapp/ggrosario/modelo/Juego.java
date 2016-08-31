@@ -103,9 +103,6 @@ public class Juego implements Serializable {
         this.unaTienda = unaTienda;
         this.fechaAlta = new Date();
         this.unCatalogo = unCatalogo;
-        if (this.unCatalogo != null) {
-            this.unCatalogo.addJuego(this);
-        }
         this.requisitosMinimos = requisitosMinimos;
         this.requisitosRecomendados = requisitosRecomendados;
         HibernateUtil.guardar(this);

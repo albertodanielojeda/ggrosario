@@ -1,6 +1,7 @@
 package com.herokuapp.ggrosario.modelo;
 
 import com.herokuapp.ggrosario.exepciones.CategoriaException;
+import com.herokuapp.ggrosario.exepciones.JuegoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,15 @@ public class Catalogo implements Serializable {
     public Juego getUnJuego(int id) {
         for (Juego unJuego : this.juegos) {
             if (unJuego.getId() == id) {
+                return unJuego;
+            }
+        }
+        return null;
+    }
+    
+    public Juego buscarJuego(String nombre){
+        for (Juego unJuego : this.juegos){
+            if (unJuego.getNombre().toLowerCase().equals(nombre.toLowerCase())){
                 return unJuego;
             }
         }
