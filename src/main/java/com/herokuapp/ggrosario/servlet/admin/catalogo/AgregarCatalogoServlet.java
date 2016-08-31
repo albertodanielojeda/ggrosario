@@ -4,7 +4,6 @@ import com.herokuapp.ggrosario.exepciones.CatalogoException;
 import com.herokuapp.ggrosario.modelo.Rol;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
-import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -87,7 +86,7 @@ public class AgregarCatalogoServlet extends HttpServlet {
                     request.getSession().setAttribute("success", false);
                     Logger.getLogger(AgregarCatalogoServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
-                    request.getSession().setAttribute("unaTienda", unaTienda);
+                    request.getSession().setAttribute("unaTienda", Tienda.getInstance());
                     response.sendRedirect("../admin/gestion-catalogos");
                 }
             }else{
