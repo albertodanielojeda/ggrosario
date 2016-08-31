@@ -120,6 +120,7 @@ public class Catalogo implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+        HibernateUtil.actualizar(this);
     }
 
     public List<Categoria> getCategorias() {
