@@ -12,73 +12,97 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><%= unaTienda.getNombre()%> | Registro</title>
     </head>
-    <body>
+    <body class="lighten-5 light-green">
         <% Usuario unUsuario = (Usuario) request.getSession().getAttribute("unUsuario");%>
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo"><%= unaTienda.getNombre()%></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <% if (unUsuario == null || !unUsuario.hasRol(unaTienda.buscarRol("Administrador").getNombre())) { %>
-                    <%@include file="vistas/menuVisitante.jsp" %>
-                    <% } else if (unUsuario.hasRol(unaTienda.buscarRol("Administrador").getNombre())) { %>
-                    <%@include file="vistas/menuAdministrador.jsp" %>
-                    <% }%>
-                </ul>
-            </div>
-        </nav>
-        <div class="container">
+        <header>
+            <%@include file="vistas/menu.jsp" %>
+        </header>
+        <main>
+            <div class="container">
 
-            <div class="row">
+                <div class="row">
+                    <div class="col s4 left">
+                        <h3>Iniciar sesión</h3>
+                        <form id="loginForm" action="login" method="POST">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label id="lblNick" for="nick" data-error="Ingrese su nick o su e-mail">Nick o e-mail</label>
+                                    <input id="nick" type="text" name="nick" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label id="lblPassword" for="password" data-error="Ingrese su contraseña">Password</label>
+                                    <input id="password" type="password" name="password" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn" type="submit" name="btnLogin">Iniciar sesion</button>
+                                </div>
+                            </div>
+                        </form>
+                        <% if ((request.getSession().getAttribute("success") != null) && !Boolean.parseBoolean(request.getSession().getAttribute("success").toString())) { %>
+                        <script>
+                            Materialize.toast("Los datos ingresados no corresponden", 3000);
+                            <% request.getSession().removeAttribute("success"); %>
+                        </script>
+                        <% }%>
+                    </div>
 
-                <h4>¡Registrate para poder reservar tus juegos favoritos!</h4>
-                <div class="col s5">
-                    <form id="signupForm" action="registrar-usuario" method="POST">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <label for="nombre">Nombre</label>
-                                <input id="nombre" type="text" name="nombre" />
+                    <div class="col s7 right">
+                        <h4>¡Registrate para poder reservar tus juegos favoritos!</h4>
+                        <form id="signupForm" action="registrar-usuario" method="POST">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="nombre">Nombre</label>
+                                    <input id="nombre" type="text" name="nombre" />
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="apellido">Apellido</label>
+                                    <input id="apellido" type="text" name="apellido"/>
+                                </div>
                             </div>
-                            <div class="input-field col s6">
-                                <label for="apellido">Apellido</label>
-                                <input id="apellido" type="text" name="apellido"/>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" class="validate"/>
-                                <div></div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="email">E-mail</label>
+                                    <input id="email" type="email" name="email" class="validate"/>
+                                    <div></div>
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="nick">Nick</label>
+                                    <input id="nick" type="text" name="nick" />
+                                </div>
                             </div>
-                            <div class="input-field col s6">
-                                <label for="nick">Nick</label>
-                                <input id="nick" type="text" name="nick" />
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <label for="password">Password</label>
-                                <input id="password" type="password" name="password" />
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="password">Password</label>
+                                    <input id="password" type="password" name="password" />
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="telefono">Teléfono</label>
+                                    <input id="telefono" type="tel" name="telefono" />
+                                </div>
                             </div>
-                            <div class="input-field col s6">
-                                <label for="telefono">Teléfono</label>
-                                <input id="telefono" type="tel" name="telefono" />
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <label for="fecha-nacimiento">Fecha de nacimiento</label>
-                                <input id="fecha-nacimiento" type="date" class="datepicker" name="fechanacimiento" />
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="fecha-nacimiento">Fecha de nacimiento</label>
+                                    <input id="fecha-nacimiento" type="date" class="datepicker" name="fechanacimiento" />
+                                </div>
+                                <div class="input-field col s6">
+                                    <button class="btn" type="submit" name="btnSignup">¡Registrarme!</button>
+                                </div>
                             </div>
-                            <div class="input-field col s6">
-                                <button class="btn" type="submit" name="btnSignup">¡Registrarme!</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
+        
+            <%@include file="vistas/footer.jsp" %>
+        
     </body>
 </html>

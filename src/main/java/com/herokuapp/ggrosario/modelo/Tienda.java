@@ -253,16 +253,16 @@ public class Tienda implements Serializable {
      * @param unCatalogo El catálogo al que pertenece el juego
      */
     public void addJuego(String nombre, String descripcion, double precio, int stock, String cover, Catalogo unCatalogo, Requisito requisitosMinimos, Requisito requisitosRecomendados) throws JuegoException {
-        for (Juego unJuego : this.juegos) {
-            if (unJuego.getNombre().equals(nombre)) {
-                throw new JuegoException("El juego ya está registrado en la tienda");
-            }
+        if (unCatalogo.buscarJuego(nombre) == null) {
+            Juego unJuego = new Juego(nombre, descripcion, precio, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados);
+            Stock unStock = new Stock(stock, this, unJuego);
+            unJuego.setStock(unStock);
+            unCatalogo.addJuego(unJuego);
+            this.juegos.add(unJuego);
+            this.stocks.add(unStock);
+        }else{
+            throw new JuegoException("El juego ya existe en el catálogo especificado");
         }
-        Juego unJuego = new Juego(nombre, descripcion, precio, cover, unCatalogo, this, requisitosMinimos, requisitosRecomendados);
-        Stock unStock = new Stock(stock, this, unJuego);
-        unJuego.setStock(unStock);
-        this.juegos.add(unJuego);
-        this.stocks.add(unStock);
         //HibernateUtil.actualizar(this);
     }
 
@@ -342,9 +342,10 @@ public class Tienda implements Serializable {
         }
         return ultimosJuegos;
     }
-    
+
     /**
      * Añade una reserva
+     *
      * @param descripcion Descripción del estado de la reserva
      * @param unUsuario Usuario que quiere hacer la reserva
      * @param unJuego Juego que el usario quiere reservar

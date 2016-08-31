@@ -62,6 +62,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>catalogo</servlet-name>
+        <jsp-file>/catalogo.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>catalogo</servlet-name>
+        <url-pattern>/catalogo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>info-juego</servlet-name>
         <jsp-file>/verJuego.jsp</jsp-file>
     </servlet>
