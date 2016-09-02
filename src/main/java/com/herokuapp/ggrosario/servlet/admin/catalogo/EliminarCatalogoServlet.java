@@ -8,6 +8,7 @@ package com.herokuapp.ggrosario.servlet.admin.catalogo;
 import com.google.gson.Gson;
 import com.herokuapp.ggrosario.modelo.Catalogo;
 import com.herokuapp.ggrosario.modelo.Tienda;
+import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,27 +64,32 @@ public class EliminarCatalogoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        Gson gson = new Gson();
-        String respuesta;
-        String mensaje;
-        Tienda unaTienda = Tienda.getInstance();
-        Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
+        Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        if (miUsuario != null && miUsuario.canEliminarCatalogo()) {
+            Gson gson = new Gson();
+            String respuesta;
+            String mensaje;
+            Tienda unaTienda = Tienda.getInstance();
+            Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
 
-        if (unCatalogo != null && unCatalogo.getJuegos().isEmpty()) {
-            if (unaTienda.eliminarCatalogo(unCatalogo)) {
-                mensaje = "El catálogo ha sido eliminado satisfactoriamente";
+            if (unCatalogo != null && unCatalogo.getJuegos().isEmpty()) {
+                if (unaTienda.eliminarCatalogo(unCatalogo)) {
+                    mensaje = "El catálogo ha sido eliminado satisfactoriamente";
+                } else {
+                    mensaje = "El catálogo a eliminar no existe o ya fue eliminado";
+                }
             } else {
-                mensaje = "El catálogo a eliminar no existe o ya fue eliminado";
+                mensaje = "El catálogo tiene juegos asociados y no puede ser dado de baja";
             }
-        } else {
-            mensaje = "El catálogo tiene juegos asociados y no puede ser dado de baja";
-        }
 
-        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
-        respuesta = gson.toJson(mensaje);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(respuesta);
+            request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+            respuesta = gson.toJson(mensaje);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(respuesta);
+        }else{
+            response.sendError(403);
+        }
     }
 
     /**

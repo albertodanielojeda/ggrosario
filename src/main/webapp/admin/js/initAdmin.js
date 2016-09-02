@@ -28,17 +28,22 @@ $(document).ready(function () {
     });
 
     $(this).on("click", "a.cambiar-nombre-catalogo", function () {
+        var mensaje;
         var parametrosCatalogo = {
             id: $(this).parent().parent().attr('id'),
             nuevoNombre: $('input#nuevo-nombre-catalogo').val()
         };
         $(this).parent().html("<p>Guardando...<div class='progress'> <div class='indeterminate'></div> </div></p>");
         $.post("cambiar-nombre-catalogo", $.param(parametrosCatalogo), function (respuesta) {
+            mensaje = respuesta;
             location.reload();
-            Materialize.toast(respuesta, 3000);
-        });
+        }).done(function(){
+            Materialize.toast(mensaje, 3000);
+        }).fail(function () {
+            window.location.replace("../errores/403");
+        });;
     });
-    
+
     $(this).on("click", "a.eliminar-catalogo", function () {
         var parametrosCatalogo = {
             id: $(this).parent().parent().attr('id')

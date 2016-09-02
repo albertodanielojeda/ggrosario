@@ -95,5 +95,5 @@
     </body>
 </html>
 <% } else {
-    response.sendError(404);
+    response.sendError(403);
 } %>

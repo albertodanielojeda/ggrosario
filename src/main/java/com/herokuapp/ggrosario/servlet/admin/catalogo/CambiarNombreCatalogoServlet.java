@@ -7,7 +7,9 @@ package com.herokuapp.ggrosario.servlet.admin.catalogo;
 
 import com.google.gson.Gson;
 import com.herokuapp.ggrosario.modelo.Catalogo;
+import com.herokuapp.ggrosario.modelo.Rol;
 import com.herokuapp.ggrosario.modelo.Tienda;
+import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -38,7 +40,6 @@ public class CambiarNombreCatalogoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -66,37 +67,43 @@ public class CambiarNombreCatalogoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        Gson gson = new Gson();
-        String respuesta = null;
-        String mensaje = null;
-        Tienda unaTienda = Tienda.getInstance();
-        Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
-        List<Catalogo> catalogos = unaTienda.getCatalogos();
-        String nuevoNombre = request.getParameter("nuevoNombre");
+        Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        if (miUsuario != null && miUsuario.canModificarCatalogo()) {
+            Gson gson = new Gson();
+            String respuesta = null;
+            String mensaje = null;
+            Tienda unaTienda = Tienda.getInstance();
+            Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
+            List<Catalogo> catalogos = unaTienda.getCatalogos();
+            String nuevoNombre = request.getParameter("nuevoNombre");
 
-        for (Catalogo c : catalogos) {
-            if (c.getNombre().toLowerCase().equals(nuevoNombre.toLowerCase())) {
-                mensaje = "Ya existe un catálogo con ese nombre";
-                respuesta = gson.toJson(mensaje);
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(respuesta);
-                return;
+            for (Catalogo c : catalogos) {
+                if (c.getNombre().toLowerCase().equals(nuevoNombre.toLowerCase())) {
+                    mensaje = "Ya existe un catálogo con ese nombre";
+                    respuesta = gson.toJson(mensaje);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(respuesta);
+                    return;
+                }
             }
+
+            if (unCatalogo != null) {
+                unCatalogo.setNombre(nuevoNombre);
+                mensaje = "El catálogo ha sido renombrado satisfactoriamente";
+            } else {
+                mensaje = "El catálogo a renombrar no existe o fue dado de baja antes de completar la acción";
+
+            }
+            request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+            respuesta = gson.toJson(mensaje);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(respuesta);
+        }else{
+            response.setStatus(403);
         }
 
-        if (unCatalogo != null) {
-            unCatalogo.setNombre(nuevoNombre);
-            mensaje = "El catálogo ha sido renombrado satisfactoriamente";
-        } else {
-            mensaje = "El catálogo a renombrar no existe o fue dado de baja antes de completar la acción";
-
-        }
-        request.getSession().setAttribute("unaTienda", Tienda.getInstance());
-        respuesta = gson.toJson(mensaje);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(respuesta);
     }
 
     /**
@@ -107,6 +114,6 @@ public class CambiarNombreCatalogoServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
