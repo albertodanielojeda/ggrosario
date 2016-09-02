@@ -50,7 +50,11 @@ public class HibernateUtil {
     public static void actualizar(Object unObjeto) throws HibernateException { 
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.merge(unObjeto);
+        try{
+            session.merge(unObjeto);
+        }catch (HibernateException he){
+            System.out.println(he.getMessage());
+        }
         transaction.commit();
         session.close();
         
@@ -59,7 +63,7 @@ public class HibernateUtil {
     public static void eliminar(Object unObjeto) throws HibernateException { 
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(unObjeto);
+        session.delete(unObjeto);
         transaction.commit();
         session.close();
     }

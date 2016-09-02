@@ -260,7 +260,7 @@ public class Tienda implements Serializable {
             unCatalogo.addJuego(unJuego);
             this.juegos.add(unJuego);
             this.stocks.add(unStock);
-        }else{
+        } else {
             throw new JuegoException("El juego ya existe en el catálogo especificado");
         }
         //HibernateUtil.actualizar(this);
@@ -361,6 +361,15 @@ public class Tienda implements Serializable {
         this.estadosReservas.add(estadoReserva);
         unUsuario.addJuegoToReservas(unJuego, unaReserva);
         unJuego.addReserva(unaReserva);
+    }
+
+    public boolean eliminarCatalogo(Catalogo unCatalogo) {
+        if (this.catalogos.remove(unCatalogo)) {
+            HibernateUtil.actualizar(this);
+            HibernateUtil.eliminar(unCatalogo);
+            return true;
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">

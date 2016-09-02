@@ -47,11 +47,14 @@
                         <tbody>
                             <% for (Catalogo unCatalogo : unaTienda.getCatalogos()) {%>
 
-                            <tr id="<%= unCatalogo.getId()%>">
+                            <tr id="<%= unCatalogo.getId() %>">
                                 <td><%= unCatalogo.getNombre()%></td>
 
-                                <% if (miRol.getPermisos().canModificacionCatalogo() || miRol.getPermisos().canBajaCatalogo()) { %>
-                                <td><a href="verDetallesCatalogo?idCatalogo=<%= unCatalogo.getId()%>">Administrar</a></td>
+                                <% if (miRol.getPermisos().canModificacionCatalogo()) { %>
+                                <td><a class="editar-nombre-catalogo" href="#!"><i class="material-icons left">mode_edit</i>Cambiar nombre</a></td>
+                                <% } %>
+                                <% if (miRol.getPermisos().canBajaCatalogo()) { %>
+                                <td><a class="eliminar-catalogo" href="#!"><i class="material-icons left">delete_forever</i>Eliminar</a></td>
                                 <% } %>
                             </tr>
                             <%
@@ -92,5 +95,5 @@
     </body>
 </html>
 <% } else {
-    response.sendError(404);
+    response.sendError(403);
 } %>

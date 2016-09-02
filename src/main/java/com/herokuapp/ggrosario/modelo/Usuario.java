@@ -179,6 +179,24 @@ public class Usuario implements Serializable {
         unComentario.getUnJuego().addComentario(unComentario);
         HibernateUtil.actualizar(this);
     }
+    
+    public boolean canModificarCatalogo(){
+        for (Rol rol : this.roles){
+            if (rol.getPermisos().canModificacionCatalogo()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean canEliminarCatalogo(){
+        for (Rol rol : this.roles){
+            if (rol.getPermisos().canBajaCatalogo()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public String getEmail() {

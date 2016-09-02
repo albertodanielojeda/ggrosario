@@ -1,13 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.herokuapp.ggrosario.servlet.admin.catalogo;
 
-import com.herokuapp.ggrosario.exepciones.CatalogoException;
-import com.herokuapp.ggrosario.modelo.Rol;
+import com.google.gson.Gson;
+import com.herokuapp.ggrosario.modelo.Catalogo;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ojeda Alberto Daniel
  */
-@WebServlet(name = "AgregarCatalogoServlet", urlPatterns = {"/admin/agregar-catalogo"})
-public class AgregarCatalogoServlet extends HttpServlet {
+@WebServlet(name = "EliminarCatalogoServlet", urlPatterns = {"/admin/eliminar-catalogo"})
+public class EliminarCatalogoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -62,36 +64,29 @@ public class AgregarCatalogoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        if (miUsuario != null && miUsuario.canEliminarCatalogo()) {
+            Gson gson = new Gson();
+            String respuesta;
+            String mensaje;
+            Tienda unaTienda = Tienda.getInstance();
+            Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
 
-        boolean puedeAgregarCatalogos = false;
-        Usuario usuario = (Usuario) request.getSession().getAttribute("miUsuario");
-
-        if (usuario != null) {
-
-            Iterator iterRolesUsuario = usuario.getRoles().iterator();
-
-            while (iterRolesUsuario.hasNext() && puedeAgregarCatalogos == false) {
-                Rol rol = (Rol) iterRolesUsuario.next();
-                if (rol.getPermisos().canAltaCatalogo()) {
-                    puedeAgregarCatalogos = true;
+            if (unCatalogo != null && unCatalogo.getJuegos().isEmpty()) {
+                if (unaTienda.eliminarCatalogo(unCatalogo)) {
+                    mensaje = "El catálogo ha sido eliminado satisfactoriamente";
+                } else {
+                    mensaje = "El catálogo a eliminar no existe o ya fue eliminado";
                 }
+            } else {
+                mensaje = "El catálogo tiene juegos asociados y no puede ser dado de baja";
             }
 
-            if (puedeAgregarCatalogos) {
-                Tienda unaTienda = Tienda.getInstance();
-                try {
-                    unaTienda.addCatalogo(request.getParameter("nombreCatalogo"));
-                    request.getSession().setAttribute("success", true);
-                } catch (CatalogoException ex) {
-                    request.getSession().setAttribute("success", false);
-                    Logger.getLogger(AgregarCatalogoServlet.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    request.getSession().setAttribute("unaTienda", Tienda.getInstance());
-                    response.sendRedirect("../admin/gestion-catalogos");
-                }
-            }else{
-                response.sendError(403);
-            }
+            request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+            respuesta = gson.toJson(mensaje);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(respuesta);
         }else{
             response.sendError(403);
         }

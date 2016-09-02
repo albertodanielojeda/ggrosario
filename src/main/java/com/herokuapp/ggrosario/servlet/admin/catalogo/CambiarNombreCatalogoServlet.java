@@ -1,13 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.herokuapp.ggrosario.servlet.admin.catalogo;
 
-import com.herokuapp.ggrosario.exepciones.CatalogoException;
+import com.google.gson.Gson;
+import com.herokuapp.ggrosario.modelo.Catalogo;
 import com.herokuapp.ggrosario.modelo.Rol;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ojeda Alberto Daniel
  */
-@WebServlet(name = "AgregarCatalogoServlet", urlPatterns = {"/admin/agregar-catalogo"})
-public class AgregarCatalogoServlet extends HttpServlet {
+@WebServlet(name = "CambiarNombreCatalogoServlet", urlPatterns = {"/admin/cambiar-nombre-catalogo"})
+public class CambiarNombreCatalogoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +38,6 @@ public class AgregarCatalogoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
     }
 
     /**
@@ -48,6 +52,7 @@ public class AgregarCatalogoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
@@ -62,39 +67,43 @@ public class AgregarCatalogoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        if (miUsuario != null && miUsuario.canModificarCatalogo()) {
+            Gson gson = new Gson();
+            String respuesta = null;
+            String mensaje = null;
+            Tienda unaTienda = Tienda.getInstance();
+            Catalogo unCatalogo = unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id")));
+            List<Catalogo> catalogos = unaTienda.getCatalogos();
+            String nuevoNombre = request.getParameter("nuevoNombre");
 
-        boolean puedeAgregarCatalogos = false;
-        Usuario usuario = (Usuario) request.getSession().getAttribute("miUsuario");
-
-        if (usuario != null) {
-
-            Iterator iterRolesUsuario = usuario.getRoles().iterator();
-
-            while (iterRolesUsuario.hasNext() && puedeAgregarCatalogos == false) {
-                Rol rol = (Rol) iterRolesUsuario.next();
-                if (rol.getPermisos().canAltaCatalogo()) {
-                    puedeAgregarCatalogos = true;
+            for (Catalogo c : catalogos) {
+                if (c.getNombre().toLowerCase().equals(nuevoNombre.toLowerCase())) {
+                    mensaje = "Ya existe un catálogo con ese nombre";
+                    respuesta = gson.toJson(mensaje);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(respuesta);
+                    return;
                 }
             }
 
-            if (puedeAgregarCatalogos) {
-                Tienda unaTienda = Tienda.getInstance();
-                try {
-                    unaTienda.addCatalogo(request.getParameter("nombreCatalogo"));
-                    request.getSession().setAttribute("success", true);
-                } catch (CatalogoException ex) {
-                    request.getSession().setAttribute("success", false);
-                    Logger.getLogger(AgregarCatalogoServlet.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    request.getSession().setAttribute("unaTienda", Tienda.getInstance());
-                    response.sendRedirect("../admin/gestion-catalogos");
-                }
-            }else{
-                response.sendError(403);
+            if (unCatalogo != null) {
+                unCatalogo.setNombre(nuevoNombre);
+                mensaje = "El catálogo ha sido renombrado satisfactoriamente";
+            } else {
+                mensaje = "El catálogo a renombrar no existe o fue dado de baja antes de completar la acción";
+
             }
+            request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+            respuesta = gson.toJson(mensaje);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(respuesta);
         }else{
-            response.sendError(403);
+            response.setStatus(403);
         }
+
     }
 
     /**
