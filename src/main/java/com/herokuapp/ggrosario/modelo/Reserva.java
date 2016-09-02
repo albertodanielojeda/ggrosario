@@ -45,7 +45,7 @@ public class Reserva implements Serializable {
     @OneToOne(mappedBy = "unaReserva")
     private EstadoReserva estadoReserva;
 
-    private static final SimpleDateFormat formatoDia = new SimpleDateFormat("dd/mm/yyyy");
+    private static final SimpleDateFormat formatoDia = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * Constructor nulo
@@ -129,11 +129,11 @@ public class Reserva implements Serializable {
     public String getFechaAltaAsString() {
         return formatoDia.format(fechaAlta.getTime());
     }
-    
+
     public Calendar getFecha() {
         return fechaAlta;
     }
-    
+
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
@@ -141,7 +141,7 @@ public class Reserva implements Serializable {
     public String getFechaBajaAsString() {
         return formatoDia.format(fechaBaja.getTime());
     }
-    
+
     public Calendar getFechaBaja() {
         return fechaBaja;
     }
