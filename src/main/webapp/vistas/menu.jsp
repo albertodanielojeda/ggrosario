@@ -5,8 +5,9 @@
             <% if (miUsuario != null) {%>
             <li><a href="mi-perfil"><i class="material-icons left">account_circle</i>¡Hola <%= miUsuario.getNick()%>!</a></li>
             <li><a href="logout"><i class="material-icons left">directions_run</i>Cerrar sesión</a></li>
+            <% if (miUsuario.canAccederPanelAdministracion()){ %>
             <li><a href="admin/panel-administracion"><i class="material-icons">build</i></a></li>
-
+            <% } %>
             <% } else if (miUsuario == null) { %>
             <li><a href="registrarme"><b>Registrarse o iniciá sesión<i class="material-icons right">input</i></b></a></li>
                 <% }
