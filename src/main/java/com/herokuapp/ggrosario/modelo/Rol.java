@@ -28,7 +28,7 @@ public class Rol implements Serializable {
     @ManyToMany(mappedBy = "roles")
     private List<Usuario> usuarios;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "unRol", cascade = CascadeType.ALL)
     private Permisos permisos;
 
     @ManyToOne
@@ -51,9 +51,14 @@ public class Rol implements Serializable {
         this();
         this.nombre = nombre;
         this.permisos = new Permisos();
-        this.permisos.setPermisosNuevoRol();
+        this.permisos.setPermisosNuevoRol(this);
         this.unaTienda = (Tienda) unaTienda;
         HibernateUtil.guardar(this);
+    }
+    
+    public void addUsuario(Usuario unUsuario){
+        this.usuarios.add(unUsuario);
+        HibernateUtil.actualizar(this);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">

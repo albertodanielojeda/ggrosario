@@ -1,4 +1,4 @@
-<%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
-<% Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario"); %>
+<%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <% Tienda unaTienda = Tienda.getInstance(); %>
+<% Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario"); %>

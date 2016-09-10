@@ -95,8 +95,8 @@
                                                 <select multiple name="altaUsuarios">
                                                     <option value="" disabled selected>Usuarios que puede dar de alta</option>
                                                     <% for (Rol r : roles) {%>
-                                                    <% if (miRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null) { %>
-                                                    <option <% if (unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()).canAlta()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                    <% if (miRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null) { %>
+                                                    <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canAlta()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
                                                     <% } %>
                                                     <% } %>
                                                 </select>
@@ -108,8 +108,8 @@
                                             <select multiple name="bajaUsuarios">
                                                 <option value="" disabled selected>Usuarios que puede dar de baja</option>
                                                 <% for (Rol r : roles) {%>
-                                                <% if (miRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null) { %>
-                                                <option <% if (unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()).canBaja()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                <% if (miRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null) { %>
+                                                <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canBaja()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
                                                 <% } %>
                                                 <% } %>
                                             </select>
@@ -120,8 +120,8 @@
                                             <select multiple name="modificarUsuarios">
                                                 <option value="" disabled selected>Usuarios que puede modificar</option>
                                                 <% for (Rol r : roles) {%>
-                                                <% if (miRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null) { %>
-                                                <option <% if (unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarAMBUsuarioRol(r.getNombre()).canModificar()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                <% if (miRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null) { %>
+                                                <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canModificar()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
                                                 <% } %>
                                                 <% } %>
                                             </select>

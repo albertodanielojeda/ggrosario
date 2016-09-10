@@ -98,6 +98,7 @@ public class Usuario implements Serializable {
         this.unaTienda = (Tienda) unaTienda;
         this.unaListaDeseos = new ListaDeseos(this);
         this.roles.add(unRol);
+        unRol.addUsuario(this);
         HibernateUtil.guardar(this);
     }
 
@@ -109,6 +110,7 @@ public class Usuario implements Serializable {
      */
     public void addRol(Rol unRol) throws RolException {
         if (!this.hasRol(unRol.getNombre())) {
+            unRol.addUsuario(this);
             this.roles.add(unRol);
             HibernateUtil.actualizar(this);
         } else {
