@@ -40,6 +40,11 @@
                                 <p>E-Mail: <%= miUsuario.getEmail()%></p>
                             </div>
                             <div id="misReservas" class="col s9">
+                                <%if (miUsuario.getReservas().isEmpty()) {%>
+                                <div class="row">
+                                    <h4 class="center">No tienes juegos reservados</h4>
+                                </div>
+                                <%} else {%>
                                 <div class="row items">
                                     <% for (Reserva unaReserva : miUsuario.getReservas()) {%>
                                     <div class="col s3">
@@ -58,10 +63,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <%}%>
+                                    <%}
+                                        }%>
                                 </div>
                             </div>
                             <div id="miListaDeDeseos" class="col s9">
+                                <% if (miUsuario.getUnaListaDeseos().getUnaListaDeseosJuegos().isEmpty()) { %>
+                                <div class="row">
+                                    <h4 class="center">No tienes juegos en tu lista de deseos</h4>
+                                </div>
+                                <%} else {%>
                                 <div class="row items">
                                     <% for (ListaDeseosJuegos ldj : miUsuario.getUnaListaDeseos().getUnaListaDeseosJuegos()) {%>
                                     <div class="col s3">
@@ -77,23 +88,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <% } %>
+                                    <% }
+                                        } %>
                                 </div>
                             </div>
                             <div id="misComentarios" class="col s9">
+                                <% if (miUsuario.getComentarios().isEmpty()) { %>
+                                <div class="row">
+                                    <h4 class="center">Aún no has hecho comentarios</h4>
+                                </div>
+                                <% } else { %>
                                 <div class="collection">
                                     <% for (UsuarioComentario usuarioComentario : miUsuario.getComentarios()) {%>
                                     <a href="#!" class="collection-item"><%= usuarioComentario.getUnComentario().getDescripcion()%></a>
                                     <% }%>
                                 </div>
+                                <% }%>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-        <footer class="page-footer">
-            <%@include file="vistas/footer.jsp" %>
-        </footer>
+        <%@include file="vistas/footer.jsp" %>
     </body>
 </html>
