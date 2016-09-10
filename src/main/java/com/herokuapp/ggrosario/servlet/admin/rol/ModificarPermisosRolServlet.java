@@ -4,6 +4,8 @@ import com.herokuapp.ggrosario.exepciones.RolException;
 import com.herokuapp.ggrosario.modelo.ABMRol;
 import com.herokuapp.ggrosario.modelo.Rol;
 import com.herokuapp.ggrosario.modelo.Tienda;
+import com.herokuapp.ggrosario.modelo.Usuario;
+import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -85,37 +87,37 @@ public class ModificarPermisosRolServlet extends HttpServlet {
         if (modificarUsuarios != null) {
             nuevosModificarUsuarios.addAll(Arrays.asList(modificarUsuarios));
         }
-        Set<String> todosABMRol = new HashSet<>();
+        Set<String> todosAMBRol = new HashSet<>();
         for (ABMRol abm : unRol.getPermisos().getAbmRoles()) {
-            todosABMRol.add(abm.getUnRol().getNombre());
+            todosAMBRol.add(abm.getUnRol().getNombre());
         }
         for (String tipoUsuario : nuevosAltaUsuarios) {
             try {
                 unRol.getPermisos().addAMBUsuarioRol(tipoUsuario);
             } catch (RolException ex) {
                 System.out.println(ex.getMessage());
-            }finally{
-                unRol.getPermisos().buscarAMBUsuarioRol(tipoUsuario).setCanAlta(false);
+            } finally {
+                unRol.getPermisos().buscarABMUsuarioRol(tipoUsuario).setCanAlta(false);
             }
         }
-        
+
         for (String tipoUsuario : nuevosBajaUsuarios) {
             try {
                 unRol.getPermisos().addAMBUsuarioRol(tipoUsuario);
             } catch (RolException ex) {
                 System.out.println(ex.getMessage());
-            }finally{
-                unRol.getPermisos().buscarAMBUsuarioRol(tipoUsuario).setCanBaja(false);
+            } finally {
+                unRol.getPermisos().buscarABMUsuarioRol(tipoUsuario).setCanBaja(false);
             }
         }
-        
+
         for (String tipoUsuario : nuevosModificarUsuarios) {
             try {
                 unRol.getPermisos().addAMBUsuarioRol(tipoUsuario);
             } catch (RolException ex) {
                 System.out.println(ex.getMessage());
-            }finally{
-                unRol.getPermisos().buscarAMBUsuarioRol(tipoUsuario).setCanModificar(false);
+            } finally {
+                unRol.getPermisos().buscarABMUsuarioRol(tipoUsuario).setCanModificar(false);
             }
         }
 
@@ -253,6 +255,9 @@ public class ModificarPermisosRolServlet extends HttpServlet {
         } else {
             unRol.getPermisos().setAccederPanelAdministracion(false);
         }
+        
+        HibernateUtil.actualizar(Tienda.getInstance());
+
         request.getSession().setAttribute("unaTienda", Tienda.getInstance());
         response.sendRedirect("verDetallesRol?idRol=" + idRol);
 

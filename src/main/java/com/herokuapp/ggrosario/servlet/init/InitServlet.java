@@ -51,45 +51,45 @@ public class InitServlet extends HttpServlet {
             /* Crea rol de administrador */
             unaTienda.addRol("Administrador");
             Rol rolAdministrador = unaTienda.buscarRol("Administrador");
-            rolAdministrador.getPermisos().setCanDoAll(true);
+            rolAdministrador.getPermisos().setCanDoAll(true, rolAdministrador);
             
             
             /* Crea rol de empleado */
             unaTienda.addRol("Empleado");
             Rol rolEmpleado = unaTienda.buscarRol("Empleado");
-            rolEmpleado.getPermisos().setPermisosEmpleado();
+            rolEmpleado.getPermisos().setPermisosEmpleado(rolEmpleado);
             
             /* Crea rol de cliente */
             unaTienda.addRol("Cliente");
             Rol rolCliente = unaTienda.buscarRol("Cliente");
-            rolCliente.getPermisos().setPermisosCliente();
+            rolCliente.getPermisos().setPermisosCliente(rolCliente);
             
             rolAdministrador.getPermisos().addAMBUsuarioRol("Administrador");
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Administrador").setCanAlta(true);
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Administrador").setCanBaja(true);
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Administrador").setCanModificar(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Administrador").setCanAlta(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Administrador").setCanBaja(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Administrador").setCanModificar(true);
             rolAdministrador.getPermisos().addAMBUsuarioRol("Empleado");
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Empleado").setCanAlta(true);
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Empleado").setCanBaja(true);
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Empleado").setCanModificar(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Empleado").setCanAlta(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Empleado").setCanBaja(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Empleado").setCanModificar(true);
             rolAdministrador.getPermisos().addAMBUsuarioRol("Cliente");
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Cliente").setCanAlta(true);
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Cliente").setCanBaja(true);
-            rolAdministrador.getPermisos().buscarAMBUsuarioRol("Cliente").setCanModificar(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Cliente").setCanAlta(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Cliente").setCanBaja(true);
+            rolAdministrador.getPermisos().buscarABMUsuarioRol("Cliente").setCanModificar(true);
             
             rolEmpleado.getPermisos().addAMBUsuarioRol("Empleado");
-            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Empleado").setCanAlta(true);
-            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Empleado").setCanBaja(true);
-            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Empleado").setCanModificar(true);
+            rolEmpleado.getPermisos().buscarABMUsuarioRol("Empleado").setCanAlta(true);
+            rolEmpleado.getPermisos().buscarABMUsuarioRol("Empleado").setCanBaja(true);
+            rolEmpleado.getPermisos().buscarABMUsuarioRol("Empleado").setCanModificar(true);
             rolEmpleado.getPermisos().addAMBUsuarioRol("Cliente");
-            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Cliente").setCanAlta(true);
-            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Cliente").setCanBaja(true);
-            rolEmpleado.getPermisos().buscarAMBUsuarioRol("Cliente").setCanModificar(true);
+            rolEmpleado.getPermisos().buscarABMUsuarioRol("Cliente").setCanAlta(true);
+            rolEmpleado.getPermisos().buscarABMUsuarioRol("Cliente").setCanBaja(true);
+            rolEmpleado.getPermisos().buscarABMUsuarioRol("Cliente").setCanModificar(true);
             
             rolCliente.getPermisos().addAMBUsuarioRol("Cliente");
-            rolCliente.getPermisos().buscarAMBUsuarioRol("Cliente").setCanAlta(false);
-            rolCliente.getPermisos().buscarAMBUsuarioRol("Cliente").setCanBaja(false);
-            rolCliente.getPermisos().buscarAMBUsuarioRol("Cliente").setCanModificar(false);
+            rolCliente.getPermisos().buscarABMUsuarioRol("Cliente").setCanAlta(false);
+            rolCliente.getPermisos().buscarABMUsuarioRol("Cliente").setCanBaja(false);
+            rolCliente.getPermisos().buscarABMUsuarioRol("Cliente").setCanModificar(false);
         } catch (RolException ex) {
             Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

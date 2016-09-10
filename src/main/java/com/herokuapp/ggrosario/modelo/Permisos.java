@@ -106,6 +106,9 @@ public class Permisos implements Serializable {
 
     @OneToMany(mappedBy = "permisos", cascade = CascadeType.ALL)
     private List<ABMRol> abmRoles;
+    
+    @OneToOne
+    private Rol unRol;
 
     public Permisos() {
         this.abmRoles = new ArrayList<>();
@@ -140,7 +143,7 @@ public class Permisos implements Serializable {
         this.modificarReserva = modificarReserva;
     }
 
-    public void setCanDoAll(boolean valor) {
+    public void setCanDoAll(boolean valor, Rol unRol) {
         this.altaRol = valor;
         this.bajaRol = valor;
         this.modificarRol = valor;
@@ -166,10 +169,11 @@ public class Permisos implements Serializable {
         this.bajaReserva = valor;
         this.modificarReserva = valor;
         this.accederPanelAdministracion = valor;
+        this.unRol = unRol;
         //HibernateUtil.actualizar(this);
     }
 
-    public void setPermisosNuevoRol() {
+    public void setPermisosNuevoRol(Rol unRol) {
         this.altaRol = false;
         this.bajaRol = false;
         this.modificarRol = false;
@@ -195,10 +199,11 @@ public class Permisos implements Serializable {
         this.bajaReserva = false;
         this.modificarReserva = false;
         this.accederPanelAdministracion = false;
-        //HibernateUtil.actualizar(this);
+        this.unRol = unRol;
+        HibernateUtil.actualizar(this);
     }
 
-    public void setPermisosCliente() {
+    public void setPermisosCliente(Rol unRol) {
         this.altaRol = false;
         this.bajaRol = false;
         this.modificarRol = false;
@@ -224,10 +229,11 @@ public class Permisos implements Serializable {
         this.bajaReserva = true;
         this.modificarReserva = true;
         this.accederPanelAdministracion = false;
-        //HibernateUtil.actualizar(this);
+        this.unRol = unRol;
+        HibernateUtil.actualizar(this);
     }
 
-    public void setPermisosEmpleado() {
+    public void setPermisosEmpleado(Rol unRol) {
         this.altaRol = false;
         this.bajaRol = false;
         this.modificarRol = false;
@@ -253,7 +259,8 @@ public class Permisos implements Serializable {
         this.bajaReserva = false;
         this.modificarReserva = true;
         this.accederPanelAdministracion = true;
-        //HibernateUtil.actualizar(this);
+        this.unRol = unRol;
+        HibernateUtil.actualizar(this);
     }
 
     /*public void addRol(Rol unRol){
@@ -548,8 +555,8 @@ public class Permisos implements Serializable {
         HibernateUtil.actualizar(this);
     }
     
-    public ABMRol buscarAMBUsuarioRol(String nombreRol){
-        ABMRol abmRol = null;
+    public ABMRol buscarABMUsuarioRol(String nombreRol){
+        ABMRol abmRol;
         Iterator iterAbmRoles = this.abmRoles.iterator();
         while (iterAbmRoles.hasNext()) {
             abmRol = (ABMRol) iterAbmRoles.next();
@@ -561,4 +568,11 @@ public class Permisos implements Serializable {
         return null;
     }
 
+    public Rol getUnRol() {
+        return unRol;
+    }
+
+    public void setUnRol(Rol unRol) {
+        this.unRol = unRol;
+    }
 }

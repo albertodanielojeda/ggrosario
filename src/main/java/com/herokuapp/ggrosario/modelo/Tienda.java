@@ -46,7 +46,6 @@ public class Tienda implements Serializable {
     @OneToMany(mappedBy = "unaTienda", cascade = CascadeType.ALL)
     private List<Rol> roles;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "unaTienda")
     private List<Juego> juegos;
 
@@ -86,7 +85,7 @@ public class Tienda implements Serializable {
     /* Implementación del patrón Singleton */
     private static Tienda instance;
 
-    public synchronized static Tienda getInstance() {
+    public static Tienda getInstance() {
         if (instance == null) {
             instance = (Tienda) HibernateUtil.obtener("GG Rosario", "Tienda");
         }
