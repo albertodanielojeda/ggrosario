@@ -28,8 +28,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
     }
 
     /**
@@ -58,17 +57,19 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         String id = request.getParameter("nick");
         String password = request.getParameter("password");
-        
-        Usuario miUsuario = (Usuario)Tienda.getInstance().buscarUsuario(id);
-        
-        if (miUsuario != null && miUsuario.getPassword().equals(password)){
+
+        Usuario miUsuario = (Usuario) Tienda.getInstance().buscarUsuario(id);
+
+        if (miUsuario != null && miUsuario.getPassword().equals(password)) {
             request.getSession().setAttribute("miUsuario", miUsuario);
             request.getSession().setAttribute("success", true);
-        }else{
+        } else {
             request.getSession().setAttribute("success", false);
+            response.sendRedirect("registrarme");
+            return;
         }
         request.getSession().setAttribute("unaTienda", Tienda.getInstance());
         response.sendRedirect("index");
