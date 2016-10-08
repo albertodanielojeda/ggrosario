@@ -24,9 +24,9 @@ heroku open --app ggrosario // Browses the Heroku app
 
 # To-Do list
 - [ ] Improve IU
-- [ ] Remove auto-generated comments
+- [X] Remove auto-generated comments
 - [x] Rename packages from **rosariogaming** to **ggrosario**
-- [ ] Add client-side validation
+- [X] Add client-side validation
 - [ ] Try to show server exception messages to client
 - [x] Create and mantain a To-Do list
 - [ ] Add more items in the To-Do list
