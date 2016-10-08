@@ -179,12 +179,10 @@
                             <div class="col s12">
                                 <div class="card blue-grey darken-1">
                                     <div class="card-content white-text">
-                                        <span class="card-title"><%= juegoComentario.getUnComentario().getUnUsuario().getNick()%>:</span>
                                         <p><%= juegoComentario.getUnComentario().getDescripcion()%></p>
                                     </div>
                                     <div class="card-action">
-                                        <a href="#">This is a link</a>
-                                        <a href="#">This is a link</a>
+                                        <div class="right-align"><%=juegoComentario.getUnComentario().getUnUsuario().getNick()%></div>
                                     </div>
                                 </div>
                             </div>

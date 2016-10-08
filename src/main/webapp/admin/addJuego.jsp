@@ -68,7 +68,7 @@
                                 <% if (unaTienda.getUnaConfiguracion().isRegistroJuegosCategoriaDeCatalogo()) { %>
                                 <div class="input-field col s5">
                                     <select id="listaCategoriasCatalogos">
-                                        <option value="" selected>Elige una categoria</option>
+                                        <option value="" selected>Elige una categoría</option>
                                         <% for (Catalogo unCatalogo : unaTienda.getCatalogos()) {%>
                                         <option value="<%= unCatalogo.getId()%>"><%= unCatalogo.getNombre()%></option>
                                         <%}%>

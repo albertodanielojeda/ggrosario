@@ -180,6 +180,14 @@ $(document).ready(function () {
         }
     });
     
+    
+    /* Nueva regla para validar la selección de una categoría al momento de 
+     * agregar un nuevo juego */
+    $.validator.addMethod("selectedValue", function(value, element, arg){
+        return arg !== value;
+    }, "El valor no puede ser igual al argumento");
+    
+    
     /* Validación de entrada de datos para agregar un nuevo juego */
     $('#formNuevoJuego').validate({
         rules:{
@@ -197,7 +205,8 @@ $(document).ready(function () {
                 required: true
             },
             listaCatalogos: {
-                required: true
+                required: true,
+                selectedValue: ""
             },
             cover: {
                 required: true
@@ -248,7 +257,8 @@ $(document).ready(function () {
                 required: "Ingrese la cantidad actual en stock"
             },
             listaCatalogos: {
-                required: "Seleccione una categoría"
+                required: "Seleccione una categoría",
+                selectedValue: "Seleccione un catálogo para el juego"
             },
             cover: {
                 required: "Ingrese una imagen de portada"
