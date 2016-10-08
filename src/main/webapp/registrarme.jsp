@@ -72,14 +72,14 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <label for="nick">Nick</label>
-                                    <input id="nick" type="text" name="nick" />
+                                    <input id="nickNew" type="text" name="nick" />
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s6">
                                     <label for="password">Password</label>
-                                    <input id="password" type="password" name="password" />
+                                    <input id="passwordNew" type="password" name="password" />
                                 </div>
                                 <div class="input-field col s6">
                                     <label for="telefono">Teléfono</label>

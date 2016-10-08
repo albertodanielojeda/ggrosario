@@ -9,10 +9,10 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">38131125</property> -->
         
-        <!-- Local settings [F O R   T E S T I N G] -->
+        <!-- Local settings [F O R   T E S T I N G]  -->
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ggrosario-testing</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">38131125</property> 
+        <property name="hibernate.connection.password">38131125</property>
     
         <!-- Remote settings 
         <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-163-239-63.compute-1.amazonaws.com:5432/dekiv1ush42g4n?sslmode=require</property>

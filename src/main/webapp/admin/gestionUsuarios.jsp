@@ -46,7 +46,7 @@
                     <h4>Registrar un nuevo <%= request.getParameter("rol").toLowerCase()%></h4>
                     <% if (miABMRol.getPermisos().canAltaUsuario(request.getParameter("rol"))) {%>
                     <div class="col s5">
-                        <form action="../registrar-usuario" method="POST">
+                        <form id="signupForm" action="../registrar-usuario" method="POST">
                             <input type="text" hidden value="<%= request.getParameter("rol")%>" name="rol"/> <!-- Keep an eye on this -->
                             <% request.getSession().setAttribute("usuarioRegistrante", miUsuario);
                             %>
@@ -90,7 +90,7 @@
                                     <input id="fecha-nacimiento" type="date" class="datepicker" name="fechanacimiento" />
                                 </div>
                                 <div class="input-field col s6">
-                                    <button class="btn" type="submit" name="btnLogin">Registrar usuario</button>
+                                    <button class="btn" type="submit" name="btnSignup">Registrar usuario</button>
                                 </div>
                             </div>
                         </form>

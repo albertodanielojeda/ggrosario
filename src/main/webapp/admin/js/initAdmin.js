@@ -54,4 +54,246 @@ $(document).ready(function () {
             Materialize.toast(respuesta, 3000);
         });
     });
+    
+    /* Validación de entrada de datos para agregar un nuevo usuario */
+    $('#signupForm').validate({
+        rules:{
+            nombre:{
+                required: true,
+                minlength: 5
+            },
+            apellido:{
+                required: true,
+                minlength: 5
+            },
+            email:{
+                required: true,
+                email: true
+            },
+            nick:{
+                required: true,
+                minlength: 5
+            },
+            password: {
+                required: true,
+                minlength: 10
+            },
+            telefono: {
+                required: true
+            },
+            fechanacimiento: {
+                required: true,
+                date: true
+            }
+        },
+        messages:{
+            nombre: {
+                required: "Ingrese un nombre",
+                minlength: "5 caracteres como mínimo"
+            },
+            apellido: {
+                required: "Ingrese un apellido",
+                minlength: "5 caracteres como mínimo"
+            },
+            email:{
+                required: "Ingrese un e-mail",
+                email: "El formato del e-mail no es válido"
+            },
+            nick:{
+                required: "Ingrese un nick",
+                minlength: "5 caracteres como mínimo"
+            },
+            password: {
+                required: "Ingrese una contraseña",
+                minlength: "10 caracteres como mínimo"
+            },
+            telefono: {
+                required: "Ingrese un teléfono"
+            },
+            fechanacimiento: {
+                required: "Ingrese una fecha de nacimiento"
+            }
+            
+        },
+        errorElement: 'div',
+        errorPlacement: function(error, errorElement){
+            var placement = $(errorElement).data('error');
+            $(placement).addClass('red-text');
+            if (placement){
+                $(placement).append(error);
+            } else {
+                error.insertAfter(errorElement);
+            }
+        }
+    });
+    
+    
+    /* Validación de entrada de datos para agregar un nuevo catálogo */
+    $('#formNuevoCatalogo').validate({
+        rules:{
+            nombreCatalogo:{
+                required: true,
+                minlength: 3
+            }
+        },
+        messages:{
+            nombreCatalogo: {
+                required: "Ingrese un nombre para el catálogo",
+                minlength: "3 caracteres como mínimo"
+            }
+        },
+        errorElement: 'div',
+        errorPlacement: function(error, errorElement){
+            var placement = $(errorElement).data('error');
+            $(placement).addClass('red-text');
+            if (placement){
+                $(placement).append(error);
+            } else {
+                error.insertAfter(errorElement);
+            }
+        }
+    });
+    
+    /* Validación de entrada de datos para agregar un nuevo rol */
+    $('#formNuevoRol').validate({
+        rules:{
+            nombreRol:{
+                required: true,
+                minlength: 3
+            }
+        },
+        messages:{
+            nombreRol: {
+                required: "Ingrese un nombre para el rol",
+                minlength: "3 caracteres como mínimo"
+            }
+        },
+        errorElement: 'div',
+        errorPlacement: function(error, errorElement){
+            var placement = $(errorElement).data('error');
+            $(placement).addClass('red-text');
+            if (placement){
+                $(placement).append(error);
+            } else {
+                error.insertAfter(errorElement);
+            }
+        }
+    });
+    
+    /* Validación de entrada de datos para agregar un nuevo juego */
+    $('#formNuevoJuego').validate({
+        rules:{
+            nombre:{
+                required: true,
+                minlength: 5
+            },
+            descripcion:{
+                required: true
+            },
+            precio:{
+                required: true
+            },
+            stock:{
+                required: true
+            },
+            listaCatalogos: {
+                required: true
+            },
+            cover: {
+                required: true
+            },
+            minOS: {
+                required: true
+            },
+            recOS: {
+                required: true
+            },
+            minCPU: {
+                required: true
+            },
+            recCPU: {
+                required: true
+            },
+            minRAM: {
+                required: true
+            },
+            recRAM: {
+                required: true
+            },
+            minGPU: {
+                required: true
+            },
+            recGPU: {
+                required: true
+            },
+            minHDD: {
+                required: true
+            },
+            recHDD: {
+                required: true
+            }
+        },
+        messages:{
+            nombre: {
+                required: "Ingrese un nombre",
+                minlength: "5 caracteres como mínimo"
+            },
+            descripcion: {
+                required: "Ingrese una descripción"
+            },
+            precio:{
+                required: "Ingrese un precio"
+            },
+            stock:{
+                required: "Ingrese la cantidad actual en stock"
+            },
+            listaCatalogos: {
+                required: "Seleccione una categoría"
+            },
+            cover: {
+                required: "Ingrese una imagen de portada"
+            },
+            minOS: {
+                required: "Ingrese un sistema operativo"
+            },
+            recOS: {
+                required: "Ingrese un sistema operativo"
+            },
+            minCPU: {
+                required: "Ingrese un CPU"
+            },
+            recCPU: {
+                required: "Ingrese un CPU"
+            },
+            minRAM: {
+                required: "Ingrese una cantidad de memoria RAM"
+            },
+            recRAM: {
+                required: "Ingrese una cantidad de memoria RAM"
+            },
+            minGPU: {
+                required: "Ingrese una placa de video"
+            },
+            recGPU: {
+                required: "Ingrese una placa de video"
+            },
+            minHDD: {
+                required: "Ingrese la capacidad del disco rígido"
+            },
+            recHDD: {
+                required: "Ingrese la capacidad del disco rígido"
+            }
+            
+        },
+        errorElement: 'div',
+        errorPlacement: function(error, errorElement){
+            var placement = $(errorElement).data('error');
+            $(placement).addClass('red-text');
+            if (placement){
+                $(placement).append(error);
+            } else {
+                error.insertAfter(errorElement);
+            }
+        }
+    });
 });

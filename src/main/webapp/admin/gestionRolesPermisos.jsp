@@ -61,7 +61,7 @@
                     </table>
                     <% if (miRol.getPermisos().canAltaRol()) { %>
                     <div class="col s5">
-                        <form action="agregar-rol" method="POST">
+                        <form id="formNuevoRol" action="agregar-rol" method="POST">
                             <div class="row">
                                 <div class="input-field col s6">
                                     <label for="nombreRol">Nombre del rol</label>

@@ -76,7 +76,7 @@
                         }%>
                     <% if (miRol.getPermisos().canAltaCatalogo()) { %>
                     <div class="col s5">
-                        <form action="agregar-catalogo" method="POST">
+                        <form id="formNuevoCatalogo" action="agregar-catalogo" method="POST">
                             <div class="row">
                                 <div class="input-field col s6">
                                     <label for="nombreCatalogo">Nombre del catálogo</label>

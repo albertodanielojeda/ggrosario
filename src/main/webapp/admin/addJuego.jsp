@@ -31,7 +31,7 @@
                 </div>
                 <div class="col s8">
                     <h4>Nuevo juego</h4>
-                    <form action="registrar-juego" method="POST" enctype="multipart/form-data">
+                    <form id="formNuevoJuego" action="registrar-juego" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="row">
                                 <div class="input-field col s12">

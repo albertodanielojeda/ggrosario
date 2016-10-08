@@ -40,11 +40,11 @@ $(document).ready(function () {
                 required: true,
                 email: true
             },
-            nick:{
+            nickNew:{
                 required: true,
                 minlength: 5
             },
-            password: {
+            passwordNew: {
                 required: true,
                 minlength: 10
             },
@@ -69,11 +69,11 @@ $(document).ready(function () {
                 required: "Ingrese su e-mail",
                 email: "El formato del e-mail no es válido"
             },
-            nick:{
+            nickNew:{
                 required: "Ingrese su nick",
                 minlength: "5 caracteres como mínimo"
             },
-            password: {
+            passwordNew: {
                 required: "Ingrese su contraseña",
                 minlength: "10 caracteres como mínimo"
             },
