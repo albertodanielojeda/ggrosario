@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,20 +27,15 @@ public class EstadoReserva implements Serializable{
     private String descripcion;
     
     @ManyToOne
-    @JoinColumn(name = "fk_tienda_nombre", referencedColumnName = "nombre")
-    private Tienda unaTienda;
-    
-    @ManyToOne
     @JoinColumn(name = "fk_reserva_id", referencedColumnName = "id")
     private Reserva unaReserva;
 
     public EstadoReserva() {
     }
 
-    public EstadoReserva(String descripcion, Tienda unaTienda, Reserva unaReserva) {
+    public EstadoReserva(String descripcion, Reserva unaReserva) {
         this();
         this.descripcion = descripcion;
-        this.unaTienda = (Tienda) unaTienda;
         this.unaReserva = (Reserva) unaReserva;
         HibernateUtil.guardar(this);
     }
@@ -52,14 +46,6 @@ public class EstadoReserva implements Serializable{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Tienda getUnaTienda() {
-        return unaTienda;
-    }
-
-    public void setUnaTienda(Tienda unaTienda) {
-        this.unaTienda = unaTienda;
     }
 
     public Reserva getUnaReserva() {

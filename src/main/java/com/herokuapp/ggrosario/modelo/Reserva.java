@@ -91,6 +91,13 @@ public class Reserva implements Serializable {
         }
         return false;
     }
+    
+    public boolean isCaducada(){
+        if (new GregorianCalendar().after(this.fechaBaja)){
+            return true;
+        }
+        return false;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public int getId() {

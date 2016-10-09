@@ -52,9 +52,6 @@ public class Tienda implements Serializable {
     @OneToMany(mappedBy = "unaTienda")
     private List<Stock> stocks;
 
-    @OneToMany(mappedBy = "unaTienda")
-    private List<EstadoReserva> estadosReservas;
-
     private Configuracion unaConfiguracion;
 
     /**
@@ -66,7 +63,6 @@ public class Tienda implements Serializable {
         this.roles = new ArrayList<>();
         this.juegos = new ArrayList<>();
         this.stocks = new ArrayList<>();
-        this.estadosReservas = new ArrayList<>();
     }
 
     /**
@@ -350,14 +346,13 @@ public class Tienda implements Serializable {
      * @param unJuego Juego que el usario quiere reservar
      * @throws JuegoException Si el juego ya está reservado por el usuario
      */
-    public synchronized void addReserva(String descripcion, Usuario unUsuario, Juego unJuego) throws JuegoException {
+    public synchronized void addReserva(Usuario unUsuario, Juego unJuego) throws JuegoException {
         if (unUsuario.tieneReservado(unJuego)) {
             throw new JuegoException("El juego ya está reservado por el usuario");
         }
         Reserva unaReserva = new Reserva(unUsuario, unJuego);
-        EstadoReserva estadoReserva = new EstadoReserva(descripcion, this, unaReserva);
+        EstadoReserva estadoReserva = new EstadoReserva(this.unaConfiguracion.getEstadoReservaNueva(), unaReserva);
         unaReserva.setEstadoReserva(estadoReserva);
-        this.estadosReservas.add(estadoReserva);
         unUsuario.addJuegoToReservas(unJuego, unaReserva);
         unJuego.addReserva(unaReserva);
     }
@@ -418,14 +413,6 @@ public class Tienda implements Serializable {
 
     public void setStocks(List<Stock> stocks) {
         this.stocks = stocks;
-    }
-
-    public List<EstadoReserva> getEstadosReservas() {
-        return estadosReservas;
-    }
-
-    public void setEstadosReservas(List<EstadoReserva> estadosReservas) {
-        this.estadosReservas = estadosReservas;
     }
 
     public Configuracion getUnaConfiguracion() {

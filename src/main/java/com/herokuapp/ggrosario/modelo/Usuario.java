@@ -1,6 +1,5 @@
 package com.herokuapp.ggrosario.modelo;
 
-import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.exepciones.RolException;
 import java.io.Serializable;
 import java.util.ArrayList;

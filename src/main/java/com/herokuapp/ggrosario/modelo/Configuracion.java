@@ -24,6 +24,11 @@ public final class Configuracion implements Serializable{
     /* Lugar donde se registran los juegos (en un catálogo o en una categoría de un catálogo) */
     private boolean registroJuegosCatalogo;
     private boolean registroJuegosCategoriaDeCatalogo;
+    
+    private String estadoReservaNueva;
+    private String estadoReservaCaducada;
+    private String estadoReservaCumplida;
+    
     private Properties propiedades;
     
     private static final String NOMBRE_ARCHIVO_PROPIEDADES = "configuracion.properties";
@@ -43,7 +48,9 @@ public final class Configuracion implements Serializable{
                 propiedades.setProperty("organizacionCategoriasCatalogos", "true");
             }
             this.setRegistroJuegosCategoriaDeCatalogo(Boolean.valueOf(propiedades.getProperty("organizacionCategoriasCatalogos")));
-            
+            this.setEstadoReservaNueva(propiedades.getProperty("estadoReservaNueva"));
+            this.setEstadoReservaCaducada(propiedades.getProperty("estadoReservaCaducada"));
+            this.setEstadoReservaCumplida(propiedades.getProperty("estadoReservaCumplida"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -107,6 +114,31 @@ public final class Configuracion implements Serializable{
             this.registroJuegosCatalogo = valor;
         }
     }
+    
+    public String getEstadoReservaNueva() {
+        return estadoReservaNueva;
+    }
+
+    public void setEstadoReservaNueva(String estadoReservaNueva) {
+        this.estadoReservaNueva = estadoReservaNueva;
+    }
+
+    public String getEstadoReservaCaducada() {
+        return estadoReservaCaducada;
+    }
+
+    public void setEstadoReservaCaducada(String estadoReservaCaducada) {
+        this.estadoReservaCaducada = estadoReservaCaducada;
+    }
+
+    public String getEstadoReservaCumplida() {
+        return estadoReservaCumplida;
+    }
+
+    public void setEstadoReservaCumplida(String estadoReservaCumplida) {
+        this.estadoReservaCumplida = estadoReservaCumplida;
+    }
+
     // </editor-fold>
 
 }

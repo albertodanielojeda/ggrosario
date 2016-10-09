@@ -52,7 +52,7 @@ public class ReservarJuegoServlet extends HttpServlet {
             
             try {
                 Juego unJuego = (Juego) request.getSession().getAttribute("unJuego");
-                Tienda.getInstance().addReserva("Valida", miUsuario, unJuego);
+                Tienda.getInstance().addReserva(miUsuario, unJuego);
                 response.getWriter().print("Listo!");
             } catch (JuegoException ex) {
                 response.getWriter().print(ex.getMessage());
