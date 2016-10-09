@@ -13,7 +13,7 @@
         <%@include file="vistas/init.jsp" %>
         <%@include file="vistas/assets.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>¡Bienvenido a <%= unaTienda.getNombre()%>!</title>
     </head>
     <body class="lighten-5 light-green">
         <header>

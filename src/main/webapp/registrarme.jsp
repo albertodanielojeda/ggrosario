@@ -10,7 +10,7 @@
     <head>
         <%@include file="vistas/assets.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><%= unaTienda.getNombre()%> | Registro</title>
+        <title><%= unaTienda.getNombre()%> | Inicar sesión o registrarme</title>
     </head>
     <body class="lighten-5 light-green">
         <% Usuario unUsuario = (Usuario) request.getSession().getAttribute("unUsuario");%>

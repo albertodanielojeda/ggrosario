@@ -15,7 +15,7 @@
     <head>
         <%@include file="vistas/assets.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>GG Rosario - <%= unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id"))).getNombre()%></title>
+        <title><%= unaTienda.getNombre()%> | <%= unaTienda.buscarCatalogo(Integer.valueOf(request.getParameter("id"))).getNombre()%></title>
     </head>
     <body>
         <header>

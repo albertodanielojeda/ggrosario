@@ -8,22 +8,24 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
 <%@include file="vistas/init.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% Juego unJuego = unaTienda.buscarJuego(Integer.valueOf(request.getParameter("idJuego")));
+    if (unJuego == null) {
+        unJuego = (Juego) unaTienda.buscarJuego(Integer.valueOf(request.getParameter("idJuego")));
+    } else {
+        request.getSession().setAttribute("unJuego", unJuego);
+    }
+
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <%@include file="vistas/assets.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title><%= unaTienda.getNombre()%> | <%= unJuego.getNombre() %></title>
     </head>
     <body class="lighten-5 light-green">
-        <% Juego unJuego = unaTienda.buscarJuego(Integer.valueOf(request.getParameter("idJuego")));
-            if (unJuego == null) {
-                unJuego = (Juego) unaTienda.buscarJuego(Integer.valueOf(request.getParameter("idJuego")));
-            } else {
-                request.getSession().setAttribute("unJuego", unJuego);
-            }
-
-        %>
         <header>
             <%@include file="vistas/menu.jsp" %>
         </header>

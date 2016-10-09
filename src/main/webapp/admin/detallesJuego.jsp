@@ -21,7 +21,7 @@
     <head>
         <%@include file="vistas/assetsAdmin.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Panel de administración | Detalles del juego</title>
     </head>
     <body>
         <%@include file="vistas/navBar.jsp" %>
