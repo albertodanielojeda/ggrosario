@@ -29,8 +29,8 @@ public class ReservasChecker {
 
         for (Reserva unaReserva : reservas) {
             if (!unaReserva.isValida()){
-                unaReserva.getEstadoReserva().setDescripcion("Caducada");
-                System.out.println("Reserva #" + unaReserva.getId() + " está caducada");
+                unaReserva.getEstadoReserva().setDescripcion(unaTienda.getUnaConfiguracion().getEstadoReservaCaducada());
+                System.out.println("La reserva #" + unaReserva.getId() + " ha caducado");
             }
         }
     }
