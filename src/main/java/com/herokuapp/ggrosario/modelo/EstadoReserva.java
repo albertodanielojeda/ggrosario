@@ -76,6 +76,7 @@ public class EstadoReserva implements Serializable{
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+        HibernateUtil.actualizar(this);
     }
     
 }
