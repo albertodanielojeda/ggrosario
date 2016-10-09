@@ -41,9 +41,6 @@ public class Reserva implements Serializable {
 
     @Column(name = "fecha_baja")
     private Calendar fechaBaja;
-
-    @OneToOne(mappedBy = "unaReserva")
-    private EstadoReserva estadoReserva;
     
     @Column(name = "estado")
     private String estado;
@@ -133,15 +130,6 @@ public class Reserva implements Serializable {
 
     public void setUnJuego(Juego unJuego) {
         this.unJuego = unJuego;
-    }
-
-    public EstadoReserva getEstadoReserva() {
-        return estadoReserva;
-    }
-
-    public void setEstadoReserva(EstadoReserva estadoReserva) {
-        this.estadoReserva = estadoReserva;
-        HibernateUtil.actualizar(this);
     }
 
     public String getFechaAltaAsString() {
