@@ -59,7 +59,7 @@
                                                 <p>Precio: <%= unaReserva.getUnJuego().getPrecio()%></p>
                                                 <p>Realizada: <%= unaReserva.getFechaAltaAsString()%></p>
                                                 <p>Vence: <%= unaReserva.getFechaBajaAsString()%></p>
-                                                <p>Estado: <%= unaReserva.getEstadoReserva().getDescripcion()%></p>
+                                                <p>Estado: <%= unaReserva.getEstado()%></p>
                                             </div>
                                         </div>
                                     </div>

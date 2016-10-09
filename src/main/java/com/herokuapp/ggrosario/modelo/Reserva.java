@@ -44,6 +44,9 @@ public class Reserva implements Serializable {
 
     @OneToOne(mappedBy = "unaReserva")
     private EstadoReserva estadoReserva;
+    
+    @Column(name = "estado")
+    private String estado;
 
     private static final SimpleDateFormat formatoDia = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -69,6 +72,7 @@ public class Reserva implements Serializable {
         this.fechaAlta.setTime(fechaActual);
         this.fechaBaja.setTime(fechaActual);
         this.fechaBaja.add(Calendar.DATE, Tienda.getInstance().getUnaConfiguracion().getDiasValidezReserva());
+        this.estado = Tienda.getInstance().getUnaConfiguracion().getEstadoReservaNueva();
         HibernateUtil.guardar(this);
     }
 
@@ -155,6 +159,14 @@ public class Reserva implements Serializable {
 
     public void setFechaBaja(Calendar fechaBaja) {
         this.fechaBaja = fechaBaja;
+    }
+    
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     // <editor-fold>
 }

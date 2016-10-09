@@ -341,7 +341,6 @@ public class Tienda implements Serializable {
     /**
      * Añade una reserva
      *
-     * @param descripcion Descripción del estado de la reserva
      * @param unUsuario Usuario que quiere hacer la reserva
      * @param unJuego Juego que el usario quiere reservar
      * @throws JuegoException Si el juego ya está reservado por el usuario
@@ -351,8 +350,6 @@ public class Tienda implements Serializable {
             throw new JuegoException("El juego ya está reservado por el usuario");
         }
         Reserva unaReserva = new Reserva(unUsuario, unJuego);
-        EstadoReserva estadoReserva = new EstadoReserva(this.unaConfiguracion.getEstadoReservaNueva(), unaReserva);
-        unaReserva.setEstadoReserva(estadoReserva);
         unUsuario.addJuegoToReservas(unJuego, unaReserva);
         unJuego.addReserva(unaReserva);
     }
