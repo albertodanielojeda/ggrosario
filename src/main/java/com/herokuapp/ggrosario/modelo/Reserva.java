@@ -102,6 +102,13 @@ public class Reserva implements Serializable {
         }
         return false;
     }
+    
+    public boolean isCumplida(){
+        if (this.estado.equals(Tienda.getInstance().getUnaConfiguracion().getEstadoReservaCumplida())){
+            return true;
+        }
+        return false;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public int getId() {

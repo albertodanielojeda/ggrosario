@@ -103,7 +103,6 @@
         <servlet-name>gestion-catalogos</servlet-name>
         <url-pattern>/admin/gestion-catalogos</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>agregar-juego</servlet-name>
         <jsp-file>/admin/addJuego.jsp</jsp-file>
@@ -111,6 +110,14 @@
     <servlet-mapping>
         <servlet-name>agregar-juego</servlet-name>
         <url-pattern>/admin/agregar-juego</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>canje-reservas</servlet-name>
+        <jsp-file>/admin/canjeReserva.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>canje-reservas</servlet-name>
+        <url-pattern>/admin/canje-reservas</url-pattern>
     </servlet-mapping>
     <!-- Mapeo de páginas de error -->
     <error-page>

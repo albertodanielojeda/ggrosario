@@ -198,6 +198,15 @@ public class Usuario implements Serializable {
         }
         return false;
     }
+    
+    public Reserva buscarReserva(int idReserva){
+        for (Reserva reserva : this.reservas){
+            if (reserva.getId() == idReserva){
+                return reserva;
+            }
+        }
+        return null;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and setters methods. Click on the + sign on the left to edit the code.">
     public String getEmail() {
