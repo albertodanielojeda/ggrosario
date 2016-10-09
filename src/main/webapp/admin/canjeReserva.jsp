@@ -52,7 +52,8 @@
                                 </div>
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                        <p>ID: <%= reserva.getId()%></p>
+                                        <p id="<%=reserva.getId()%>" class="res">ID: <%= reserva.getId()%></p>
+                                        <p id="<%= reserva.getUnUsuario().getNick()%>" class="user">Usuario: <%= reserva.getUnUsuario().getNick() %></p>
                                         <p>Precio: <%= reserva.getUnJuego().getPrecio()%></p>
                                         <p>Realizada: <%= reserva.getFechaAltaAsString()%></p>
                                         <p>Vence: <%= reserva.getFechaBajaAsString()%></p>
@@ -60,7 +61,7 @@
                                     </div>
                                     <div class="card-action">
                                         <% if (reserva.isValida()) { %>
-                                        <a href="#">Confirmar canje</a>
+                                        <a class="confirmar-canje" href="#">Confirmar canje</a>
                                         <% } else if (reserva.isCaducada() || reserva.isCumplida()) {%>
                                         <a href="#">Esta reserva ya caducó o ya fue canjeada</a>
                                         <% } %>

@@ -90,14 +90,14 @@ public class Reserva implements Serializable {
     }
 
     public boolean isValida() {
-        if (new GregorianCalendar().before(this.fechaBaja)) {
+        if (new GregorianCalendar().before(this.fechaBaja) && this.estado.equals(Tienda.getInstance().getUnaConfiguracion().getEstadoReservaNueva())) {
             return true;
         }
         return false;
     }
     
     public boolean isCaducada(){
-        if (new GregorianCalendar().after(this.fechaBaja)){
+        if (new GregorianCalendar().after(this.fechaBaja) && this.estado.equals(Tienda.getInstance().getUnaConfiguracion().getEstadoReservaCaducada())){
             return true;
         }
         return false;
@@ -174,6 +174,7 @@ public class Reserva implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+        HibernateUtil.actualizar(this);
     }
     // <editor-fold>
 }

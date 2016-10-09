@@ -37,11 +37,12 @@ $(document).ready(function () {
         $.post("cambiar-nombre-catalogo", $.param(parametrosCatalogo), function (respuesta) {
             mensaje = respuesta;
             location.reload();
-        }).done(function(){
+        }).done(function () {
             Materialize.toast(mensaje, 3000);
         }).fail(function () {
             window.location.replace("../errores/403");
-        });;
+        });
+        ;
     });
 
     $(this).on("click", "a.eliminar-catalogo", function () {
@@ -54,23 +55,23 @@ $(document).ready(function () {
             Materialize.toast(respuesta, 3000);
         });
     });
-    
+
     /* Validación de entrada de datos para agregar un nuevo usuario */
     $('#signupForm').validate({
-        rules:{
-            nombre:{
+        rules: {
+            nombre: {
                 required: true,
                 minlength: 5
             },
-            apellido:{
+            apellido: {
                 required: true,
                 minlength: 5
             },
-            email:{
+            email: {
                 required: true,
                 email: true
             },
-            nick:{
+            nick: {
                 required: true,
                 minlength: 5
             },
@@ -86,7 +87,7 @@ $(document).ready(function () {
                 date: true
             }
         },
-        messages:{
+        messages: {
             nombre: {
                 required: "Ingrese un nombre",
                 minlength: "5 caracteres como mínimo"
@@ -95,11 +96,11 @@ $(document).ready(function () {
                 required: "Ingrese un apellido",
                 minlength: "5 caracteres como mínimo"
             },
-            email:{
+            email: {
                 required: "Ingrese un e-mail",
                 email: "El formato del e-mail no es válido"
             },
-            nick:{
+            nick: {
                 required: "Ingrese un nick",
                 minlength: "5 caracteres como mínimo"
             },
@@ -113,95 +114,95 @@ $(document).ready(function () {
             fechanacimiento: {
                 required: "Ingrese una fecha de nacimiento"
             }
-            
+
         },
         errorElement: 'div',
-        errorPlacement: function(error, errorElement){
+        errorPlacement: function (error, errorElement) {
             var placement = $(errorElement).data('error');
             $(placement).addClass('red-text');
-            if (placement){
+            if (placement) {
                 $(placement).append(error);
             } else {
                 error.insertAfter(errorElement);
             }
         }
     });
-    
-    
+
+
     /* Validación de entrada de datos para agregar un nuevo catálogo */
     $('#formNuevoCatalogo').validate({
-        rules:{
-            nombreCatalogo:{
+        rules: {
+            nombreCatalogo: {
                 required: true,
                 minlength: 3
             }
         },
-        messages:{
+        messages: {
             nombreCatalogo: {
                 required: "Ingrese un nombre para el catálogo",
                 minlength: "3 caracteres como mínimo"
             }
         },
         errorElement: 'div',
-        errorPlacement: function(error, errorElement){
+        errorPlacement: function (error, errorElement) {
             var placement = $(errorElement).data('error');
             $(placement).addClass('red-text');
-            if (placement){
+            if (placement) {
                 $(placement).append(error);
             } else {
                 error.insertAfter(errorElement);
             }
         }
     });
-    
+
     /* Validación de entrada de datos para agregar un nuevo rol */
     $('#formNuevoRol').validate({
-        rules:{
-            nombreRol:{
+        rules: {
+            nombreRol: {
                 required: true,
                 minlength: 3
             }
         },
-        messages:{
+        messages: {
             nombreRol: {
                 required: "Ingrese un nombre para el rol",
                 minlength: "3 caracteres como mínimo"
             }
         },
         errorElement: 'div',
-        errorPlacement: function(error, errorElement){
+        errorPlacement: function (error, errorElement) {
             var placement = $(errorElement).data('error');
             $(placement).addClass('red-text');
-            if (placement){
+            if (placement) {
                 $(placement).append(error);
             } else {
                 error.insertAfter(errorElement);
             }
         }
     });
-    
-    
+
+
     /* Nueva regla para validar la selección de una categoría al momento de 
      * agregar un nuevo juego */
-    $.validator.addMethod("selectedValue", function(value, element, arg){
+    $.validator.addMethod("selectedValue", function (value, element, arg) {
         return arg !== value;
     }, "El valor no puede ser igual al argumento");
-    
-    
+
+
     /* Validación de entrada de datos para agregar un nuevo juego */
     $('#formNuevoJuego').validate({
-        rules:{
-            nombre:{
+        rules: {
+            nombre: {
                 required: true,
                 minlength: 5
             },
-            descripcion:{
+            descripcion: {
                 required: true
             },
-            precio:{
+            precio: {
                 required: true
             },
-            stock:{
+            stock: {
                 required: true
             },
             listaCatalogos: {
@@ -242,7 +243,7 @@ $(document).ready(function () {
                 required: true
             }
         },
-        messages:{
+        messages: {
             nombre: {
                 required: "Ingrese un nombre",
                 minlength: "5 caracteres como mínimo"
@@ -250,10 +251,10 @@ $(document).ready(function () {
             descripcion: {
                 required: "Ingrese una descripción"
             },
-            precio:{
+            precio: {
                 required: "Ingrese un precio"
             },
-            stock:{
+            stock: {
                 required: "Ingrese la cantidad actual en stock"
             },
             listaCatalogos: {
@@ -293,17 +294,29 @@ $(document).ready(function () {
             recHDD: {
                 required: "Ingrese la capacidad del disco rígido"
             }
-            
+
         },
         errorElement: 'div',
-        errorPlacement: function(error, errorElement){
+        errorPlacement: function (error, errorElement) {
             var placement = $(errorElement).data('error');
             $(placement).addClass('red-text');
-            if (placement){
+            if (placement) {
                 $(placement).append(error);
             } else {
                 error.insertAfter(errorElement);
             }
         }
+    });
+
+    /* Confirmar canje de una reserva */
+    $(this).on("click", "a.confirmar-canje", function () {
+        var parametrosReserva = {
+            idR: $('p.res').attr('id'),
+            idU: $('p.user').attr('id')
+        };
+        $(this).parent().html("<p>Confirmando canje...<div class='progress'> <div class='indeterminate'></div> </div></p>");
+        $.post("confirmar-canje-reserva", $.param(parametrosReserva), function (respuesta) {
+            Materialize.toast(respuesta, 3000);
+        });
     });
 });
