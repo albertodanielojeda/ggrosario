@@ -28,16 +28,16 @@ public class ReservasChecker {
         }
 
         for (Reserva unaReserva : reservas) {
-            if (unaReserva.isValida()){
+            if (unaReserva.isValida()) {
                 System.out.println("La reserva #" + unaReserva.getId() + " aún es válida");
-            }else{
+            } else if (!unaReserva.isCumplida()) {
                 unaReserva.setEstado(unaTienda.getUnaConfiguracion().getEstadoReservaCaducada());
                 System.out.println("La reserva #" + unaReserva.getId() + " ha caducado");
             }
-            if (unaReserva.isCaducada()){
+            if (unaReserva.isCaducada()) {
                 System.out.println("La reserva #" + unaReserva.getId() + " ya ha caducado");
             }
-            if (unaReserva.isCumplida()){
+            if (unaReserva.isCumplida()) {
                 System.out.println("La reserva #" + unaReserva.getId() + " ha sido cumplida");
             }
         }

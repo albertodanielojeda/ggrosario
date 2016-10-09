@@ -32,7 +32,7 @@ class ReservasChecker implements Runnable {
         for (Reserva unaReserva : reservas) {
             if (unaReserva.isValida()){
                 System.out.println("La reserva #" + unaReserva.getId() + " aún es válida");
-            }else{
+            } else if (!unaReserva.isCumplida()) {
                 unaReserva.setEstado(unaTienda.getUnaConfiguracion().getEstadoReservaCaducada());
                 System.out.println("La reserva #" + unaReserva.getId() + " ha caducado");
             }
