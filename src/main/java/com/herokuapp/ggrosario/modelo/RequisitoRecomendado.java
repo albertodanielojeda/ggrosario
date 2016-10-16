@@ -33,62 +33,62 @@ public class RequisitoRecomendado extends Requisito{
 
     @Override
     public void setHdd(String hdd) {
-        super.setHdd(hdd); //To change body of generated methods, choose Tools | Templates.
+        super.setHdd(hdd);
     }
 
     @Override
     public String getHdd() {
-        return super.getHdd(); //To change body of generated methods, choose Tools | Templates.
+        return super.getHdd();
     }
 
     @Override
     public void setGpu(String gpu) {
-        super.setGpu(gpu); //To change body of generated methods, choose Tools | Templates.
+        super.setGpu(gpu);
     }
 
     @Override
     public String getGpu() {
-        return super.getGpu(); //To change body of generated methods, choose Tools | Templates.
+        return super.getGpu();
     }
 
     @Override
     public void setRam(String ram) {
-        super.setRam(ram); //To change body of generated methods, choose Tools | Templates.
+        super.setRam(ram);
     }
 
     @Override
     public String getRam() {
-        return super.getRam(); //To change body of generated methods, choose Tools | Templates.
+        return super.getRam();
     }
 
     @Override
     public void setCpu(String cpu) {
-        super.setCpu(cpu); //To change body of generated methods, choose Tools | Templates.
+        super.setCpu(cpu);
     }
 
     @Override
     public String getCpu() {
-        return super.getCpu(); //To change body of generated methods, choose Tools | Templates.
+        return super.getCpu();
     }
 
     @Override
     public void setOs(String os) {
-        super.setOs(os); //To change body of generated methods, choose Tools | Templates.
+        super.setOs(os);
     }
 
     @Override
     public String getOs() {
-        return super.getOs(); //To change body of generated methods, choose Tools | Templates.
+        return super.getOs();
     }
 
     @Override
     public void setId(int id) {
-        super.setId(id); //To change body of generated methods, choose Tools | Templates.
+        super.setId(id);
     }
 
     @Override
     public int getId() {
-        return super.getId(); //To change body of generated methods, choose Tools | Templates.
+        return super.getId();
     }
     
     

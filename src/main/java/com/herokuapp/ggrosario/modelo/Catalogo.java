@@ -1,7 +1,6 @@
 package com.herokuapp.ggrosario.modelo;
 
 import com.herokuapp.ggrosario.exepciones.CategoriaException;
-import com.herokuapp.ggrosario.exepciones.JuegoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

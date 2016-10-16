@@ -18,10 +18,6 @@ import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *

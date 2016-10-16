@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.util.Date;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
