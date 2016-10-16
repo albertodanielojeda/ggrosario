@@ -45,19 +45,23 @@ public class AgregarJuegoListaDeseosServlet extends HttpServlet {
         processRequest(request, response);
         String idJuego = request.getParameter("idJuego");
         String idUsuario = request.getParameter("idUsuario");
-        Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario");
-        if (miUsuario.getNick().equals(idUsuario)){
+        Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        boolean exito;
+        if (miUsuario.getNick().equals(idUsuario)) {
             try {
                 Tienda unaTienda = Tienda.getInstance();
                 miUsuario.getUnaListaDeseos().addJuego(unaTienda.buscarJuego(Integer.valueOf(idJuego)));
-                response.getWriter().print("Listo!");
-            } catch (JuegoException ex) {
-                response.getWriter().print(ex.getMessage());
+                exito = true;
+            } catch (Exception ex) {
+                exito = false;
+                //response.getWriter().print(ex.getMessage());
             }
-            
-        }else{
-            response.getWriter().print("Error!");
+
+        } else {
+            exito = false;
         }
+        request.getSession().setAttribute("exitoFavorito", exito);
+        response.sendRedirect("info-juego?idJuego=" + idJuego);
     }
 
     /**

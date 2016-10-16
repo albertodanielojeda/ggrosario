@@ -48,19 +48,23 @@ public class ReservarJuegoServlet extends HttpServlet {
         String idJuego = request.getParameter("idJuego");
         String idUsuario = request.getParameter("idUsuario");
         Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        boolean exito;
+
         if (miUsuario.getNick().equals(idUsuario)) {
-            
+
             try {
                 Juego unJuego = (Juego) request.getSession().getAttribute("unJuego");
                 Tienda.getInstance().addReserva(miUsuario, unJuego);
-                response.getWriter().print("Listo!");
-            } catch (JuegoException ex) {
-                response.getWriter().print(ex.getMessage());
+                exito = true;
+            } catch (Exception ex) {
+                exito = false;
             }
 
         } else {
-            response.getWriter().print("Error!");
+            exito = false;
         }
+        request.getSession().setAttribute("exitoReserva", exito);
+        response.sendRedirect("info-juego?idJuego=" + idJuego);
     }
 
     /**

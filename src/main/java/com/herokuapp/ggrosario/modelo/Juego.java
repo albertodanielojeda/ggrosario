@@ -145,7 +145,6 @@ public class Juego implements Serializable {
     public void addReserva(Reserva unaReserva) {
         JuegoReserva juegoReserva = new JuegoReserva(this, unaReserva);
         this.reservas.add(juegoReserva);
-        this.getStock().setCantidad(this.getStock().getCantidad() - 1);
         HibernateUtil.actualizar(this);
     }
 

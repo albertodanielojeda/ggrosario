@@ -307,7 +307,37 @@ $(document).ready(function () {
             }
         }
     });
-
+    
+    /* Validación de entrada de datos de canje de reserva */
+    $('#formBuscarReserva').validate({
+        rules: {
+            idReserva: {
+                required: true
+            },
+            idUsuario: {
+                required: true
+            }
+        },
+        messages: {
+            idReserva: {
+                required: "Ingrese el ID de la reserva"
+            },
+            idUsuario: {
+                required: "Ingrese el nick del usuario"
+            }
+        },
+        errorElement: 'div',
+        errorPlacement: function (error, errorElement) {
+            var placement = $(errorElement).data('error');
+            $(placement).addClass('red-text');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(errorElement);
+            }
+        }
+    });
+    
     /* Confirmar canje de una reserva */
     $(this).on("click", "a.confirmar-canje", function () {
         var parametrosReserva = {

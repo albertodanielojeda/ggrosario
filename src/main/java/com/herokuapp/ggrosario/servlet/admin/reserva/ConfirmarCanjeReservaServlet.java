@@ -68,7 +68,8 @@ public class ConfirmarCanjeReservaServlet extends HttpServlet {
         Reserva reserva = unaTienda.buscarUsuario(idUsuario).buscarReserva(Integer.parseInt(idReserva));
 
         reserva.setEstado(unaTienda.getUnaConfiguracion().getEstadoReservaCumplida());
-
+        reserva.getUnJuego().getStock().setCantidad(reserva.getUnJuego().getStock().getCantidad() - 1);
+        
         Gson gson = new Gson();
         String mensaje = "¡Canje realizado con éxito!";
         mensaje = gson.toJson(mensaje);

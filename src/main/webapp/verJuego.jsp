@@ -15,7 +15,6 @@
     } else {
         request.getSession().setAttribute("unJuego", unJuego);
     }
-
 %>
 
 <!DOCTYPE html>
@@ -23,9 +22,50 @@
     <head>
         <%@include file="vistas/assets.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><%= unaTienda.getNombre()%> | <%= unJuego.getNombre() %></title>
+        <title><%= unaTienda.getNombre()%> | <%= unJuego.getNombre()%></title>
     </head>
     <body class="lighten-5 light-green">
+        <%
+            if (request.getSession().getAttribute("exitoFavorito") != null) {
+                boolean exito = (Boolean) request.getSession().getAttribute("exitoFavorito");
+
+                if (exito) { %>
+        <script>
+            Materialize.toast("El juego fue agregado a la lista de deseos!", 4000);
+        </script>
+        <%
+        } else {
+        %>
+        <script>
+            Materialize.toast("Hubo un error al agregar el juego a la lista de deseos!", 4000);
+        </script>
+        <%
+                }
+
+            request.getSession().removeAttribute("exitoFavorito");
+            }
+        %>
+        
+        <%
+            if (request.getSession().getAttribute("exitoReserva") != null) {
+                boolean exito = (Boolean) request.getSession().getAttribute("exitoReserva");
+
+                if (exito) { %>
+        <script>
+            Materialize.toast("El juego fue reservado!", 4000);
+        </script>
+        <%
+        } else {
+        %>
+        <script>
+            Materialize.toast("Hubo un error al reservar el juego!", 4000);
+        </script>
+        <%
+                }
+
+            request.getSession().removeAttribute("exitoReserva");
+            }
+        %>
         <header>
             <%@include file="vistas/menu.jsp" %>
         </header>
