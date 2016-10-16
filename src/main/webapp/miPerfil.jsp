@@ -10,6 +10,10 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Juego"%>
 <%@include file="vistas/init.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% if (miUsuario == null){
+        response.sendRedirect("registrarme");
+    }else{
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -113,3 +117,4 @@
         <%@include file="vistas/footer.jsp" %>
     </body>
 </html>
+<%}%>
