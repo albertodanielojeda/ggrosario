@@ -29,13 +29,13 @@
         <title>Panel de administración | Gestión de permisos del rol</title>
     </head>
     <body>
-        <% if (request.getSession().getAttribute("mensaje") != null) { 
-            String mensaje = (String)request.getSession().getAttribute("mensaje");
+        <% if (request.getSession().getAttribute("mensajeGestionRoles") != null) { 
+            String mensaje = (String)request.getSession().getAttribute("mensajeGestionRoles");
         %>
         <script>
             Materialize.toast("<%= mensaje %>", 4000);
         </script>
-        <% request.getSession().removeAttribute("mensaje");} %>
+        <% request.getSession().removeAttribute("mensajeGestionRoles");} %>
         
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">

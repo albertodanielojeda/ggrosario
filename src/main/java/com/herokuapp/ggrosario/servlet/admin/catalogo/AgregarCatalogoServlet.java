@@ -79,20 +79,21 @@ public class AgregarCatalogoServlet extends HttpServlet {
 
             if (puedeAgregarCatalogos) {
                 Tienda unaTienda = Tienda.getInstance();
+                String mensaje;
                 try {
                     unaTienda.addCatalogo(request.getParameter("nombreCatalogo"));
-                    request.getSession().setAttribute("success", true);
+                    mensaje = "Catálogo agregado con éxito!";
                 } catch (CatalogoException ex) {
-                    request.getSession().setAttribute("success", false);
+                    mensaje = ex.getMessage();
                     Logger.getLogger(AgregarCatalogoServlet.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    request.getSession().setAttribute("unaTienda", Tienda.getInstance());
-                    response.sendRedirect("../admin/gestion-catalogos");
                 }
-            }else{
+                request.getSession().setAttribute("unaTienda", Tienda.getInstance());
+                request.getSession().setAttribute("mensajeGestionCatalogos", mensaje);
+                response.sendRedirect("../admin/gestion-catalogos");
+            } else {
                 response.sendError(403);
             }
-        }else{
+        } else {
             response.sendError(403);
         }
     }

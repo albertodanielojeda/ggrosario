@@ -72,7 +72,7 @@ public class AgregarRolServlet extends HttpServlet {
                 mensaje = ex.getMessage();
                 Logger.getLogger(AgregarRolServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.getSession().setAttribute("mensaje", mensaje);
+            request.getSession().setAttribute("mensajeGestionRoles", mensaje);
         }
         request.getSession().setAttribute("unaTienda", unaTienda);
         response.sendRedirect("../admin/gestionRolesPermisos.jsp");

@@ -27,19 +27,14 @@
         <title>Panel de administración | Gestión de catálogos</title>
     </head>
     <body>
-        <% if (request.getSession().getAttribute("success") != null) {
-                boolean success = Boolean.valueOf(request.getSession().getAttribute("success").toString());
-                if (success) {%>
+        <% if (request.getSession().getAttribute("mensajeGestionCatalogos") != null) { 
+            String mensaje = (String) request.getSession().getAttribute("mensajeGestionCatalogos");
+        %>
         <script>
-            Materialize.toast("Catálgo agregado con exito!", 4000);
+            Materialize.toast("<%= mensaje %>", 4000);
         </script>
-        <%} else { %>
-        <script>
-            Materialize.toast("Hubo un error al guardar el catálogo. Verifica que el nombre no exista!", 4000);
-        </script>
-        <% }
-                request.getSession().removeAttribute("success");
-            }%>
+        <% request.getSession().removeAttribute("mensajeGestionCatalogos");}%>
+        
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
