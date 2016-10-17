@@ -11,6 +11,11 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<% if (miUsuario == null) {
+        response.sendRedirect("../registrarme");
+    } else {
+%>
+
 <% boolean puedeEntrar = false; %>
 
 <% for (Rol r : miUsuario.getRoles()) {
@@ -29,14 +34,16 @@
         <title>Panel de administración | Gestión de permisos del rol</title>
     </head>
     <body>
-        <% if (request.getSession().getAttribute("mensajeGestionRoles") != null) { 
-            String mensaje = (String)request.getSession().getAttribute("mensajeGestionRoles");
+        <% if (request.getSession().getAttribute("mensajeGestionRoles") != null) {
+                String mensaje = (String) request.getSession().getAttribute("mensajeGestionRoles");
         %>
         <script>
-            Materialize.toast("<%= mensaje %>", 4000);
+            Materialize.toast("<%= mensaje%>", 4000);
         </script>
-        <% request.getSession().removeAttribute("mensajeGestionRoles");} %>
-        
+        <% request.getSession().removeAttribute("mensajeGestionRoles");
+            }
+           %>
+
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
@@ -59,8 +66,8 @@
 
                             <tr id="<%= unRol.getNombre()%>">
                                 <td><%= unRol.getNombre()%></td>
-                                <% if (miRol.getPermisos().canModificacionRol()) { %>
-                                    <td><a href="verDetallesRol?idRol=<%= unRol.getNombre()%>">Configurar permisos del rol</a></td>
+                                <% if (miRol.getPermisos().canModificacionRol()) {%>
+                                <td><a href="verDetallesRol?idRol=<%= unRol.getNombre()%>">Configurar permisos del rol</a></td>
                                 <% } %>
                             </tr>
                             <%
@@ -90,3 +97,5 @@
 <% } else {
         response.sendError(404);
     }%>
+
+<%}%>

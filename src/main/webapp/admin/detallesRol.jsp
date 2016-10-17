@@ -9,6 +9,12 @@
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% if (miUsuario == null) {
+        response.sendRedirect("../registrarme");
+    } else {
+%>
+
 <% boolean puedeEntrar = false; %>
 
 <% for (Rol r : miUsuario.getRoles()) {
@@ -96,7 +102,7 @@
                                                     <option value="" disabled selected>Usuarios que puede dar de alta</option>
                                                     <% for (Rol r : roles) {%>
                                                     <% if (miRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null) { %>
-                                                    <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canAlta()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                    <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canAlta()) { %> selected="" <% }%> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
                                                     <% } %>
                                                     <% } %>
                                                 </select>
@@ -109,7 +115,7 @@
                                                 <option value="" disabled selected>Usuarios que puede dar de baja</option>
                                                 <% for (Rol r : roles) {%>
                                                 <% if (miRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null) { %>
-                                                <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canBaja()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canBaja()) { %> selected="" <% }%> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
                                                 <% } %>
                                                 <% } %>
                                             </select>
@@ -121,7 +127,7 @@
                                                 <option value="" disabled selected>Usuarios que puede modificar</option>
                                                 <% for (Rol r : roles) {%>
                                                 <% if (miRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null) { %>
-                                                <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canModificar()){ %> selected="" <% } %> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
+                                                <option <% if (unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()) != null && unRol.getPermisos().buscarABMUsuarioRol(r.getNombre()).canModificar()) { %> selected="" <% }%> value="<%= r.getNombre()%>"><%= r.getNombre()%></option>
                                                 <% } %>
                                                 <% } %>
                                             </select>
@@ -302,3 +308,5 @@
 <% } else {
         response.sendError(404);
     }%>
+
+<%}%>

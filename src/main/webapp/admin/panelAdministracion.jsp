@@ -5,6 +5,12 @@
 <%@include file="vistas/init.jsp" %>
 <%@page import="com.herokuapp.ggrosario.modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% if (miUsuario == null) {
+        response.sendRedirect("../registrarme");
+    } else {
+%>
+
 <% if (miUsuario.canAccederPanelAdministracion()) {%>
 <!DOCTYPE html>
 <html>
@@ -32,3 +38,4 @@
 <% } else {
         response.sendError(404);
     }%>
+<%}%>

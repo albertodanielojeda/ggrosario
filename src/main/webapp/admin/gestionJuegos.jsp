@@ -11,6 +11,11 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<% if (miUsuario == null) {
+        response.sendRedirect("../registrarme");
+    } else {
+%>
+
 <% boolean puedeEntrar = false; %>
 
 <% for (Rol r : miUsuario.getRoles()) {
@@ -74,3 +79,5 @@
 <% } else {
     response.sendError(404);
 } %>
+
+<%}%>

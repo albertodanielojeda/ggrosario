@@ -9,6 +9,12 @@
 <%@page import="com.herokuapp.ggrosario.util.HibernateUtil"%>
 <%@page import="com.herokuapp.ggrosario.modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% if (miUsuario == null) {
+        response.sendRedirect("../registrarme");
+    } else {
+%>
+
 <% boolean puedeEntrar = false; %>
 
 <% for (Rol r : miUsuario.getRoles()) {
@@ -27,14 +33,15 @@
         <title>Panel de administración | Gestión de catálogos</title>
     </head>
     <body>
-        <% if (request.getSession().getAttribute("mensajeGestionCatalogos") != null) { 
-            String mensaje = (String) request.getSession().getAttribute("mensajeGestionCatalogos");
+        <% if (request.getSession().getAttribute("mensajeGestionCatalogos") != null) {
+                String mensaje = (String) request.getSession().getAttribute("mensajeGestionCatalogos");
         %>
         <script>
-            Materialize.toast("<%= mensaje %>", 4000);
+            Materialize.toast("<%= mensaje%>", 4000);
         </script>
-        <% request.getSession().removeAttribute("mensajeGestionCatalogos");}%>
-        
+        <% request.getSession().removeAttribute("mensajeGestionCatalogos");
+            }%>
+
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
@@ -91,3 +98,5 @@
 <% } else {
         response.sendError(403);
     }%>
+
+<%}%>

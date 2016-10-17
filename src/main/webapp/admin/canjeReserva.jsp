@@ -6,6 +6,12 @@
 <%@page import="com.herokuapp.ggrosario.modelo.Reserva"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="vistas/init.jsp" %>
+
+<% if (miUsuario == null){
+        response.sendRedirect("../registrarme");
+    }else{
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,3 +84,4 @@
         </div>
     </body>
 </html>
+<%}%>
