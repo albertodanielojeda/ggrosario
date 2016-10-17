@@ -2,7 +2,6 @@ package com.herokuapp.ggrosario.servlet.admin.rol;
 
 import com.herokuapp.ggrosario.exepciones.RolException;
 import com.herokuapp.ggrosario.modelo.Tienda;
-import com.herokuapp.ggrosario.util.HibernateUtil;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,22 +58,25 @@ public class AgregarRolServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         Tienda unaTienda = Tienda.getInstance();
-        
+
         String nombreRol = request.getParameter("nombreRol");
-        
-        if (unaTienda.buscarRol(nombreRol) == null){
+
+        if (unaTienda.buscarRol(nombreRol) == null) {
+            String mensaje;
             try {
                 unaTienda.addRol(nombreRol);
+                mensaje = "Rol agregado con éxito!";
             } catch (RolException ex) {
+                mensaje = ex.getMessage();
                 Logger.getLogger(AgregarRolServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            request.getSession().setAttribute("mensaje", mensaje);
         }
         request.getSession().setAttribute("unaTienda", unaTienda);
         response.sendRedirect("../admin/gestionRolesPermisos.jsp");
-        
-        
+
     }
 
     /**

@@ -27,7 +27,19 @@
         <title>Panel de administración | Gestión de catálogos</title>
     </head>
     <body>
-
+        <% if (request.getSession().getAttribute("success") != null) {
+                boolean success = Boolean.valueOf(request.getSession().getAttribute("success").toString());
+                if (success) {%>
+        <script>
+            Materialize.toast("Catálgo agregado con exito!", 4000);
+        </script>
+        <%} else { %>
+        <script>
+            Materialize.toast("Hubo un error al guardar el catálogo. Verifica que el nombre no exista!", 4000);
+        </script>
+        <% }
+                request.getSession().removeAttribute("success");
+            }%>
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
@@ -47,7 +59,7 @@
                         <tbody>
                             <% for (Catalogo unCatalogo : unaTienda.getCatalogos()) {%>
 
-                            <tr id="<%= unCatalogo.getId() %>">
+                            <tr id="<%= unCatalogo.getId()%>">
                                 <td><%= unCatalogo.getNombre()%></td>
 
                                 <% if (miRol.getPermisos().canModificacionCatalogo()) { %>
@@ -61,19 +73,6 @@
                                 }%>
                         </tbody>
                     </table>
-                    <% if (request.getSession().getAttribute("success") != null) {
-                            boolean success = Boolean.valueOf(request.getSession().getAttribute("success").toString());
-                            if (success) {%>
-                    <script>
-                        Materialize.toast("Catálgo agregado con exito!", 4000);
-                    </script>
-                    <%} else { %>
-                    <script>
-                        Materialize.toast("Hubo un error al guardar el catálogo. Verifica que el nombre no exista!", 4000);
-                    </script>
-                    <% }
-                            request.getSession().removeAttribute("success");
-                        }%>
                     <% if (miRol.getPermisos().canAltaCatalogo()) { %>
                     <div class="col s5">
                         <form id="formNuevoCatalogo" action="agregar-catalogo" method="POST">
@@ -95,5 +94,5 @@
     </body>
 </html>
 <% } else {
-    response.sendError(403);
-} %>
+        response.sendError(403);
+    }%>

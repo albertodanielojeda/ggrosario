@@ -13,6 +13,15 @@
         <title><%= unaTienda.getNombre()%> | Inicar sesión o registrarme</title>
     </head>
     <body class="lighten-5 light-green">
+        
+        <% if (request.getSession().getAttribute("mensaje") != null) { 
+            String mensaje = (String)request.getSession().getAttribute("mensaje");
+        %>
+        <script>
+            Materialize.toast("<%= mensaje %>", 4000);
+        </script>
+        <% request.getSession().removeAttribute("mensaje");} %>
+        
         <% Usuario unUsuario = (Usuario) request.getSession().getAttribute("unUsuario");%>
         <header>
             <%@include file="vistas/menu.jsp" %>

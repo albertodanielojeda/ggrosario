@@ -29,6 +29,14 @@
         <title>Panel de administración | Gestión de permisos del rol</title>
     </head>
     <body>
+        <% if (request.getSession().getAttribute("mensaje") != null) { 
+            String mensaje = (String)request.getSession().getAttribute("mensaje");
+        %>
+        <script>
+            Materialize.toast("<%= mensaje %>", 4000);
+        </script>
+        <% request.getSession().removeAttribute("mensaje");} %>
+        
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
