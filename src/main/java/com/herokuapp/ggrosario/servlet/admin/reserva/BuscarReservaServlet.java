@@ -28,10 +28,9 @@ public class BuscarReservaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -46,14 +45,17 @@ public class BuscarReservaServlet extends HttpServlet {
         processRequest(request, response);
         String idUsuario = request.getParameter("idUsuario");
         String idReserva = request.getParameter("idReserva");
-        
         Tienda unaTienda = Tienda.getInstance();
-        Reserva reserva = unaTienda.buscarUsuario(idUsuario).buscarReserva(Integer.parseInt(idReserva));
-        
-        if (reserva != null){
-            request.getSession().setAttribute("reservaEncontrada", reserva);
+        String errorBuscarReserva = null;
+        try {
+            Reserva reserva = unaTienda.buscarUsuario(idUsuario).buscarReserva(Integer.parseInt(idReserva));
+            if (reserva != null) {
+                request.getSession().setAttribute("reservaEncontrada", reserva);
+            }
+        } catch (NumberFormatException e) {
+            errorBuscarReserva = "El número de la reserva debe ser un entero positivo";
+            request.getSession().setAttribute("errorBuscarReserva", errorBuscarReserva);
         }
-        
         response.sendRedirect("canje-reservas");
     }
 
@@ -79,6 +81,5 @@ public class BuscarReservaServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

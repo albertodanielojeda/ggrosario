@@ -350,6 +350,14 @@ $(document).ready(function () {
         });
     });
     
+    /* Controla valores del formulario para buscar reservas */
+    $('#formBuscarReserva').on('submit', function(e){
+        if (($('#idReserva').val() <= 0) || !$.isNumeric($('#idReserva').val())){
+            e.preventDefault();
+            Materialize.toast("El número de la reserva debe ser un entero positivo");
+        }
+    });
+    
     /* Controla valor positivo del stock a agregar en un juego */
     $('#formAumentarStock').on('submit', function(e){
         if ($('#editarStock').val() <= 0){
@@ -363,6 +371,20 @@ $(document).ready(function () {
         if (($('#precioJuego').val() <= 0) || !$.isNumeric($('#precioJuego').val())){
             e.preventDefault();
             Materialize.toast("Se debe ingresar un número decimal positivo para poder modificar el precio", 4000);
+        }
+    });
+    
+    /* Validación del lado del cliente para controlar valores numericos de 
+     * precio y stock iniciales de un nuevo juego */
+    $('#formNuevoJuego').on('submit', function(e){
+        if (($('#precioJuego').val() <= 0) || !$.isNumeric($('#precioJuego').val())){
+            e.preventDefault();
+            Materialize.toast("El precio debe ser un número decimal positivo", 4000);
+        }
+        
+        if (($('#cantidadStock').val() < 0) || !$.isNumeric($('#cantidadStock').val())){
+            e.preventDefault();
+            Materialize.toast("El stock debe ser un número decimal positivo (puede ser 0)", 4000);
         }
     });
 });

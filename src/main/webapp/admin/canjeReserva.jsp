@@ -20,6 +20,14 @@
         <title>Panel de administración | Canje de reservas</title>
     </head>
     <body>
+        <%  String errorBuscarReserva;
+            if (request.getSession().getAttribute("errorBuscarReserva") != null) {
+                errorBuscarReserva = (String) request.getSession().getAttribute("errorBuscarReserva");
+        %>
+        <script>
+            Materialize.toast("<%= errorBuscarReserva %>", 4000);
+        </script>
+        <% request.getSession().removeAttribute("errorBuscarReserva");} %>
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
