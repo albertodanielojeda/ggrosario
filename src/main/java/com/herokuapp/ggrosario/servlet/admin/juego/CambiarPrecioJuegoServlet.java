@@ -3,7 +3,6 @@ package com.herokuapp.ggrosario.servlet.admin.juego;
 import com.herokuapp.ggrosario.modelo.Juego;
 import com.herokuapp.ggrosario.modelo.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +31,6 @@ public class CambiarPrecioJuegoServlet extends HttpServlet {
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -69,10 +67,10 @@ public class CambiarPrecioJuegoServlet extends HttpServlet {
                 unJuego.setPrecio(Double.parseDouble(precio));
                 mensajeEdicionJuego = "Datos del juego modificados con éxito!";
             }else{
-                throw new NumberFormatException("Se debe ingresar un número positivo para poder modificar el precio");
+                throw new NumberFormatException("Se debe ingresar un número decimal positivo para poder modificar el precio");
             }
         } catch (NumberFormatException e) {
-            mensajeEdicionJuego = "Se debe ingresar un número positivo para poder modificar el precio";
+            mensajeEdicionJuego = "Se debe ingresar un número decimal positivo para poder modificar el precio";
         }
         request.getSession().setAttribute("mensajeEdicionJuego", mensajeEdicionJuego);
         response.sendRedirect("../admin/verDetallesJuego?idJuego="+unJuego.getId());
@@ -88,6 +86,5 @@ public class CambiarPrecioJuegoServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

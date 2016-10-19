@@ -72,11 +72,11 @@
                     </blockquote>
                     <p>Arrastre el indicador hasta que marque la cantidad deseada para agregar al stock</p>
                     <div class="row">
-                        <form action="aumentar-stock" method="POST">
+                        <form id="formAumentarStock" action="aumentar-stock" method="POST">
 
                             <div class="col s7">
                                 <p class="range-field">
-                                    <input type="range" name="stock" min="1" max="100" value="1" step="1"/>
+                                    <input id="editarStock" type="range" name="stock" min="1" max="100" value="1" step="1"/>
                                 </p>
                             </div>
                             <div class="col s4">
@@ -92,7 +92,7 @@
                     </blockquote>
                     <p>Ingrese el nuevo precio del juego</p>
                     <div class="row">
-                        <form action="cambiar-precio-juego" method="POST">
+                        <form id="formCambiarPrecio" action="cambiar-precio-juego" method="POST">
 
                             <div class="col s7">
                                 <div class="input-field col s6">

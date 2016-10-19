@@ -349,4 +349,20 @@ $(document).ready(function () {
             Materialize.toast(respuesta, 3000);
         });
     });
+    
+    /* Controla valor positivo del stock a agregar en un juego */
+    $('#formAumentarStock').on('submit', function(e){
+        if ($('#editarStock').val() <= 0){
+            e.preventDefault();
+            Materialize.toast("Se debe ingresar un número positivo para poder modificar el stock", 4000);
+        }
+    });
+    
+    /* Controla valor positivo del nuevo precio de un juego */
+    $('#formCambiarPrecio').on('submit', function(e){
+        if (($('#precioJuego').val() <= 0) || !$.isNumeric($('#precioJuego').val())){
+            e.preventDefault();
+            Materialize.toast("Se debe ingresar un número decimal positivo para poder modificar el precio", 4000);
+        }
+    });
 });
