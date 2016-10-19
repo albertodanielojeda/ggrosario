@@ -1,10 +1,12 @@
 package com.herokuapp.ggrosario.servlet.admin.reserva;
 
 import com.google.gson.Gson;
+import com.herokuapp.ggrosario.exepciones.JuegoException;
 import com.herokuapp.ggrosario.modelo.Reserva;
 import com.herokuapp.ggrosario.modelo.Tienda;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +35,6 @@ public class ConfirmarCanjeReservaServlet extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -65,11 +66,26 @@ public class ConfirmarCanjeReservaServlet extends HttpServlet {
         String idUsuario = request.getParameter("idU");
 
         Tienda unaTienda = Tienda.getInstance();
-        Reserva reserva = unaTienda.buscarUsuario(idUsuario).buscarReserva(Integer.parseInt(idReserva));
+        String errorBuscarReserva = null;
+        try {
+            Reserva reserva = unaTienda.buscarUsuario(idUsuario).buscarReserva(Integer.parseInt(idReserva));
+            if (reserva != null) {
+                if (reserva.getUnJuego().getStock().getCantidad() > 0) {
+                    request.getSession().setAttribute("reservaEncontrada", reserva);
+                    reserva.setEstado(unaTienda.getUnaConfiguracion().getEstadoReservaCumplida());
+                    reserva.getUnJuego().getStock().setCantidad(reserva.getUnJuego().getStock().getCantidad() - 1);
+                }else{
+                    throw new JuegoException("No hay unidades de juego disponible para canjear");
+                }
+            }
+        } catch (NumberFormatException e) {
+            errorBuscarReserva = "El número de la reserva debe ser un entero positivo";
+            request.getSession().setAttribute("errorBuscarReserva", errorBuscarReserva);
+        } catch (JuegoException ex) {
+            errorBuscarReserva = ex.getMessage();
+            request.getSession().setAttribute("errorBuscarReserva", errorBuscarReserva);
+        }
 
-        reserva.setEstado(unaTienda.getUnaConfiguracion().getEstadoReservaCumplida());
-        reserva.getUnJuego().getStock().setCantidad(reserva.getUnJuego().getStock().getCantidad() - 1);
-        
         Gson gson = new Gson();
         String mensaje = "¡Canje realizado con éxito!";
         mensaje = gson.toJson(mensaje);
@@ -86,6 +102,5 @@ public class ConfirmarCanjeReservaServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }
