@@ -39,8 +39,7 @@
         <script>
             Materialize.toast("<%= mensajeEdicionJuego%>", 4000);
         </script>
-        <% }
-        %>
+        <% request.getSession().removeAttribute("mensajeEdicionJuego");} %>
         <%@include file="vistas/navBar.jsp" %>
         <div class="no-container">
             <div class="row">
@@ -54,7 +53,6 @@
 
                     <div class="row">
                         <div class="col s12 m7">
-                            <h2 class="header">Horizontal Card</h2>
                             <div class="card horizontal">
                                 <div class="card-image">
                                     <img src="<%= unJuego.getCover()%>">
@@ -64,9 +62,6 @@
                                         <p><b>Nombre:</b> <%= unJuego.getNombre()%></p>
                                         <p><b>En stock:</b> <%= unJuego.getStock().getCantidad()%> unidades</p>
                                         <p><b>Precio:</b> $ <%= unJuego.getPrecio()%> </p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">This is a link</a>
                                     </div>
                                 </div>
                             </div>
@@ -97,17 +92,19 @@
                     </blockquote>
                     <p>Ingrese el nuevo precio del juego</p>
                     <div class="row">
-                        <div class="col s7">
-                            <form action="#" method="POST">
+                        <form action="cambiar-precio-juego" method="POST">
+
+                            <div class="col s7">
                                 <div class="input-field col s6">
                                     <label for="precioJuego">Precio</label>
                                     <input id="precioJuego" type="text" name="precio" />
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col s4">
-                            <button  type="submit" class="modal-action modal-close btn waves-effect waves-light">Cambiar precio</button>
-                        </div>
+                            </div>
+                            <div class="col s4">
+                                <button  type="submit" class="modal-action modal-close btn waves-effect waves-light">Cambiar precio</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
