@@ -154,7 +154,7 @@ public class Usuario implements Serializable {
      * @param unJuego Juego que el usuario quiere agregar a su lista de reservas
      * @param unaReserva Reserva asignada al usuario
      */
-    public void addJuegoToReservas(Juego unJuego, Reserva unaReserva){
+    public void addJuegoToReservas(Reserva unaReserva){
         this.reservas.add(unaReserva);
     }
 

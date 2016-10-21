@@ -346,7 +346,7 @@ public class Tienda implements Serializable {
             throw new JuegoException("El juego ya está reservado por el usuario");
         }
         Reserva unaReserva = new Reserva(unUsuario, unJuego);
-        unUsuario.addJuegoToReservas(unJuego, unaReserva);
+        unUsuario.addJuegoToReservas(unaReserva);
         unJuego.addReserva(unaReserva);
     }
 
