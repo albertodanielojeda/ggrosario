@@ -66,6 +66,14 @@
             request.getSession().removeAttribute("exitoReserva");
             }
         %>
+        <% String errorComentario;
+            if (request.getSession().getAttribute("errorComentario") != null) { 
+            errorComentario = (String) request.getSession().getAttribute("errorComentario");
+        %>
+        <script>
+            Materialize.toast("<%= errorComentario %>", 4000);
+        </script>
+        <% request.getSession().removeAttribute("errorComentario");} %>
         <header>
             <%@include file="vistas/menu.jsp" %>
         </header>

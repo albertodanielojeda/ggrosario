@@ -29,7 +29,7 @@ public class AgregarComentarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     /**
@@ -58,13 +58,23 @@ public class AgregarComentarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         String comentarioEnviado = request.getParameter("comentario-enviado");
-        Usuario miUsuario = (Usuario)request.getSession().getAttribute("miUsuario");
-        Juego unJuego = (Juego)request.getSession().getAttribute("unJuego");
-        
-        miUsuario.addComentario(new Comentario(comentarioEnviado, miUsuario, unJuego));
-        response.sendRedirect("info-juego?idJuego="+unJuego.getId());
+        Usuario miUsuario = (Usuario) request.getSession().getAttribute("miUsuario");
+        Juego unJuego = (Juego) request.getSession().getAttribute("unJuego");
+        String errorComentario = null;
+        try {
+            if (comentarioEnviado.length() == 0) {
+                throw new Exception("El comentario no puede estar vacío");
+            } else {
+                miUsuario.addComentario(new Comentario(comentarioEnviado, miUsuario, unJuego));
+            }
+        } catch (Exception e) {
+            errorComentario = e.getMessage();
+            request.getSession().setAttribute("errorComentario", errorComentario);
+        }
+
+        response.sendRedirect("info-juego?idJuego=" + unJuego.getId());
     }
 
     /**
