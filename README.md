@@ -31,5 +31,5 @@ heroku open --app ggrosario // Browses the Heroku app
 - [x] Create and mantain a To-Do list
 - [x] Add more items in the To-Do list
 - [x] Client side validation
-- [ ] Change remote database credentials and not publish them :)
+- [x] Change remote database credentials and not publish them :)
 - [x] Reserve confirmation
