@@ -96,4 +96,12 @@ $(document).ready(function () {
             }
         }
     });
+    
+    $('#formComentar').on('submit', function(e){
+        if ($('#cajaComentario').val().length === 0){
+            e.preventDefault();
+            Materialize.toast('Ingrese un comentario', 4000);
+        }
+    });
+    
 });

@@ -185,10 +185,10 @@
 
                                 <% if (miUsuario != null) { %>
                                 <div class="row">
-                                    <form action="comentar" method="POST">
+                                    <form id="formComentar" action="comentar" method="POST">
                                         <div class="row">
                                             <div class="input-field col s12">
-                                                <textarea name="comentario-enviado" id="comment-box" class="materialize-textarea"></textarea>
+                                                <textarea name="comentario-enviado" id="cajaComentario" class="materialize-textarea"></textarea>
                                                 <label for="comment-box">Comenta acerca de este juego...</label>
                                             </div>
                                         </div>
