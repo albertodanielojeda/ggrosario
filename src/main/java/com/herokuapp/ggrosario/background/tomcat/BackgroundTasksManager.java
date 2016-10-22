@@ -20,6 +20,7 @@ public class BackgroundTasksManager implements ServletContextListener{
     public void contextInitialized(ServletContextEvent sce) {
         this.planificador = Executors.newSingleThreadScheduledExecutor();
         this.planificador.scheduleAtFixedRate(new ReservasChecker(), 0, 1, TimeUnit.DAYS);
+        //this.planificador.scheduleAtFixedRate(new EverySecond(), 0, 1, TimeUnit.SECONDS);
     }
 
     @Override

@@ -12,7 +12,7 @@ import javax.ejb.Singleton;
  *
  * @author Ojeda Alberto Daniel
  */
-@Singleton
+/*@Singleton
 public class ReservasChecker {
 
     @Schedule(hour = "0", minute = "0", second = "0", persistent = false)
@@ -44,3 +44,4 @@ public class ReservasChecker {
     }
 
 }
+*/
