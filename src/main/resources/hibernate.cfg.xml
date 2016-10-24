@@ -4,20 +4,16 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <!-- Local settings 
+        
+        <!-- Local settings [F O R   L O C A L   D E V E L O P I N G] 
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ggrosario</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">38131125</property> -->
         
-        <!-- Local settings [F O R   T E S T I N G]  -->
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ggrosario-testing</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">38131125</property>
-    
-        <!-- Remote settings 
+        <!-- Remote settings [F O R   D E P L O Y M E N T] -->
         <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-163-239-63.compute-1.amazonaws.com:5432/dekiv1ush42g4n?sslmode=require</property>
-        <property name="hibernate.connection.username">feejrrccubunjv</property>
-        <property name="hibernate.connection.password">itqTkbRPEcunzkJ3moRLjswU2G</property> -->
+        <property name="hibernate.connection.username">pbegunawlvcxlb</property>
+        <property name="hibernate.connection.password">odnFxqunuNuck27htAdxNqcPzR</property> 
     
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
