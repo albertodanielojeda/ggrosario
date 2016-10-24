@@ -60,6 +60,7 @@
                                             </div>
 
                                             <div class="card-action">
+                                                <p>N° de reserva: <%= unaReserva.getId() %></p>
                                                 <p>Precio: <%= unaReserva.getUnJuego().getPrecio()%></p>
                                                 <p>Realizada: <%= unaReserva.getFechaAltaAsString()%></p>
                                                 <p>Vence: <%= unaReserva.getFechaBajaAsString()%></p>
